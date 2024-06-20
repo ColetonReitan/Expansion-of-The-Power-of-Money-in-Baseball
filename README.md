@@ -43,53 +43,30 @@ I'm particularly proud of it.
 #### Variable Description
 There are currently 27 variables with over 115,000 observations that gives me a total of 2.9 million values.
 
-**Team**: Team Name
-
-**Year**: Year of season being examined
-
-**Payroll.Rank**: Payroll rank for specified team in specified season (1 is highest payroll 30 is lowest)
-
-**League.Average.Payroll**: The average payroll across the league for the specified year
-
-**Previous.Year.Payroll**: The payroll from the previous year for the specified team
-
-**Payroll.Percent.Change**: The payroll percent change from the previous year for the specified team
-
-**Payroll.Difference**: The difference of the payroll in the specified year from the previous year
-
-**Active.Payroll**: The payroll amount that is dedicated to active players (for a team) in a specified year
-
-**Injured**: The payroll amount that is dedicated to injured players (for a team) in a specified year
-
-**Retained**: The payroll amount that is retained from players no longer on a team in a specified year
-
-**Buried**: 
-
-**Suspended**: The payroll amount that is dedicated to players suspended in a specified year
-
-**Player**: The specified player name
-
-**Pos**: The position the specified player plays
-
-**Exp**: The number of years (continuous) of experience a player has
-
-**Status**: Qualitative description of experience
-
-**Payroll.Salary**: The salary of the specified player
-
-**Adjusted.Payroll.Salary**: 
-
-**Base.Salary**: Base salary for specified player
-
-**Signing.Bonus**: Amount of money given to player for signing in that year
-
-**Incentives.Likely**: Amount of incentives for a player to recieve
-
-**Incentives.Unlikely**: Amount of incentives for a player to recieve
-
-**Type**: Which original table the data came from
-
-**Average.Age**: The avereage age of all the players on a specified team
+**Team**: Team Name  
+**Year**: Year of season being examined  
+**Payroll.Rank**: Payroll rank for specified team in specified season (1 is highest payroll 30 is lowest)  
+**League.Average.Payroll**: The average payroll across the league for the specified year  
+**Previous.Year.Payroll**: The payroll from the previous year for the specified team  
+**Payroll.Percent.Change**: The payroll percent change from the previous year for the specified team  
+**Payroll.Difference**: The difference of the payroll in the specified year from the previous year  
+**Active.Payroll**: The payroll amount that is dedicated to active players (for a team) in a specified year  
+**Injured**: The payroll amount that is dedicated to injured players (for a team) in a specified year  
+**Retained**: The payroll amount that is retained from players no longer on a team in a specified year  
+**Buried**:   
+**Suspended**: The payroll amount that is dedicated to players suspended in a specified year  
+**Player**: The specified player name  
+**Pos**: The position the specified player plays  
+**Exp**: The number of years (continuous) of experience a player has  
+**Status**: Qualitative description of experience  
+**Payroll.Salary**: The salary of the specified player  
+**Adjusted.Payroll.Salary**:   
+**Base.Salary**: Base salary for specified player  
+**Signing.Bonus**: Amount of money given to player for signing in that year  
+**Incentives.Likely**: Amount of incentives for a player to recieve  
+**Incentives.Unlikely**: Amount of incentives for a player to recieve  
+**Type**: Which original table the data came from  
+**Average.Age**: The avereage age of all the players on a specified team  
 
 
 
