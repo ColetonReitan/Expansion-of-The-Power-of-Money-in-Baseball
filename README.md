@@ -31,7 +31,7 @@ As of 6/19/2024, collection data is still udnerway - only need to build the fina
 
 #### Sources 
 All data aside from a team's wins, losses & playoff game appearances was collected from the website spotrac, linked [here](https://www.spotrac.com/mlb).
-The data for the wins, losses & playoff game appearances was collected from the website baseball referenced, linked [here](https://www.baseball-reference.com/postseason/).
+The data for the wins, losses & playoff game appearances was collected from the website baseball referenced, linked [here](https://www.baseball-reference.com/postseason/). The data being collected is for the seasons in years 2012 through 2023, with some possible forecasting insight into 2024.
 
 #### Collection Method
 I built my own webscrapper from scratch through R software to bring in the data needed to complete this analysis. The webscraper can be found in this repository. 
