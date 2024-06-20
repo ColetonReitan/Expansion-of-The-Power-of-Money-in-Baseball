@@ -27,7 +27,7 @@ Are there league wide trends in payroll? If so, should teams be following them?
 
 ## MetaData
 
-As of 6/19/2024, collection data is still udnerway - only need to build the final piece of the scrapper which brings in team wins, losses & playoff appearances.
+As of 6/19/2024, collection data is still underway - only need to build the final piece of the scrapper which brings in team wins, losses & playoff appearances.
 
 #### Sources 
 All data aside from a team's wins, losses & playoff game appearances was collected from the website spotrac, linked [here](https://www.spotrac.com/mlb).
