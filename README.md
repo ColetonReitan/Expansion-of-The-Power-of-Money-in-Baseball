@@ -1,6 +1,6 @@
 # Expansion of The Power of Money in Baseball
 
-This is the analytical continuation and expansion of my project, The Power of Money in Baseball, where I not only try to tell a visual stroy with the data, but conduct a full line analysis that includes data ETL, EDA & supervised (and possibly unsupervised) machine learning modeling and analysis. 
+This is my personal analytical continuation and expansion of my project, The Power of Money in Baseball, where I not only try to tell a visual stroy with the data, but conduct a full line analysis that includes data ETL, EDA & supervised (and possibly unsupervised) machine learning modeling and analysis. 
 
 The initial project was an 8-week long assignment for my "Data Visualization" Master's course in which the goal was to tell a visual story using Tableau software, which can be found on my GitHub [here](https://github.com/ColetonReitan/The-Power-of-Money-in-Baseball); 
 
