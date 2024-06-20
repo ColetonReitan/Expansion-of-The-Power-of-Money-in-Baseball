@@ -4,7 +4,7 @@ This is the analytical continuation and expansion of my project, The Power of Mo
 
 The initial project was an 8-week long assignment for my "Data Visualization" Master's course in which the goal was to tell a visual story using Tableau software, which can be found on my GitHub [here](https://github.com/ColetonReitan/The-Power-of-Money-in-Baseball); 
 
-This project is the continuation and expansion of the Power of Money in Baseball. 
+This project is my personal continuation and expansion of the Power of Money in Baseball. 
 
 
 ## Project Motivation
