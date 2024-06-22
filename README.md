@@ -54,7 +54,7 @@ There are currently 27 variables with over 115,000 observations that gives me a 
 **Active.Payroll**: The payroll amount that is dedicated to active players (for a team) in a specified year  
 **Injured**: The payroll amount that is dedicated to injured players (for a team) in a specified year  
 **Retained**: The payroll amount that is retained from players no longer on a team in a specified year  
-**Buried**:   
+**Buried**: The payroll amount that is dedicated to players not on the major league roster (minor league players)
 **Suspended**: The payroll amount that is dedicated to players suspended in a specified year  
 **Player**: The specified player name  
 **Pos**: The position the specified player plays  
