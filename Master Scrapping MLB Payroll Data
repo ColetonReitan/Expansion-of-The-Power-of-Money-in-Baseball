@@ -2,6 +2,7 @@ library(rvest)
 library(dplyr)
 library(stringr)
 library(tidyr)
+library(purrr)
 
 # Specify the years you are interested in
 years <- c(2013,2014,2015,2016,2017,2018,2019,2021,2022,2023)
@@ -17,8 +18,6 @@ teams <- c("arizona-diamondbacks", "atlanta-braves", "baltimore-orioles",
            "pittsburgh-pirates", "san-diego-padres", "san-francisco-giants",
            "seattle-mariners", "st-louis-cardinals", "tampa-bay-rays",
            "texas-rangers", "toronto-blue-jays", "washington-nationals")
-
-
 
 # Function to clean and convert to numeric
 clean_and_numeric <- function(x) {
@@ -94,6 +93,7 @@ for (team_slug in teams) {
           search_pattern <- paste(search_terms, collapse = "|")
           matched_cols <- grep(search_pattern, colnames(table), value = TRUE)
           
+          
           # Clean and convert to numeric each matched column
           for (col in matched_cols) {
             table[[col]] <- clean_and_numeric(table[[col]])
@@ -119,8 +119,6 @@ for (team_year in names(list_of_dfs)) {
 }
 
 
-
-
 ################################################################################################
 #Combining all of the data into 6 dataframes based on their ID
 # Active, deferred, injured, restricted, dead, reserved
@@ -134,7 +132,7 @@ deferred_data <- data.frame()
 ir_data <- data.frame()
 restricted_data <- data.frame()
 dead_data <- data.frame()
-reserved_data <- data.frame()
+
 
 # Loop through each team data frame
 for (team_df in all_data_frames) {
@@ -160,13 +158,15 @@ for (team_df in all_data_frames) {
   }
   
   if (grepl("reserved-restricted", team_df)) {
-    reserved_data <- bind_rows(reserved_data, get(team_df))
+    restricted_data <- bind_rows(reserved_data, get(team_df))
   }
 }
 
+
+
 #Removing unneeded df's from global for RAM purposes
 # Names of the dataframes you want to keep
-keep_dfs <- c("active_data", "ir_data", "dead_data", "restricted_data", "deferred_data", "reserved_data", "years", "teams")
+keep_dfs <- c("active_data", "ir_data", "dead_data", "restricted_data", "deferred_data", "reserved_data")
 rm(list = setdiff(ls(), keep_dfs))
 
 
@@ -188,6 +188,9 @@ combined_df <- combined_df %>%
 
 ###############################################################################################################
 #Bringing in Overall Yearly Payroll Data
+
+# Specify the years you are interested in
+years <- c(2013,2014,2015,2016,2017,2018,2019,2021, 2022, 2023)
 
 #Initialize empty df
 combined_payroll <- data.frame()
@@ -281,7 +284,7 @@ merged_df <- combined_payroll %>%
 
 # Drop the Year.y column
 merged_df <- merged_df %>%
-  select(-Year.y)
+  select(-Year.y, -Wins, -Losses, -Incentives.Likely, -Incentives.Unlikely, -Adjusted.Payroll.Salary, -Base.Salary, -Signing.Bonus)
 
 # Renaming some columns
 merged_df <- merged_df %>%
@@ -290,11 +293,6 @@ merged_df <- merged_df %>%
     Team = Expanded,
     Payroll.Rank = Rank
   )
-
-# Reorder columns
-#merged_df <- merged_df %>%
-#select(Team, Year, Wins, Losses, Payroll.Rank, Total.Payroll, Active.Payroll, Injured, Retained, Buried, Suspended,Player, Pos, Exp, Status,
-#Payroll.Salary,Adjusted.Payroll.Salary, Base.Salary, Signing.Bonus, Incentives.Likely, Incentives.Unlikely, Type, Average.Age)
 
 ##############################################################################################################################################
 #Including the manually calculated features into the dataframe
@@ -335,10 +333,172 @@ merged_df <- merged_df %>%
 
 # Reorder columns
 merged_df <- merged_df %>%
-  select(Team, Year, Wins, Losses, Payroll.Rank, Total.Payroll, League.Average.Payroll, Previous.Year.Payroll, Payroll.Percent.Change, Payroll.Difference, 
-         Active.Payroll, Injured, Retained, Buried, Suspended,Player, Pos, Exp, Status,
-         Payroll.Salary,Adjusted.Payroll.Salary, Base.Salary, Signing.Bonus, Incentives.Likely, Incentives.Unlikely, Type, Average.Age)
+  select(Team, Year, Payroll.Rank, Total.Payroll, League.Average.Payroll, Previous.Year.Payroll, Payroll.Percent.Change, Payroll.Difference, 
+         Active.Payroll, Injured, Retained, Buried, Suspended, Player, Pos, Exp, Status,
+         Payroll.Salary, Type, Average.Age)
 
 # Save dataframe to a CSV file
 #write.csv(merged_df, file = "first_MLBPayroll_Download.csv", row.names = FALSE)
 #getwd()
+
+########################################################################################################33
+#Bringing in playoff appearances and win/loss data
+
+# Function to convert team names to the desired convention
+convert_team_name <- function(team_name) {
+  team_name <- gsub(" ", "-", team_name)  # Replace spaces with hyphens
+  tolower(team_name)  # Convert to lowercase
+}
+
+# Initialize an empty list to store data frames
+postseason_data_list <- list()
+season_record_data_list <- list()
+
+# Loop through each year from 2013 to 2023, excluding 2020
+for (year in 2013:2023) {
+  if (year == 2020) {
+    next  # Skip the year 2020
+  }
+  
+  # Set the URL for the specific year's standings
+  url_standings <- paste0('https://www.baseball-reference.com/leagues/majors/', year, '-standings.shtml')
+  
+  # Read the raw HTML content for standings
+  raw_html_standings <- read_html(url_standings)
+  
+  # Extract season record tables (standings)
+  season_record_tables <- raw_html_standings %>%
+    html_nodes("table") %>%
+    map_df(~ html_table(.))
+  
+  # Drop the GB column and rename Tm to Team
+  season_record_tables <- season_record_tables %>%
+    select(-GB) %>%
+    rename(Team = Tm)
+  
+  # Add a Year column
+  season_record_tables <- season_record_tables %>%
+    mutate(Year = year,
+           Team = gsub(" ", "-", Team),
+           Team = tolower(Team))
+  
+  # Store season record data for the current year in the list
+  season_record_data_list[[paste0("season_record_", year)]] <- season_record_tables
+  
+  # Read the raw HTML content for postseason results
+  raw_html_postseason <- raw_html_standings  # Using the same HTML content for postseason
+  
+  # Extract the commented section containing the "Postseason" table
+  commented_html <- raw_html_postseason %>%
+    html_nodes(xpath = "//comment()") %>%
+    html_text() %>%
+    grep("div_postseason", ., value = TRUE) %>%
+    gsub("<!--|-->", "", .)
+  
+  # Parse the extracted HTML content for postseason
+  postseason_parsed <- read_html(commented_html)
+  
+  # Extract the table rows for postseason
+  rows <- postseason_parsed %>% html_nodes("tr")
+  
+  # Initialize an empty data frame for the postseason data
+  postseason_data <- data.frame(Series = character(),
+                                Outcome = character(),
+                                stringsAsFactors = FALSE)
+  
+  # Loop through each row and extract the relevant data
+  for (row in rows) {
+    series <- row %>% html_node("td:nth-child(1) a") %>% html_text(trim = TRUE)
+    outcome <- row %>% html_node("td:nth-child(3)") %>% html_text(trim = TRUE)
+    
+    if (!is.na(series) & !is.na(outcome)) {
+      postseason_data <- rbind(postseason_data, data.frame(Series = series,
+                                                           Outcome = outcome,
+                                                           stringsAsFactors = FALSE))
+    }
+  }
+  
+  # Split Outcome into Winning Team and Losing Team
+  postseason_data <- postseason_data %>%
+    mutate(Winning_Team = sub("^(.*?)\\s+over\\s+(.*?)$", "\\1", Outcome),
+           Losing_Team = sub("^(.*?)\\s+over\\s+(.*?)$", "\\2", Outcome))
+  
+  # Remove the original Outcome column if no longer needed
+  postseason_data <- postseason_data[, c("Series", "Winning_Team", "Losing_Team")]
+  
+  # Add a Year column with the current year
+  postseason_data$Year <- year
+  
+  # Convert team names to the desired convention
+  postseason_data <- postseason_data %>%
+    mutate(Winning_Team = case_when(
+      TRUE ~ convert_team_name(Winning_Team)
+    ),
+    Losing_Team = case_when(
+      TRUE ~ convert_team_name(Losing_Team)
+    ))
+  
+  # Store the postseason data for the current year in the list
+  postseason_data_list[[paste0("postseason_", year)]] <- postseason_data
+}
+
+# Combine all season record data frames into one
+combined_season_record <- map_dfr(season_record_data_list, ~ .x)
+
+# Combine all postseason data frames into one
+combined_postseason <- map_dfr(postseason_data_list, ~ .x)
+
+# Print the combined tables
+print("Combined Season Record Data:")
+print(combined_season_record)
+
+print("Combined Postseason Data:")
+print(combined_postseason)
+
+
+###########################
+# the Merged_df with the combined_season_record df
+# Merge based on the 'Team' and 'Year' columns
+final_merged_df <- merge(merged_df, combined_season_record, by = c("Team", "Year"))
+
+#Removing unneeded df's from global for RAM purposes
+# Names of the dataframes you want to keep
+keep_dfs <- c("active_data", "ir_data", "dead_data", "restricted_data", "deferred_data", "reserved_data", "merged_df", 
+              "combined_season_record", "combined_postseason", "final_merged_df")
+rm(list = setdiff(ls(), keep_dfs))
+
+
+
+
+
+# List of all possible playoff series
+playoff_series <- c("World Series", "ALCS", "NLCS", "AL Division Series", 
+                    "NL Division Series", "Wild Card Game")
+
+# Add empty columns for playoff series with default value "DNP" (Did Not Play)
+final_merged_df[, playoff_series] <- "DNP"
+
+# Loop through each playoff series and fill in "Won" or "Lost" if the team participated
+for (series in playoff_series) {
+  # Check if the series exists in combined_postseason for each team and year
+  final_merged_df[series] <- sapply(1:nrow(final_merged_df), function(i) {
+    team <- final_merged_df$Team[i]
+    year <- final_merged_df$Year[i]
+    if (any(combined_postseason$Series == series & combined_postseason$Year == year & 
+            (combined_postseason$Winning_Team == team | combined_postseason$Losing_Team == team))) {
+      # Team participated in the series, check if they won or lost
+      if (any(combined_postseason$Series == series & combined_postseason$Year == year & combined_postseason$Winning_Team == team)) {
+        return("Won")
+      } else {
+        return("Lost")
+      }
+    } else {
+      # Team did not play in the series
+      return("DNP")
+    }
+  })
+}
+
+# Save dataframe to a CSV file
+write.csv(final_merged_df, file = "Completed_MLB_Payroll_Data.csv", row.names = FALSE)
+getwd()
