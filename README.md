@@ -46,6 +46,7 @@ There are currently 27 variables with over 115,000 observations that gives me a 
 **Team**: Team Name  
 **Year**: Year of season being examined  
 **Payroll.Rank**: Payroll rank for specified team in specified season (1 is highest payroll 30 is lowest)  
+**Total.Payroll**: The total payroll the specified team is paying in the season
 **League.Average.Payroll**: The average payroll across the league for the specified year  
 **Previous.Year.Payroll**: The payroll from the previous year for the specified team  
 **Payroll.Percent.Change**: The payroll percent change from the previous year for the specified team  
@@ -60,18 +61,18 @@ There are currently 27 variables with over 115,000 observations that gives me a 
 **Exp**: The number of years (continuous) of experience a player has  
 **Status**: Qualitative description of experience  
 **Payroll.Salary**: The salary of the specified player  
-**Adjusted.Payroll.Salary**:   
-**Base.Salary**: Base salary for specified player  
-**Signing.Bonus**: Amount of money given to player for signing in that year  
-**Incentives.Likely**: Amount of incentives for a player to recieve  
-**Incentives.Unlikely**: Amount of incentives for a player to recieve  
 **Type**: Which original table the data came from  
 **Average.Age**: The avereage age of all the players on a specified team  
-
-
-
-
-
+**W**: The amount of wins a team has in the season
+**L**: The amount of losses a team has in the season
+**W-L%**: The win-loss ratio for a team
+The following variables are categorical and can be three different values: Won, Lost, or DNP (did not play)
+**World Series**: Says how the team did in the world series for the specified year
+**ALCS**: Says how the team did in the ALCS for the specified year
+**NLCS**: Says how the team did in the NLCS for the specified year
+**AL Division Series**: Says how the team did in the AL Division Series for the specified year
+**NL Division Series**: Says how the team did in the NL Division Series for the specified year
+**Wild Card Game**: Says how the team did in the Wild Card Game for the specified year
 
 
 
