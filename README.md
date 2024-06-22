@@ -62,17 +62,17 @@ There are currently 27 variables with over 115,000 observations that gives me a 
 **Status**: Qualitative description of experience  
 **Payroll.Salary**: The salary of the specified player  
 **Type**: Which original table the data came from  
-**Average.Age**: The avereage age of all the players on a specified team  
-**W**: The amount of wins a team has in the season
-**L**: The amount of losses a team has in the season
-**W-L%**: The win-loss ratio for a team
-The following variables are categorical and can be three different values: Won, Lost, or DNP (did not play)
-**World Series**: Says how the team did in the world series for the specified year
-**ALCS**: Says how the team did in the ALCS for the specified year
-**NLCS**: Says how the team did in the NLCS for the specified year
-**AL Division Series**: Says how the team did in the AL Division Series for the specified year
-**NL Division Series**: Says how the team did in the NL Division Series for the specified year
-**Wild Card Game**: Says how the team did in the Wild Card Game for the specified year
+**Average.Age**: The avereage age of all the players on a specified team    
+**W**: The amount of wins a team has in the season  
+**L**: The amount of losses a team has in the season  
+**W-L%**: The win-loss ratio for a team  
+The following variables are categorical and can be three different values: Won, Lost, or DNP (did not play)  
+**World Series**: Says how the team did in the world series for the specified year  
+**ALCS**: Says how the team did in the ALCS for the specified year  
+**NLCS**: Says how the team did in the NLCS for the specified year  
+**AL Division Series**: Says how the team did in the AL Division Series for the specified year  
+**NL Division Series**: Says how the team did in the NL Division Series for the specified year  
+**Wild Card Game**: Says how the team did in the Wild Card Game for the specified year  
 
 
 
