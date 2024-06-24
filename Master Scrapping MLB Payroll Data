@@ -5,7 +5,7 @@ library(tidyr)
 library(purrr)
 
 # Specify the years you are interested in
-years <- c(2013,2014,2015,2016,2017,2018,2019,2021,2022,2023)
+years <- c(2011,2012,2013,2014,2015,2016,2017,2018,2019,2021,2022,2023)
 
 # List of MLB teams (replace with the actual list of teams or scrape it from the website)
 teams <- c("arizona-diamondbacks", "atlanta-braves", "baltimore-orioles",
@@ -190,7 +190,7 @@ combined_df <- combined_df %>%
 #Bringing in Overall Yearly Payroll Data
 
 # Specify the years you are interested in
-years <- c(2013,2014,2015,2016,2017,2018,2019,2021, 2022, 2023)
+years <- c(2011,2012, 2013,2014,2015,2016,2017,2018,2019,2021, 2022, 2023)
 
 #Initialize empty df
 combined_payroll <- data.frame()
@@ -228,7 +228,6 @@ for (year in years) {
   # Clean and convert appropriate columns to numeric
   table <- table %>%
     mutate(
-      Rank = as.numeric(Rank),
       Total.Payroll = as.numeric(gsub("[^0-9]", "", Total.Payroll)), # Remove non-numeric characters
       Active.Payroll = as.numeric(gsub("[^0-9]", "", Active.Payroll)), # Remove non-numeric characters
       Injured = as.numeric(gsub("[^0-9]", "", Injured)), # Remove non-numeric characters
@@ -259,39 +258,48 @@ for (year in years) {
 }
 
 
+combined_payroll <- combined_payroll %>%
+  select(-Rank)
+
+# Assuming your data frame is named `df`
+combined_payroll <- combined_payroll %>%
+  group_by(Year) %>%  # Group by Year
+  arrange(Year, desc(Total.Payroll)) %>%  # Arrange by Year and Total.Payroll in descending order
+  mutate(Payroll.Ranking = row_number()) %>%  # Create ranking column
+  ungroup()  # Ungroup to return to original data frame structure
+
+
 ##################################################################################################################
 #Combining the two dataframes
 
 # Comprehensive mapping table for MLB teams
 team_mapping <- data.frame(
   Abbreviation = c("ARI", "ATL", "BAL", "BOS", "CHC", "CIN", "CLE", "COL", "DET", "HOU",
-                   "KCR", "LAA", "LAD", "MIA", "MIL", "MIN", "NYM", "NYY", "OAK", "PHI",
-                   "PIT", "SDP", "SEA", "SFG", "STL", "TBR", "TEX", "TOR", "WSN"),
+                   "KC", "LAA", "LAD", "MIA", "MIL", "MIN", "NYM", "NYY", "OAK", "PHI",
+                   "PIT", "SD", "SEA", "SF", "STL", "TB", "TEX", "TOR", "WSH", "CHW"),
   Expanded = c("arizona-diamondbacks", "atlanta-braves", "baltimore-orioles", "boston-red-sox", "chicago-cubs",
                "cincinnati-reds", "cleveland-guardians", "colorado-rockies", "detroit-tigers", "houston-astros",
                "kansas-city-royals", "los-angeles-angels", "los-angeles-dodgers", "miami-marlins", "milwaukee-brewers",
                "minnesota-twins", "new-york-mets", "new-york-yankees", "oakland-athletics", "philadelphia-phillies",
                "pittsburgh-pirates", "san-diego-padres", "seattle-mariners", "san-francisco-giants", "st-louis-cardinals",
-               "tampa-bay-rays", "texas-rangers", "toronto-blue-jays", "washington-nationals")
+               "tampa-bay-rays", "texas-rangers", "toronto-blue-jays", "washington-nationals", "chicago-white-sox")
 )
 
 
-# Merge based on the mapping table
+# Merge based on the mapping table and the year
 merged_df <- combined_payroll %>%
-  right_join(team_mapping, by = c("Team" = "Abbreviation")) %>%
-  right_join(combined_df, by = c("Expanded" = "Team")) %>%
-  select(-Team)  # Drop redundant 'Team' column
+  left_join(team_mapping, by = c("Team" = "Abbreviation")) %>%  # Convert abbreviations to expanded names
+  left_join(combined_df, by = c("Expanded" = "Team", "Year" = "Year")) %>% # Merge with combined_df on team and year
+  select(-Team)  # Drop redundant 'Team' and 'Expanded' columns
 
-# Drop the Year.y column
+# Drop unneeded columns
 merged_df <- merged_df %>%
-  select(-Year.y, -Wins, -Losses, -Incentives.Likely, -Incentives.Unlikely, -Adjusted.Payroll.Salary, -Base.Salary, -Signing.Bonus)
+  select(-Wins, -Losses, -Incentives.Likely, -Incentives.Unlikely, -Adjusted.Payroll.Salary, -Base.Salary, -Signing.Bonus)
 
 # Renaming some columns
 merged_df <- merged_df %>%
   rename(
-    Year = Year.x,
     Team = Expanded,
-    Payroll.Rank = Rank
   )
 
 ##############################################################################################################################################
@@ -333,7 +341,7 @@ merged_df <- merged_df %>%
 
 # Reorder columns
 merged_df <- merged_df %>%
-  select(Team, Year, Payroll.Rank, Total.Payroll, League.Average.Payroll, Previous.Year.Payroll, Payroll.Percent.Change, Payroll.Difference, 
+  select(Team, Year, Payroll.Ranking, Total.Payroll, League.Average.Payroll, Previous.Year.Payroll, Payroll.Percent.Change, Payroll.Difference, 
          Active.Payroll, Injured, Retained, Buried, Suspended, Player, Pos, Exp, Status,
          Payroll.Salary, Type, Average.Age)
 
@@ -355,7 +363,7 @@ postseason_data_list <- list()
 season_record_data_list <- list()
 
 # Loop through each year from 2013 to 2023, excluding 2020
-for (year in 2013:2023) {
+for (year in 2011:2023) {
   if (year == 2020) {
     next  # Skip the year 2020
   }
@@ -451,9 +459,14 @@ combined_postseason <- map_dfr(postseason_data_list, ~ .x)
 # Print the combined tables
 print("Combined Season Record Data:")
 print(combined_season_record)
+# Clean up the "Team" column
+combined_season_record$Team <- sapply(combined_season_record$Team, function(x) gsub("st\\.-louis-cardinals", "st-louis-cardinals", x))
 
 print("Combined Postseason Data:")
 print(combined_postseason)
+# Clean up the "Team" column
+combined_postseason$Winning_Team <- sapply(combined_postseason$Winning_Team, function(x) gsub("st\\.-louis-cardinals", "st-louis-cardinals", x))
+combined_postseason$Losing_Team <- sapply(combined_postseason$Losing_Team, function(x) gsub("st\\.-louis-cardinals", "st-louis-cardinals", x))
 
 
 ###########################
