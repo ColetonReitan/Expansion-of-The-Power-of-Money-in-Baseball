@@ -41,7 +41,7 @@ The code for the webscrapper not only brings the data into R, but also cleans th
 I'm particularly proud of it. 
 
 #### Variable Description
-There are currently 29 variables with over 100,000 observations that gives me over 3 million total values.
+There are currently 29 variables with over 16,000 observations that gives me over 400,000 total values.
 
 **Team**: Team Name  
 **Year**: Year of season being examined  
