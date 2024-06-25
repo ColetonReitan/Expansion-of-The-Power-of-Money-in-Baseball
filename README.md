@@ -6,6 +6,8 @@ The initial project was an 8-week long assignment for my "Data Visualization" Ma
 
 This project is my personal continuation and expansion of the Power of Money in Baseball. 
 
+As of 6/25/2024, I am currently working in the EDA phase of this analysis.
+
 
 ## Project Motivation
 As someone who had played baseball from a very young age and for the extent of my academic career, this project serves the purpose to not only continue my practices in data science, but also allows me to continue my passion for the sport in a way other than playing. The sport of baseball is very analytically driven, with tons of data points being measured within the game everyday. However, with this project, I am choosing to find the value in the data points beyond the field and in the front office - specifically when it comes to team payroll data. 
@@ -27,7 +29,7 @@ Are there league wide trends in payroll? If so, should teams be following them?
 
 ## MetaData
 
-As of 6/19/2024, collection data is still underway - only need to build the final piece of the scrapper which brings in team wins, losses & playoff appearances.
+Data Collection is now fully complete! The webscraper is fully functional.
 
 #### Sources 
 All data aside from a team's wins, losses & playoff game appearances was collected from the website spotrac, linked [here](https://www.spotrac.com/mlb).
