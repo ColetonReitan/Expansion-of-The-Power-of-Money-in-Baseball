@@ -46,7 +46,7 @@ There are currently 29 variables with over 16,000 observations that gives me ove
 **Team**: Team Name  
 **Year**: Year of season being examined  
 **Payroll.Rank**: Payroll rank for specified team in specified season (1 is highest payroll 30 is lowest)  
-**Total.Payroll**: The total payroll the specified team is paying in the season
+**Total.Payroll**: The total payroll the specified team is paying in the season  
 **League.Average.Payroll**: The average payroll across the league for the specified year  
 **Previous.Year.Payroll**: The payroll from the previous year for the specified team  
 **Payroll.Percent.Change**: The payroll percent change from the previous year for the specified team  
@@ -54,8 +54,8 @@ There are currently 29 variables with over 16,000 observations that gives me ove
 **Active.Payroll**: The payroll amount that is dedicated to active players (for a team) in a specified year  
 **Injured**: The payroll amount that is dedicated to injured players (for a team) in a specified year  
 **Retained**: The payroll amount that is retained from players no longer on a team in a specified year  
-**Buried**: The payroll amount that is dedicated to players not on the major league roster (minor league players)
-**Suspended**: The payroll amount that is dedicated to players suspended in a specified year  
+**Buried**: The payroll amount that is dedicated to players not on the major league roster (minor league players)  
+**Suspended**: The payroll amount that is dedicated to players suspended in a specified year    
 **Player**: The specified player name  
 **Pos**: The position the specified player plays  
 **Exp**: The number of years (continuous) of experience a player has  
@@ -66,7 +66,7 @@ There are currently 29 variables with over 16,000 observations that gives me ove
 **W**: The amount of wins a team has in the season  
 **L**: The amount of losses a team has in the season  
 **W-L%**: The win-loss ratio for a team  
-The following variables are categorical and can be three different values: Won, Lost, or DNP (did not play)  
+*The following variables are categorical and can be three different values: Won, Lost, or DNP (did not play)**  
 **World Series**: Says how the team did in the world series for the specified year  
 **ALCS**: Says how the team did in the ALCS for the specified year  
 **NLCS**: Says how the team did in the NLCS for the specified year  
