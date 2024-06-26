@@ -68,7 +68,7 @@ There are currently 29 variables with over 16,000 observations that gives me ove
 **W**: The amount of wins a team has in the season  
 **L**: The amount of losses a team has in the season  
 **W-L%**: The win-loss ratio for a team  
-*The following variables are categorical and can be three different values: Won, Lost, or DNP (did not play)**  
+*The following variables are categorical and can be three different values: Won, Lost, or DNP (did not play)*  
 **World Series**: Says how the team did in the world series for the specified year  
 **ALCS**: Says how the team did in the ALCS for the specified year  
 **NLCS**: Says how the team did in the NLCS for the specified year  
