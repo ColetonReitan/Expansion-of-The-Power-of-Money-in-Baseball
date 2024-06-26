@@ -26,6 +26,15 @@ Is there a most winning-est payroll amount?
 
 Are there league wide trends in payroll? If so, should teams be following them? 
 
+## Methods
+I am currently workingthrough the methods portion of this project, and have recently started EDA
+
+### EDA
+
+### Modeling
+
+### Statistical Analysis
+
 
 ## MetaData
 
