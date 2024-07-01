@@ -55,6 +55,7 @@ I'm particularly proud of it.
 There are currently 29 variables with over 16,000 observations that gives me over 400,000 total values.
 
 **Team**: Team Name  
+**Abbreviation**: Team Name Abbreviation  
 **Year**: Year of season being examined  
 **Payroll.Rank**: Payroll rank for specified team in specified season (1 is highest payroll 30 is lowest)  
 **Total.Payroll**: The total payroll the specified team is paying in the season  
