@@ -289,8 +289,7 @@ team_mapping <- data.frame(
 # Merge based on the mapping table and the year
 merged_df <- combined_payroll %>%
   left_join(team_mapping, by = c("Team" = "Abbreviation")) %>%  # Convert abbreviations to expanded names
-  left_join(combined_df, by = c("Expanded" = "Team", "Year" = "Year")) %>% # Merge with combined_df on team and year
-  select(-Team)  # Drop redundant 'Team' and 'Expanded' columns
+  left_join(combined_df, by = c("Expanded" = "Team", "Year" = "Year")) # Merge with combined_df on team and year
 
 # Drop unneeded columns
 merged_df <- merged_df %>%
@@ -299,6 +298,7 @@ merged_df <- merged_df %>%
 # Renaming some columns
 merged_df <- merged_df %>%
   rename(
+    Abbreviation = Team,
     Team = Expanded,
   )
 
@@ -341,7 +341,7 @@ merged_df <- merged_df %>%
 
 # Reorder columns
 merged_df <- merged_df %>%
-  select(Team, Year, Payroll.Ranking, Total.Payroll, League.Average.Payroll, Previous.Year.Payroll, Payroll.Percent.Change, Payroll.Difference, 
+  select(Team, Abbreviation, Year, Payroll.Ranking, Total.Payroll, League.Average.Payroll, Previous.Year.Payroll, Payroll.Percent.Change, Payroll.Difference, 
          Active.Payroll, Injured, Retained, Buried, Suspended, Player, Pos, Exp, Status,
          Payroll.Salary, Type, Average.Age)
 
@@ -515,3 +515,6 @@ for (series in playoff_series) {
 # Save dataframe to a CSV file
 write.csv(final_merged_df, file = "Completed_MLB_Payroll_Data.csv", row.names = FALSE)
 getwd()
+
+unique_values <- unique(final_merged_df$Team)
+print(unique_values)
