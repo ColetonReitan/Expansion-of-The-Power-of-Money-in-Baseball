@@ -1,11 +1,13 @@
 # Expansion of The Power of Money in Baseball
 
+## Project Overview
 This is my personal analytical continuation and expansion of my project, The Power of Money in Baseball, where I not only try to tell a visual stroy with the data, but conduct a full line analysis that includes data ETL, EDA & supervised (and possibly unsupervised) machine learning modeling and analysis. 
 
 The initial project was an 8-week long assignment for my "Data Visualization" Master's course in which the goal was to tell a visual story using Tableau software, which can be found on my GitHub [here](https://github.com/ColetonReitan/The-Power-of-Money-in-Baseball); 
 
 This project is my personal continuation and expansion of the Power of Money in Baseball. 
 
+## Project Status
 As of 6/25/2024, I am currently working in the EDA phase of this analysis.
 
 
@@ -16,15 +18,15 @@ The horror and beauty of payroll in baseball is that teams do not have to fear a
 
 
 ## Reasearch Questions (with more to be included)
-Do payroll discrpancies put franchises at an advantage or disadvantage?
+  1. Do payroll discrpancies put franchises at an advantage or disadvantage?
 
-Is there such thing as spending too much money on a team?
+  2. Is there such thing as spending too much money on a team?
 
-Should teams be investing more in certain positions rather than other positions? 
+  3. Should teams be investing more in certain positions rather than other positions? 
 
-Is there a most winning-est payroll amount? 
+  4. Is there a most winning-est payroll amount? 
 
-Are there league wide trends in payroll? If so, should teams be following them? 
+  5. Are there league wide trends in payroll? If so, should teams be following them? 
 
 ## Methods
 I am currently workingthrough the methods portion of this project, and have recently started EDA
@@ -41,15 +43,11 @@ I am currently workingthrough the methods portion of this project, and have rece
 Data Collection is now fully complete! The webscraper is fully functional.
 
 #### Sources 
-All data aside from a team's wins, losses & playoff game appearances was collected from the website spotrac, linked [here](https://www.spotrac.com/mlb).
-The data for the wins, losses & playoff game appearances was collected from the website baseball referenced, linked [here](https://www.baseball-reference.com/postseason/). The data being collected is for the seasons in years 2012 through 2023, with some possible forecasting insight into 2024.
+- All data aside from a team's wins, losses & playoff game appearances was collected from the website spotrac, linked [here](https://www.spotrac.com/mlb).  
+- The data for the wins, losses & playoff game appearances was collected from the website baseball referenced, linked [here](https://www.baseball-reference.com/postseason/). The data being collected is for the seasons in years 2012 through 2023, with some possible forecasting insight into 2024.
 
 #### Collection Method
-I built my own webscrapper from scratch through R software to bring in the data needed to complete this analysis. The webscraper can be found in this repository. 
-
-The code for the webscrapper not only brings the data into R, but also cleans the data and merges it into one dataframe. 
-
-I'm particularly proud of it. 
+I built a web scraper from scratch using R to collect the necessary data. The web scraper not only imports the data into R but also cleans and merges it into one dataframe. The code for the web scraper can be found in this repository. I'm particularly proud of it.
 
 #### Variable Description
 There are currently 29 variables with over 16,000 observations that gives me over 400,000 total values.
