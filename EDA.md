@@ -92,22 +92,31 @@ for (i in 1:length(quartiles)) {
 
 ## Visualizations
 
-Plotting the Quartiles (with all years)  - This plot is messy, don't gain much from this
-# Create a data frame for plotting
+Plotting the Quartiles (with all years)  - This plot is messy but holds a lot of insight
+
+```r
+quartiles_millions <- as.numeric(quartiles) / 1e6
 quartile_data <- data.frame(
   Quartile = names(quartiles),
-  Value = as.numeric(quartiles),
+  Value = quartiles_millions,
   Year = quartile_years
 )
-# Plot the quartiles with ggplot2
-ggplot(df, aes(x = Year, y = Total.Payroll)) +
+
+# Plot the data
+ggplot(df, aes(x = Year, y = Total.Payroll / 1e6)) +
   geom_point() +  # Scatter plot of all data points
   geom_hline(data = quartile_data, aes(yintercept = Value, color = Quartile), linetype = "dashed", size = 1) +
-  geom_text(data = quartile_data, aes(x = Year, y = Value, label = paste(Quartile, ":", Value)), vjust = -0.5) +
+  geom_text(data = quartile_data, aes(x = Year, y = Value, label = paste(Quartile, ":", round(Value, 1))), vjust = -12) +
   labs(title = "Total Payroll and Quartiles Over Years",
        x = "Year",
-       y = "Total Payroll") +
-  theme_minimal()
+       y = "Total Payroll (Millions)") +
+  theme_minimal() +
+  scale_y_continuous(labels = function(x) paste0(x, "M"))+  # Adjust y-axis labels to show values in millions
+  scale_x_continuous(breaks = seq(min(df$Year), max(df$Year), by = 1))  # Include all years
+```
+
+![](README_files/figure-markdown_github/unnamed-chunk-6-1.png)
+
 
 # Creating a boxplot for each year in one chart - this one is beautiful
 # Plot the box plot with ggplot2
