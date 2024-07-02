@@ -114,8 +114,7 @@ ggplot(df, aes(x = Year, y = Total.Payroll / 1e6)) +
   scale_y_continuous(labels = function(x) paste0(x, "M"))+  # Adjust y-axis labels to show values in millions
   scale_x_continuous(breaks = seq(min(df$Year), max(df$Year), by = 1))  # Include all years
 ```
-
-![](README_files/figure-markdown_github/unnamed-chunk-6-1.png)
+  ![](EDA_Images/BoxPlotTotalPayrollDistributionbyYear.png)
 
 
 # Creating a boxplot for each year in one chart - this one is beautiful
