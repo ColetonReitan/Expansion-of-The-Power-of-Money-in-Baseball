@@ -197,4 +197,5 @@ ggplot(team_stats, aes(x = Year, y = Total_Payroll / 1e6, fill = Total_Wins, lab
 ![](EDA_Images/WSPayrollswAverage.png)  
 There's been a steady increase in the payroll by the world champion team, yet the number of season wins these teams have are sporadic. The most important note on this plot is seeing that since 2011, only 3 teams that are below the league average payroll for the year 
 have actually won the world series. This should be an important identifier in determining a team's chances of winning the world series. 
+
 ---
