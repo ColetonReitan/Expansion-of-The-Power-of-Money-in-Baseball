@@ -92,7 +92,7 @@ for (i in 1:length(quartiles)) {
 
 # Visualizations
 
-Plotting the Quartiles (with all years)  - This plot is messy but holds a lot of insight
+Plotting the Quartiles (with all years)  - This plot is messy but holds some insight
 
 ```r
 quartiles_millions <- as.numeric(quartiles) / 1e6
@@ -133,7 +133,11 @@ ggplot(df, aes(x = as.factor(Year), y = Total.Payroll / 1000000)) +
         legend.position = "bottom")  # Adjust legend position
 ```
 
-  ![](EDA_Images/boxplottotalperyear.png)
+  ![](EDA_Images/boxplottotalperyear.png)  
+  This boxplot tells me that more teams are increasing their total payroll such that enough teams have increased payroll over this time so outliers no longer exist (in terms of team payroll) even the the maximum total payroll is at an all time high.
+  Minimum payroll is not increasing by too much, telling me that there are larger discrepancies between teams and their payrolls. Would imagine sooner than later a minimum payroll would become the outlier. The median payroll kept a somewhat steady rise, 
+  showing that the league is trending in a direction that spends more on total payroll (as expected).
+  
 ---
 
 ### Analyzing the total payroll for each team that won the world series
@@ -190,5 +194,7 @@ ggplot(team_stats, aes(x = Year, y = Total_Payroll / 1e6, fill = Total_Wins, lab
             aes(label = Abbreviation))       
   
 ```
-![](EDA_Images/WSPayrollswAverage.png)
+![](EDA_Images/WSPayrollswAverage.png)  
+There's been a steady increase in the payroll by the world champion team, yet the number of season wins these teams have are sporadic. The most important note on this plot is seeing that since 2011, only 3 teams that are below the league average payroll for the year 
+have actually won the world series. This should be an important identifier in determining a team's chances of winning the world series. 
 ---
