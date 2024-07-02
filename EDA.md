@@ -1,71 +1,68 @@
 ---
-title: Title
+# Exploratory Data Analysis of MLB Payroll Data
 ---
 
+**Libraries Used:**   
+library(ggplot2)  
+library(dplyr)  
+library(tidyr)  
+library(shiny)  
+library(scales)  
+library(forcats)  
 
 ``` r
-library(ggplot2)
-library(dplyr)
-library(tidyr)
-library(shiny)
-library(scales)
-library(forcats)
-
-#Need to update R for these
-#install.packages("ggplotly")
-#library(ggplotly)
-
 df <- read.csv("C:/Users/colet/Documents/Personal Projects/Completed_MLB_Payroll_Data.csv")
-head(df)
 
 #Checking where the NA's are
 colSums(is.na(df))
-'''
+#Checking to make sure the datatypes are what they should be
+str(df)
+```
+
 It is expected for there to be missing values in Previous year payroll, percent change and difference for 2011 (there is
 no prior data), so likely will drop the 2011 season. 
 Also, the high amount of missing values in the suspended column is also expected and ok, there shouldnt be players getting suspended
 too often. 
-'''
 
-#Checking to make sure the datatypes are what they should be
-str(df)
-'''
-$ Team: chr  $ Year: int $ Payroll.Ranking: int $ Total.Payroll: int  
-$ League.Average.Payroll: num $ Previous.Year.Payroll : int  $ Payroll.Percent.Change: num  
-$ Payroll.Difference: int  $ Active.Payroll: int  $ Injured: num  
-$ Retained : num  $ Buried : num  $ Suspended: num $ Player: chr  
-$ Pos: chr  $ Exp: num  $ Status: chr  $ Payroll.Salary : num  
-$ Type: chr  $ Average.Age: num  $ W: int  $ L: int  $ W.L.: num  
-$ World.Series: chr  $ ALCS : chr  $ NLCS: chr  
-$ AL.Division.Series: chr  $ NL.Division.Series: chr  $ Wild.Card.Game : chr  
-'''
+$ Team: chr - $ Year: int - $ Payroll.Ranking: int - $ Total.Payroll: int - 
+$ League.Average.Payroll: num - $ Previous.Year.Payroll : int - $ Payroll.Percent.Change: num  
+$ Payroll.Difference: int - $ Active.Payroll: int - $ Injured: num  
+$ Retained : num - $ Buried : num - $ Suspended: num - $ Player: chr  
+$ Pos: chr - $ Exp: num - $ Status: chr - $ Payroll.Salary : num  
+$ Type: chr - $ Average.Age: num - $ W: int - $ L: int - $ W.L.: num  
+$ World.Series: chr - $ ALCS : chr - $ NLCS: chr  
+$ AL.Division.Series: chr - $ NL.Division.Series: chr - $ Wild.Card.Game : chr  
 
 
-#######################################################################################3
-#Summary Statistics
+## Summary Statistics
 
-#Mean of league average payroll - $131,789,584
+```r
 mean(df$League.Average.Payroll)
-#Mean of Total Payroll - $132,927,904 (Expected to be very very close to the same number)
 mean(df$Total.Payroll)
-#Median of League average payroll - $133,894,291 (Surprisingly close to the mean)
 median(df$League.Average.Payroll)
-#Median of League average payroll - $125,242,452
 median(df$Total.Payroll)
+```
 
+Mean of league average payroll - $131,789,584  
+Mean of Total Payroll - $132,927,904 (Expected to be very very close to the same number)  
+Median of League average payroll - $133,894,291 (Surprisingly close to the mean)  
+Median of League average payroll - $125,242,452  
 
-#League average payroll minimum with year
+```r
 print(paste("Minimum League Average Payroll value:", min(df$League.Average.Payroll, na.rm = TRUE), "Year:", df$Year[which.min(df$League.Average.Payroll)]))
-#League average payroll maximum with year
 print(paste("Maximum League Average Payroll value:", max(df$League.Average.Payroll, na.rm = TRUE), "Year:", df$Year[which.max(df$League.Average.Payroll)]))
-
-#Total.Payroll Minimum with year
 print(paste("Minimum total payroll value:", min(df$Total.Payroll, na.rm = TRUE), "Year:", df$Year[which.min(df$Total.Payroll)]))
-#Total Payroll maximum with year
 print(paste("Maximum total payroll value:", max(df$Total.Payroll, na.rm = TRUE), "Year:", df$Year[which.max(df$Total.Payroll)]))
+```
 
-#Finding the quartiles for the Total.Payroll
-# Compute quartiles
+[1] "Minimum League Average Payroll value: 101089505.3 Year: 2011"  
+[1] "Maximum League Average Payroll value: 165757214.666667 Year: 2023"  
+[1] "Minimum total payroll value: 35077913 Year: 2013"  
+[1] "Maximum total payroll value: 343605067 Year: 2023"  
+
+
+```r
+# Compute quartiles for Total Payroll
 quartiles <- quantile(df$Total.Payroll, probs = c(0.25, 0.5, 0.75), na.rm = TRUE)
 # Find the corresponding years for each quartile
 quartile_years <- sapply(quartiles, function(x) df$Year[which.min(abs(df$Total.Payroll - x))])
@@ -73,9 +70,13 @@ quartile_years <- sapply(quartiles, function(x) df$Year[which.min(abs(df$Total.P
 for (i in 1:length(quartiles)) {
   print(paste("Quartile", names(quartiles)[i], "value:", quartiles[i], "Year:", quartile_years[i]))
 }
+```
+[1] "Quartile 25% value: 91861627 Year: 2023"  
+[1] "Quartile 50% value: 125242452 Year: 2011"  
+[1] "Quartile 75% value: 165655095 Year: 2015" 
 
-#Finding the quartiles for league average payroll
-# Compute quartiles
+```r
+#Compute quartiles for league average payroll
 quartiles <- quantile(df$League.Average.Payroll, probs = c(0.25, 0.5, 0.75), na.rm = TRUE)
 # Find the corresponding years for each quartile
 quartile_years <- sapply(quartiles, function(x) df$Year[which.min(abs(df$League.Average.Payroll - x))])
@@ -83,11 +84,15 @@ quartile_years <- sapply(quartiles, function(x) df$Year[which.min(abs(df$League.
 for (i in 1:length(quartiles)) {
   print(paste("Quartile", names(quartiles)[i], "value:", quartiles[i], "Year:", quartile_years[i]))
 }
+```
+[1] "Quartile 25% value: 119756506.933333 Year: 2014"  
+[1] "Quartile 50% value: 133894290.633333 Year: 2016"  
+[1] "Quartile 75% value: 140780411.166667 Year: 2017"  
 
-###############################################################################3
-#Plotting!
 
-#Plotting the Quartiles (with all years)  - This plot is messy
+## Visualizations
+
+Plotting the Quartiles (with all years)  - This plot is messy, don't gain much from this
 # Create a data frame for plotting
 quartile_data <- data.frame(
   Quartile = names(quartiles),
