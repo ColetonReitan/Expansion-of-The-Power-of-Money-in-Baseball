@@ -17,7 +17,7 @@ As someone who had played baseball from a very young age and for the extent of m
 The horror and beauty of payroll in baseball is that teams do not have to fear a payroll cap - as in owners and general managers can spend however much they would like to spend on their team, without restriction. This creates large discrepancies between team payrolls which then leads to the main questions this project is looking to answer - do these large discrepancies in payroll put certain franchises at an advantage or disadvantage? Is there such thing as spending too much money on a team? Should teams be investing more in players in certain positions? These are all questions (along with others to be mentioned) that will be answered with a statistical backing. 
 
 
-## Reasearch Questions (with more to be included)
+## Reasearch Questions (More in depth questions included at the bottom of this page)
   1. Do payroll discrpancies put franchises at an advantage or disadvantage?
 
   2. Is there such thing as spending too much money on a team?
@@ -84,7 +84,53 @@ There are currently 29 variables with over 16,000 observations that gives me ove
 **NL Division Series**: Says how the team did in the NL Division Series for the specified year  
 **Wild Card Game**: Says how the team did in the Wild Card Game for the specified year  
 
+## More Research Questions
 
+# Payroll Trends and Discrepancies:  
+
+How have total payrolls for teams evolved over the years?  
+What are the trends in league average payrolls over time?  
+Are there significant discrepancies in payroll between the highest and lowest spending teams?  
+
+# Payroll vs. Performance:  
+
+Is there a correlation between a team's total payroll and their win-loss record?  
+Do higher payrolls consistently lead to better team performance (more wins, playoff appearances, World Series wins)?  
+
+# Payroll Distribution:  
+
+How is payroll distributed among different player statuses (active, injured, retained, etc.)?  
+What positions (Pos) receive the highest payroll on average?  
+
+# Impact of Payroll Changes:  
+
+How do changes in payroll from the previous year affect team performance?  
+Is there a significant impact of payroll percent change on win-loss records?  
+
+# Defensive and Offensive Contributions:  
+
+How does a team's payroll allocation to different positions correlate with their win-loss record and playoff success?  
+Is there a notable difference in payroll for teams with strong defensive vs. offensive statistics?  
+
+# Age and Experience Factors:  
+
+How does the average age of a team correlate with their total payroll and performance?  
+Does player experience (Exp) significantly impact payroll distribution?  
+
+# Injury and Retention Impact:  
+
+How do injuries and retained salaries (Injured, Retained) affect a team's total payroll and performance?  
+Are there trends in the proportion of payroll allocated to injured or retained players over the years?  
+
+# Playoff Success:  
+
+What is the relationship between total payroll and playoff appearances (ALCS, NLCS, Division Series, Wild Card Game)?  
+How do payrolls of World Series winning teams compare to those that did not make it to the playoffs?  
+
+# Salary Allocation:  
+
+How does the salary allocation for different player positions vary among teams with different performance levels?  
+Are there specific positions that teams invest more in for better performance outcomes?  
 
 
 
