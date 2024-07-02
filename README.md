@@ -86,48 +86,48 @@ There are currently 29 variables with over 16,000 observations that gives me ove
 
 ## More Research Questions
 
-# Payroll Trends and Discrepancies:  
+### Payroll Trends and Discrepancies:  
 
 How have total payrolls for teams evolved over the years?  
 What are the trends in league average payrolls over time?  
 Are there significant discrepancies in payroll between the highest and lowest spending teams?  
 
-# Payroll vs. Performance:  
+### Payroll vs. Performance:  
 
 Is there a correlation between a team's total payroll and their win-loss record?  
 Do higher payrolls consistently lead to better team performance (more wins, playoff appearances, World Series wins)?  
 
-# Payroll Distribution:  
+### Payroll Distribution:  
 
 How is payroll distributed among different player statuses (active, injured, retained, etc.)?  
 What positions (Pos) receive the highest payroll on average?  
 
-# Impact of Payroll Changes:  
+### Impact of Payroll Changes:  
 
 How do changes in payroll from the previous year affect team performance?  
 Is there a significant impact of payroll percent change on win-loss records?  
 
-# Defensive and Offensive Contributions:  
+### Defensive and Offensive Contributions:  
 
 How does a team's payroll allocation to different positions correlate with their win-loss record and playoff success?  
 Is there a notable difference in payroll for teams with strong defensive vs. offensive statistics?  
 
-# Age and Experience Factors:  
+### Age and Experience Factors:  
 
 How does the average age of a team correlate with their total payroll and performance?  
 Does player experience (Exp) significantly impact payroll distribution?  
 
-# Injury and Retention Impact:  
+### Injury and Retention Impact:  
 
 How do injuries and retained salaries (Injured, Retained) affect a team's total payroll and performance?  
 Are there trends in the proportion of payroll allocated to injured or retained players over the years?  
 
-# Playoff Success:  
+### Playoff Success:  
 
 What is the relationship between total payroll and playoff appearances (ALCS, NLCS, Division Series, Wild Card Game)?  
 How do payrolls of World Series winning teams compare to those that did not make it to the playoffs?  
 
-# Salary Allocation:  
+### Salary Allocation:  
 
 How does the salary allocation for different player positions vary among teams with different performance levels?  
 Are there specific positions that teams invest more in for better performance outcomes?  
