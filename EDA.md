@@ -115,7 +115,7 @@ ggplot(df, aes(x = Year, y = Total.Payroll / 1e6)) +
   scale_x_continuous(breaks = seq(min(df$Year), max(df$Year), by = 1))  # Include all years
 ```
 
-  ![](EDA_Images/BoxPlotTotalPayrollDistributionbyYear.png)
+  ![](EDA_Images/EDA_Images/UpdatedBoxplot1.png)
 ---
 Creating a boxplot for each year in one chart - this one is beautiful
 
