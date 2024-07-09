@@ -161,7 +161,7 @@ ggplot(aggregate_payroll, aes(x = Year, y = Total.Payroll / 1e6, fill = Team)) +
   scale_y_continuous(labels = function(x) paste0(x, "M")) +  # Format y-axis labels in millions
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 ```
-![](EDA_Images/TeamPayrollWSWinColor.png)
+![](EDA_Images/wsteamcolor.png)
 
 ---
 
