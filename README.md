@@ -50,7 +50,7 @@ Data Collection is now fully complete! The webscraper is fully functional.
 I built a web scraper from scratch using R to collect the necessary data. The web scraper not only imports the data into R but also cleans and merges it into one dataframe. The code for the web scraper can be found in this repository. I'm particularly proud of it.
 
 #### Variable Description
-There are currently 30 variables with over 16,000 observations that gives me over 400,000 total values.
+There are currently 30 variables with nearly 20,000 observations that gives me almost 600,000 total values.
 
 **Team**: Team Name  
 **Abbreviation**: Team Name Abbreviation  
