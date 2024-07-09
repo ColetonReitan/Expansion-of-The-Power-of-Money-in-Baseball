@@ -116,6 +116,7 @@ ggplot(df, aes(x = Year, y = Total.Payroll / 1e6)) +
 ```
 
   ![](EDA_Images/EDA_Images/UpdatedBoxplot1.png)
+  
 ---
 Creating a boxplot for each year in one chart - this one is beautiful
 
@@ -134,6 +135,7 @@ ggplot(df, aes(x = as.factor(Year), y = Total.Payroll / 1000000)) +
 ```
 
   ![](EDA_Images/boxplottotalperyear.png)  
+  
   This boxplot tells me that more teams are increasing their total payroll such that enough teams have increased payroll over this time so outliers no longer exist (in terms of team payroll) even the the maximum total payroll is at an all time high.
   Minimum payroll is not increasing by too much, telling me that there are larger discrepancies between teams and their payrolls. Would imagine sooner than later a minimum payroll would become the outlier. The median payroll kept a somewhat steady rise, 
   showing that the league is trending in a direction that spends more on total payroll (as expected).
@@ -160,6 +162,7 @@ ggplot(aggregate_payroll, aes(x = Year, y = Total.Payroll / 1e6, fill = Team)) +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 ```
 ![](EDA_Images/TeamPayrollWSWinColor.png)
+
 ---
 
 Showing the number of wins through color gradeient, total payroll on the axis, and league average payroll for each year denoted by the empty circle
@@ -195,6 +198,7 @@ ggplot(team_stats, aes(x = Year, y = Total_Payroll / 1e6, fill = Total_Wins, lab
   
 ```
 ![](EDA_Images/WSPayrollswAverage.png)  
+
 There's been a steady increase in the payroll by the world champion team, yet the number of season wins these teams have are sporadic. The most important note on this plot is seeing that since 2011, only 3 teams that are below the league average payroll for the year 
 have actually won the world series. This should be an important identifier in determining a team's chances of winning the world series. 
 
