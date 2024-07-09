@@ -20,7 +20,7 @@ str(df)
 ```
 
 It is expected for there to be missing values in Previous year payroll, percent change and difference for 2011 (there is
-no prior data), so likely will drop the 2011 season. 
+no prior data). 
 Also, the high amount of missing values in the suspended column is also expected and ok, there shouldnt be players getting suspended
 too often. 
 
@@ -43,10 +43,10 @@ median(df$League.Average.Payroll)
 median(df$Total.Payroll)
 ```
 
-Mean of league average payroll - $131,789,584  
-Mean of Total Payroll - $132,927,904 (Expected to be very very close to the same number)  
-Median of League average payroll - $133,894,291 (Surprisingly close to the mean)  
-Median of League average payroll - $125,242,452  
+Mean of league average payroll - $128,717,202  
+Mean of Total Payroll - $127,951,682 (Expected to be very very close to the same number)  
+Median of League average payroll - $133,894,291
+Median of total payroll - $116,341,526  
 
 ```r
 print(paste("Minimum League Average Payroll value:", min(df$League.Average.Payroll, na.rm = TRUE), "Year:", df$Year[which.min(df$League.Average.Payroll)]))
@@ -55,10 +55,10 @@ print(paste("Minimum total payroll value:", min(df$Total.Payroll, na.rm = TRUE),
 print(paste("Maximum total payroll value:", max(df$Total.Payroll, na.rm = TRUE), "Year:", df$Year[which.max(df$Total.Payroll)]))
 ```
 
-[1] "Minimum League Average Payroll value: 101089505.3 Year: 2011"  
-[1] "Maximum League Average Payroll value: 165757214.666667 Year: 2023"  
-[1] "Minimum total payroll value: 35077913 Year: 2013"  
-[1] "Maximum total payroll value: 343605067 Year: 2023"  
+Minimum League Average Payroll value: 61111950.1 Year: 2020    
+Maximum League Average Payroll value: 165757214.666667 Year: 2023    
+Minimum total payroll value: 23478635 Year: 2020  
+Maximum total payroll value: 343605067 Year: 2023   
 
 
 ```r
@@ -71,9 +71,9 @@ for (i in 1:length(quartiles)) {
   print(paste("Quartile", names(quartiles)[i], "value:", quartiles[i], "Year:", quartile_years[i]))
 }
 ```
-[1] "Quartile 25% value: 91861627 Year: 2023"  
-[1] "Quartile 50% value: 125242452 Year: 2011"  
-[1] "Quartile 75% value: 165655095 Year: 2015" 
+Quartile 25% value: 85269950 Year: 2024   
+Quartile 50% value: 116341526 Year: 2012    
+Quartile 75% value: 162160921 Year: 2015   
 
 ```r
 #Compute quartiles for league average payroll
@@ -85,9 +85,9 @@ for (i in 1:length(quartiles)) {
   print(paste("Quartile", names(quartiles)[i], "value:", quartiles[i], "Year:", quartile_years[i]))
 }
 ```
-[1] "Quartile 25% value: 119756506.933333 Year: 2014"  
-[1] "Quartile 50% value: 133894290.633333 Year: 2016"  
-[1] "Quartile 75% value: 140780411.166667 Year: 2017"  
+Quartile 25% value: 110697780.6 Year: 2013  
+Quartile 50% value: 133894290.63 Year: 2016    
+Quartile 75% value: 140038982.6 Year: 2017    
 
 
 # Visualizations
