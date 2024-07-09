@@ -5,12 +5,12 @@ library(tidyr)
 library(purrr)
 
 # Specify the years you are interested in
-years <- c(2011,2012,2013,2014,2015,2016,2017,2018,2019,2021,2022,2023)
+years <- c(2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024)
 
 # List of MLB teams (replace with the actual list of teams or scrape it from the website)
 teams <- c("arizona-diamondbacks", "atlanta-braves", "baltimore-orioles",
            "boston-red-sox", "chicago-white-sox", "chicago-cubs",
-           "cincinnati-reds", "cleveland-guardians", "colorado-rockies",
+           "cincinnati-reds", "colorado-rockies",
            "detroit-tigers", "houston-astros", "kansas-city-royals",
            "los-angeles-angels", "los-angeles-dodgers", "miami-marlins",
            "milwaukee-brewers", "minnesota-twins", "new-york-yankees",
@@ -117,7 +117,103 @@ for (team_year in names(list_of_dfs)) {
     assign(df_name, list_of_dfs[[team_year]][[df_name]])
   }
 }
+##############################################################################################
+#Guardians data was hidden in different part of website that did not follow same html formatting
+#This section retrieves the guardians data
 
+# Function to fetch and process team payroll data
+fetch_process_team_payroll <- function(team_slug, year, table_id_map, drop_columns) {
+  # Construct URL
+  url <- paste0("https://www.spotrac.com/mlb/", team_slug, "/overview/_/year/", year, "/sort/cap_total2")
+  
+  # Read HTML content
+  page <- read_html(url)
+  
+  # Extract tables
+  tables <- page %>% html_nodes("#table")
+  
+  # Remove last three tables if present
+  if (length(tables) > 3) {
+    tables <- tables[1:(length(tables) - 3)]
+  }
+  
+  # Get table IDs based on number of tables
+  table_ids <- table_id_map[[as.character(length(tables))]]
+  
+  # Initialize list to store data frames
+  team_year_dfs <- list()
+  
+  # Process each table
+  for (i in seq_along(tables)) {
+    table <- tables[i] %>% html_table(fill = TRUE) %>% as.data.frame()
+    table_id <- table_ids[i]
+    
+    # Rename columns
+    colnames(table) <- gsub("Payroll.Salary.........................Adjusted", "Payroll.Salary", colnames(table))
+    colnames(table) <- gsub("Player.*", "Player", colnames(table))
+    
+    # Add Year, Type, and Team columns
+    table <- table %>%
+      mutate(Year = year, Type = table_id, Team = team_slug)
+    
+    # Clean up Player column
+    if ("Player" %in% colnames(table)) {
+      table$Player <- sapply(table$Player, function(player_name) str_trim(str_extract(player_name, "\\S+\\s+\\S+$")))
+    }
+    
+    # Drop specified columns
+    table <- table %>% select(-one_of(drop_columns))
+    
+    # Convert Payroll.Salary to numeric
+    if ("Payroll.Salary" %in% colnames(table)) {
+      table$Payroll.Salary <- as.numeric(gsub("[^0-9.-]", "", table$Payroll.Salary))
+    }
+    
+    # Store table in list
+    table_name <- paste(team_slug, year, table_id, "df", sep = "_")
+    team_year_dfs[[table_name]] <- table
+  }
+  
+  return(team_year_dfs)
+}
+
+# Specify the years you are interested in
+years <- c(2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2021, 2022, 2023)
+
+# Define table IDs based on number of tables present
+table_id_map <- list(
+  "1" = c("active"),
+  "2" = c("active", "dead"),
+  "3" = c("active", "injured", "dead"),
+  "4" = c("active", "injured", "suspended", "dead")
+)
+
+# Columns to drop
+drop_columns <- c("Luxury.Tax", "Luxury.Tax...........................League.CBT", 
+                  "Cash.Total", "Free.Agent.........................Year")
+
+# Initialize empty list to store all data frames
+list_of_dfs <- list()
+
+# Loop through each year and each team slug
+for (year in years) {
+  team_slugs <- c("cleveland-guardians", "miami-marlins")
+  
+  for (team_slug in team_slugs) {
+    # Fetch and process team payroll data
+    team_year_dfs <- fetch_process_team_payroll(team_slug, year, table_id_map, drop_columns)
+    
+    # Add team and year specific data frames to list
+    list_of_dfs[[paste(team_slug, year, sep = "_")]] <- team_year_dfs
+  }
+}
+
+# Extract and assign each data frame from list_of_dfs to its own variable in global environment
+for (team_year in names(list_of_dfs)) {
+  for (df_name in names(list_of_dfs[[team_year]])) {
+    assign(df_name, as.data.frame(list_of_dfs[[team_year]][[df_name]]), envir = .GlobalEnv)
+  }
+}
 
 ################################################################################################
 #Combining all of the data into 6 dataframes based on their ID
@@ -183,14 +279,14 @@ combined_df <- bind_rows(list_of_data_frames)
 
 #Dropping mysterious X columns
 combined_df <- combined_df %>%
-  select(-starts_with("X"))
+  select(-starts_with("X"),-Var.7,-Age)
 
 
 ###############################################################################################################
 #Bringing in Overall Yearly Payroll Data
 
 # Specify the years you are interested in
-years <- c(2011,2012, 2013,2014,2015,2016,2017,2018,2019,2021, 2022, 2023)
+years <- c(2011,2012, 2013,2014,2015,2016,2017,2018,2019,2020,2021, 2022, 2023,2024)
 
 #Initialize empty df
 combined_payroll <- data.frame()
@@ -257,16 +353,18 @@ for (year in years) {
   combined_payroll <- bind_rows(combined_payroll, table)
 }
 
-
+# Replace "FLA" with "MIA" in the Team column
+combined_payroll <- combined_payroll %>%
+  mutate(Team = ifelse(Team == "FLA", "MIA", Team))
 combined_payroll <- combined_payroll %>%
   select(-Rank)
 
-# Assuming your data frame is named `df`
 combined_payroll <- combined_payroll %>%
   group_by(Year) %>%  # Group by Year
   arrange(Year, desc(Total.Payroll)) %>%  # Arrange by Year and Total.Payroll in descending order
   mutate(Payroll.Ranking = row_number()) %>%  # Create ranking column
   ungroup()  # Ungroup to return to original data frame structure
+
 
 
 ##################################################################################################################
@@ -276,13 +374,13 @@ combined_payroll <- combined_payroll %>%
 team_mapping <- data.frame(
   Abbreviation = c("ARI", "ATL", "BAL", "BOS", "CHC", "CIN", "CLE", "COL", "DET", "HOU",
                    "KC", "LAA", "LAD", "MIA", "MIL", "MIN", "NYM", "NYY", "OAK", "PHI",
-                   "PIT", "SD", "SEA", "SF", "STL", "TB", "TEX", "TOR", "WSH", "CHW"),
+                   "PIT", "SD", "SEA", "SF", "STL", "TB", "TEX", "TOR", "WSH", "CHW", "FLA"),
   Expanded = c("arizona-diamondbacks", "atlanta-braves", "baltimore-orioles", "boston-red-sox", "chicago-cubs",
                "cincinnati-reds", "cleveland-guardians", "colorado-rockies", "detroit-tigers", "houston-astros",
                "kansas-city-royals", "los-angeles-angels", "los-angeles-dodgers", "miami-marlins", "milwaukee-brewers",
                "minnesota-twins", "new-york-mets", "new-york-yankees", "oakland-athletics", "philadelphia-phillies",
                "pittsburgh-pirates", "san-diego-padres", "seattle-mariners", "san-francisco-giants", "st-louis-cardinals",
-               "tampa-bay-rays", "texas-rangers", "toronto-blue-jays", "washington-nationals", "chicago-white-sox")
+               "tampa-bay-rays", "texas-rangers", "toronto-blue-jays", "washington-nationals", "chicago-white-sox", "miami-marlins")
 )
 
 
@@ -364,10 +462,6 @@ season_record_data_list <- list()
 
 # Loop through each year from 2013 to 2023, excluding 2020
 for (year in 2011:2023) {
-  if (year == 2020) {
-    next  # Skip the year 2020
-  }
-  
   # Set the URL for the specific year's standings
   url_standings <- paste0('https://www.baseball-reference.com/leagues/majors/', year, '-standings.shtml')
   
@@ -456,23 +550,42 @@ combined_season_record <- map_dfr(season_record_data_list, ~ .x)
 # Combine all postseason data frames into one
 combined_postseason <- map_dfr(postseason_data_list, ~ .x)
 
-# Print the combined tables
-print("Combined Season Record Data:")
-print(combined_season_record)
 # Clean up the "Team" column
-combined_season_record$Team <- sapply(combined_season_record$Team, function(x) gsub("st\\.-louis-cardinals", "st-louis-cardinals", x))
+# Define a function to apply multiple replacements
+replace_team_names <- function(df) {
+  df %>%
+    mutate(
+      Team = gsub("st\\.-louis-cardinals", "st-louis-cardinals", Team),
+      Team = gsub("florida-marlins", "miami-marlins", Team),
+      Team = gsub("cleveland-indians", "cleveland-guardians", Team)
+    )
+}
+
+# Apply the function to your dataframe
+combined_season_record <- replace_team_names(combined_season_record)
 
 print("Combined Postseason Data:")
 print(combined_postseason)
 # Clean up the "Team" column
-combined_postseason$Winning_Team <- sapply(combined_postseason$Winning_Team, function(x) gsub("st\\.-louis-cardinals", "st-louis-cardinals", x))
-combined_postseason$Losing_Team <- sapply(combined_postseason$Losing_Team, function(x) gsub("st\\.-louis-cardinals", "st-louis-cardinals", x))
+# Define a function to apply multiple replacements
+replace_team_names <- function(df) {
+  df %>%
+    mutate(
+      Winning_Team = gsub("st\\.-louis-cardinals", "st-louis-cardinals", Winning_Team),
+      Losing_Team = gsub("st\\.-louis-cardinals", "st-louis-cardinals", Losing_Team),
+      Losing_Team = gsub("los-angeles-angels-of-anaheim", "los-angeles-angels", Losing_Team),
+      Winning_Team = gsub("los-angeles-angels-of-anaheim", "los-angeles-angels", Winning_Team),
+      Winning_Team = gsub("cleveland-indians", "cleveland-guardians", Winning_Team),
+      Losing_Team = gsub("cleveland-indians", "cleveland-guardians", Losing_Team)
+    )
+}
 
-
+# Apply the function to your dataframe
+combined_postseason <- replace_team_names(combined_postseason)
 ###########################
 # the Merged_df with the combined_season_record df
 # Merge based on the 'Team' and 'Year' columns
-final_merged_df <- merge(merged_df, combined_season_record, by = c("Team", "Year"))
+final_merged_df <- merge(merged_df, combined_season_record, by = c("Team", "Year"), all = TRUE)
 
 #Removing unneeded df's from global for RAM purposes
 # Names of the dataframes you want to keep
