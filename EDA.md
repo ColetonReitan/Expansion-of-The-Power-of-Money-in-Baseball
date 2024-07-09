@@ -115,7 +115,7 @@ ggplot(df, aes(x = Year, y = Total.Payroll / 1e6)) +
   scale_x_continuous(breaks = seq(min(df$Year), max(df$Year), by = 1))  # Include all years
 ```
 
-  ![](EDA_Images/EDA_Images/UpdatedBoxplot1.png)
+  ![](EDA_Images/UpdatedBoxplot1.png)
   
 ---
 Creating a boxplot for each year in one chart - this one is beautiful
@@ -134,7 +134,7 @@ ggplot(df, aes(x = as.factor(Year), y = Total.Payroll / 1000000)) +
         legend.position = "bottom")  # Adjust legend position
 ```
 
-  ![](EDA_Images/boxplottotalperyear.png)  
+  ![](EDA_Images/UpdatedBoxplot2.png)  
   
   This boxplot tells me that more teams are increasing their total payroll such that enough teams have increased payroll over this time so outliers no longer exist (in terms of team payroll) even the the maximum total payroll is at an all time high.
   Minimum payroll is not increasing by too much, telling me that there are larger discrepancies between teams and their payrolls. Would imagine sooner than later a minimum payroll would become the outlier. The median payroll kept a somewhat steady rise, 
