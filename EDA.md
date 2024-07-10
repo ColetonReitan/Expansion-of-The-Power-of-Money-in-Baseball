@@ -109,8 +109,6 @@ Quartile 75% value: $140,038,982 Year: 2017
 
 # Visualizations
 
-Plotting the Quartiles (with all years)  - This plot is messy but holds some insight
-
 ```r
 quartiles_millions <- as.numeric(quartiles) / 1e6
 quartile_data <- data.frame(
@@ -134,8 +132,9 @@ ggplot(df, aes(x = Year, y = Total.Payroll / 1e6)) +
 
   ![](EDA_Images/UpdatedBoxplot1.png)
   
+This plot shows the distribution of total payroll across years (2020 is an outlier year, there was a reduction in payroll leaguewide)
+
 ---
-Creating a boxplot for each year in one chart - this one is beautiful
 
 ```r
 #customization of the box plot
@@ -159,9 +158,6 @@ ggplot(df, aes(x = as.factor(Year), y = Total.Payroll / 1000000)) +
   
 ---
 
-### Analyzing the total payroll for each team that won the world series
-
-Total Payroll and year with team's shown by color (not best way to show this)
 ```r
 won_teams <- df[df$World.Series == "Won", ]
 aggregate_payroll <- aggregate(Total.Payroll ~ Team + Year, data = won_teams, FUN = function(x) x[1])
@@ -179,6 +175,8 @@ ggplot(aggregate_payroll, aes(x = Year, y = Total.Payroll / 1e6, fill = Team)) +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 ```
 ![](EDA_Images/wsteamcolor.png)
+
+This plot shows plainly the teams that have won the world series against their total payroll, with different colors marking different teams. There seems to be possibly a slight increase in the payroll of these teams.
 
 ---
 
