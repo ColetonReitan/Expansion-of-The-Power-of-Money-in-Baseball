@@ -32,6 +32,11 @@ The horror and beauty of payroll in baseball is that teams do not have to fear a
 I am currently workingthrough the methods portion of this project, and have recently started EDA
 
 ### EDA
+The exploratory data analysis portion of this project will be broken down into 4 separate analyses: 
+1)  League payroll (general)
+2)  World Series teams' (both winners and losers) payroll
+3)  Top 3rd, middle 3rd, and bottom 3rd team payroll ranking trends
+4)  Player and position payroll distribution
 
 ### Modeling
 
