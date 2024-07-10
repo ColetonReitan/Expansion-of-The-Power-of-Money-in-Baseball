@@ -159,6 +159,30 @@ ggplot(df, aes(x = as.factor(Year), y = Total.Payroll / 1000000)) +
 ---
 
 ```r
+# Yearly total payroll trend for all teams
+ggplot(df, aes(x = Year, y = Total.Payroll / 1e6, group = Team, color = Team)) +
+  geom_line() +
+  labs(title = "Total Payroll Trend by Team (2011-2023)",
+       x = "Year", y = "Total Payroll (Millions)") +
+  theme_minimal()
+
+# Yearly league average payroll trend
+ggplot(df, aes(x = Year, y = League.Average.Payroll / 1e6)) +
+  geom_line(color = "red", size = 1) +
+  labs(title = "League Average Payroll Trend (2011-2023)",
+       x = "Year", y = "League Average Payroll (Millions)") +
+  theme_minimal()
+```
+
+![](EDA_Images/allteamspayroll.png)
+
+![](EDA_Images/YearlyPayrollTrend.png)
+
+The first plot shows all teams yearly payrolls from 2011 to 2024. Not easy to understand when looking at it, so a second plot of league average payroll over the years was created. There is an evident increase in the yearly league average payroll, aside from the covid season. Will have to find a way to work with the covid data so that it does not influence my analysis in the wrong direction. 
+
+---
+
+```r
 won_teams <- df[df$World.Series == "Won", ]
 aggregate_payroll <- aggregate(Total.Payroll ~ Team + Year, data = won_teams, FUN = function(x) x[1])
 team_order <- aggregate_payroll[order(aggregate_payroll$Year), "Team"]
@@ -180,7 +204,6 @@ This plot shows plainly the teams that have won the world series against their t
 
 ---
 
-Showing the number of wins through color gradeient, total payroll on the axis, and league average payroll for each year denoted by the empty circle
 
 ```r
 # Filter data for teams that won the World Series
