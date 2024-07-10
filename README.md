@@ -89,6 +89,46 @@ There are currently 30 variables with nearly 20,000 observations that gives me a
 **NL Division Series**: Says how the team did in the NL Division Series for the specified year  
 **Wild Card Game**: Says how the team did in the Wild Card Game for the specified year  
 
+``` r
+df <- read.csv("C:/Users/colet/Documents/Personal Projects/Completed_MLB_Payroll_Data.csv")
+
+#Checking where the NA's are
+colSums(is.na(df))
+#Checking to make sure the datatypes are what they should be
+str(df)
+```
+```r
+> colSums(is.na(df))
+                  Team                   Year           Abbreviation        Payroll.Ranking          Total.Payroll 
+                     0                      0                      0                      0                      0 
+League.Average.Payroll  Previous.Year.Payroll Payroll.Percent.Change     Payroll.Difference         Active.Payroll 
+                     0                   1272                   1272                   1272                      0 
+               Injured               Retained                 Buried              Suspended                 Player 
+                  4542                    383                   2497                  19000                      0 
+                   Pos                    Exp                 Status         Payroll.Salary                   Type 
+                     0                   6503                   4431                     68                      0 
+           Average.Age                      W                      L                   W.L.           World.Series 
+                     0                   1250                   1250                   1250                      0 
+                  ALCS                   NLCS     AL.Division.Series     NL.Division.Series         Wild.Card.Game 
+                     0                      0                      0                      0                      0
+```
+
+It is expected for there to be missing values in Previous year payroll, percent change and difference for 2011 (there is
+no prior data).   
+The high amount of missing values in the suspended column is also expected and ok, there shouldnt be players getting suspended
+too often. Injured, retained, and buried are all expected to have missing values, as not every team has these parts of payroll every season.    
+Experience and status has some missing values due to data quality. There wasn't always consistency across the website in terms of these fields being filled for every player.    
+W, L, and W.L. should all have the same number of missing values, as these only pertain to the 2024 season (which will be predicted).   
+
+$ Team: chr - $ Year: int - $ Payroll.Ranking: int - $ Total.Payroll: int -   
+$ League.Average.Payroll: num - $ Previous.Year.Payroll : int - $ Payroll.Percent.Change: num    
+$ Payroll.Difference: int - $ Active.Payroll: int - $ Injured: num    
+$ Retained : num - $ Buried : num - $ Suspended: num - $ Player: chr    
+$ Pos: chr - $ Exp: num - $ Status: chr - $ Payroll.Salary : num    
+$ Type: chr - $ Average.Age: num - $ W: int - $ L: int - $ W.L.: num    
+$ World.Series: chr - $ ALCS : chr - $ NLCS: chr    
+$ AL.Division.Series: chr - $ NL.Division.Series: chr - $ Wild.Card.Game : chr
+
 ## More Research Questions
 
 ### Payroll Trends and Discrepancies:  
