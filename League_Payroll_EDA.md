@@ -143,6 +143,25 @@ The first plot shows all teams yearly payrolls from 2011 to 2024. Not easy to un
 ---
 
 ```r
+#Heatmap that shows total payroll for each team over the years
+ggplot(df, aes(x = Year, y = Team, fill = Total.Payroll / 1e6)) +
+  geom_tile() +
+  scale_fill_gradient(low = "light blue", high = "red") +
+  labs(title = "Total Payroll Trend by Team",
+       x = "Year",
+       y = "Team",
+       fill = "Total Payroll (Millions)") +
+  scale_x_continuous(breaks = seq(2011, max(df$Year)), limits = c(2010,2025)) +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1))
+```
+![](EDA_Images/payrollheatmap.png)
+
+This heatmap shows each team's total payroll from 2011 to 2024. This is a much more team specific way in understanding how each team's payroll has changed as well as how it compares to other team payrolls. 
+
+---
+
+```r
 won_teams <- df[df$World.Series == "Won", ]
 aggregate_payroll <- aggregate(Total.Payroll ~ Team + Year, data = won_teams, FUN = function(x) x[1])
 team_order <- aggregate_payroll[order(aggregate_payroll$Year), "Team"]
