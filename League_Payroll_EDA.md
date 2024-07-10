@@ -69,6 +69,9 @@ Quartile 75% value: $140,038,982 Year: 2017
 
 # Visualizations
 
+
+### Quartile Distributions
+
 ```r
 quartiles_millions <- as.numeric(quartiles) / 1e6
 quartile_data <- data.frame(
@@ -118,6 +121,8 @@ ggplot(df, aes(x = as.factor(Year), y = Total.Payroll / 1000000)) +
   
 ---
 
+### Total Payroll Trends
+
 ```r
 # Yearly total payroll trend for all teams
 ggplot(df, aes(x = Year, y = Total.Payroll / 1e6, group = Team, color = Team)) +
@@ -158,6 +163,44 @@ ggplot(df, aes(x = Year, y = Team, fill = Total.Payroll / 1e6)) +
 ![](EDA_Images/payrollheatmap.png)
 
 This heatmap shows each team's total payroll from 2011 to 2024. This is a much more team specific way in understanding how each team's payroll has changed as well as how it compares to other team payrolls. 
+
+---
+
+### Percent Change Trends
+
+```r
+# Filter data for relevant columns
+payroll_change <- df[, c("Team", "Year", "Payroll.Percent.Change")]
+# Plotting using ggplot2
+ggplot(payroll_change, aes(x = Year, y = Payroll.Percent.Change, group = Team, color = Team)) +
+  geom_line() +  # Line plot
+  geom_point(size = 2) +  # Points for each year
+  labs(x = "Year", y = "Payroll Percent Change (%)",
+       title = "Payroll Percent Change Over the Years",
+       color = "Team") +
+  theme_minimal() +
+  theme(legend.position = "top")  # Position legend at the top
+# Calculate league average percent change by year
+league_avg_change <- df %>%
+  group_by(Year) %>%
+  summarise(Avg_Payroll_Percent_Change = mean(Payroll.Percent.Change, na.rm = TRUE)) %>%
+  ungroup()
+# Print the first few rows to verify
+print(head(league_avg_change))
+# Plotting league average percent change
+ggplot(league_avg_change, aes(x = Year, y = Avg_Payroll_Percent_Change)) +
+  geom_line(color = "blue") +  # Line plot
+  geom_point(size = 2, color = "blue") +  # Points for each year
+  labs(x = "Year", y = "League Average Payroll Percent Change (%)",
+       title = "League Average Payroll Percent Change Over the Years") +
+  theme_minimal()
+```
+![](EDA_Images/leaguepctchg.png)
+
+![](EDA_Images/leagueavgpctchg.png)
+
+The first plot shows the percent change for all teams from one year to the next, while the second plot shows the average percent change for the entire league. It is evident that covid has caused an anomaly from 2020 to 2022. This must be taken into consideration before running machine learning analyses.   
+The plots do show a small decrease in league average percent change. This could help make sense of why there is a larger discrepancy between team total payrolls shown earlier, as there is less percent change per year but increases in the median average payroll.
 
 ---
 
