@@ -153,8 +153,8 @@ ggplot(df, aes(x = as.factor(Year), y = Total.Payroll / 1000000)) +
 
   ![](EDA_Images/UpdatedBoxplot2.png)  
   
-  This boxplot tells me that more teams are increasing their total payroll such that enough teams have increased payroll over this time so outliers no longer exist (in terms of team payroll) even the the maximum total payroll is at an all time high.
-  Minimum payroll is not increasing by too much, telling me that there are larger discrepancies between teams and their payrolls. Would imagine sooner than later a minimum payroll would become the outlier. The median payroll kept a somewhat steady rise, 
+  This boxplot tells me that more teams are increasing their total payroll such that enough teams have increased payroll over this time so outliers no longer exist (in terms of team payroll), even with the maximum total payroll being at an all time high over the past couple years.
+  Minimum payroll is not increasing by too much, telling me that there are larger discrepancies between teams with low and high ranked payrolls. Would imagine sooner than later a minimum payroll would become the outlier. The median payroll kept a somewhat steady rise, 
   showing that the league is trending in a direction that spends more on total payroll (as expected).
   
 ---
