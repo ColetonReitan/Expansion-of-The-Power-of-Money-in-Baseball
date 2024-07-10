@@ -72,10 +72,10 @@ print(paste("Minimum total payroll value:", min(df$Total.Payroll, na.rm = TRUE),
 print(paste("Maximum total payroll value:", max(df$Total.Payroll, na.rm = TRUE), "Year:", df$Year[which.max(df$Total.Payroll)]))
 ```
 
-Minimum League Average Payroll value: 61111950.1 Year: 2020    
-Maximum League Average Payroll value: 165757214.666667 Year: 2023    
-Minimum total payroll value: 23478635 Year: 2020  
-Maximum total payroll value: 343605067 Year: 2023   
+Minimum League Average Payroll value: $61,111,950 Year: 2020    
+Maximum League Average Payroll value: $165,757,214 Year: 2023    
+Minimum total payroll value: $23,478,635 Year: 2020  
+Maximum total payroll value: $343,605,067 Year: 2023   
 
 
 ```r
@@ -88,9 +88,9 @@ for (i in 1:length(quartiles)) {
   print(paste("Quartile", names(quartiles)[i], "value:", quartiles[i], "Year:", quartile_years[i]))
 }
 ```
-Quartile 25% value: 85269950 Year: 2024   
-Quartile 50% value: 116341526 Year: 2012    
-Quartile 75% value: 162160921 Year: 2015   
+Quartile 25% value: $85,269,950 Year: 2024   
+Quartile 50% value: $116,341,526 Year: 2012    
+Quartile 75% value: $162,160,921 Year: 2015   
 
 ```r
 #Compute quartiles for league average payroll
@@ -102,9 +102,9 @@ for (i in 1:length(quartiles)) {
   print(paste("Quartile", names(quartiles)[i], "value:", quartiles[i], "Year:", quartile_years[i]))
 }
 ```
-Quartile 25% value: 110697780.6 Year: 2013  
-Quartile 50% value: 133894290.63 Year: 2016    
-Quartile 75% value: 140038982.6 Year: 2017    
+Quartile 25% value: $110,697,780 Year: 2013  
+Quartile 50% value: $133,894,290 Year: 2016    
+Quartile 75% value: $140,038,982 Year: 2017    
 
 
 # Visualizations
