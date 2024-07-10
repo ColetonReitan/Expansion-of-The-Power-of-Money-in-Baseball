@@ -1,5 +1,5 @@
 ---
-# Exploratory Data Analysis of MLB Payroll Data
+# Exploratory Data Analysis of MLB League Payroll Data
 ---
 
 **Libraries Used:**   
