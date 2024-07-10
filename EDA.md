@@ -185,38 +185,44 @@ ggplot(aggregate_payroll, aes(x = Year, y = Total.Payroll / 1e6, fill = Team)) +
 Showing the number of wins through color gradeient, total payroll on the axis, and league average payroll for each year denoted by the empty circle
 
 ```r
+# Filter data for teams that won the World Series
 won_teams <- df[df$World.Series == "Won", ]
+# Summarize team statistics
 team_stats <- won_teams %>%
   group_by(Team, Abbreviation, Year) %>%
-  summarise(Total_Payroll = mean(Total.Payroll),  
-            Total_Wins = mean(W)) %>%  # total wins for each team in each year
-  ungroup()
+  summarise(Total_Payroll = mean(Total.Payroll, na.rm = TRUE),  
+            Win_Percentage = mean(W.L., na.rm = TRUE), .groups = 'drop')  # win percentage for each team in each year
+# Reorder teams by Win_Percentage
 team_stats <- team_stats %>%
-  mutate(Team = fct_reorder(Team, Total_Wins, .desc = TRUE))
-team_palette <- scale_fill_gradient(low = "yellow", high = "red",
-                                    limits = range(team_stats$Total_Wins),
+  mutate(Team = fct_reorder(Team, Win_Percentage, .desc = TRUE))
+
+# Define the new color gradient for Win_Percentage (blue to red)
+team_palette <- scale_fill_gradient(low = "blue", high = "red",
+                                    limits = range(team_stats$Win_Percentage),
                                     breaks = pretty_breaks(n = 5))
-ggplot(team_stats, aes(x = Year, y = Total_Payroll / 1e6, fill = Total_Wins, label = Abbreviation)) +
-  geom_bar(stat = "identity", position = "dodge") +
-  geom_point(aes(y = unique(df$League.Average.Payroll) / 1e6), color = "black", size = 3, shape = 1) +  # Add points for league average payroll
+# Average league payroll by year
+league_avg_payroll <- df %>%
+  group_by(Year) %>%
+  summarise(League_Average_Payroll = mean(League.Average.Payroll, na.rm = TRUE))
+# Plot the data
+ggplot() +
+  geom_bar(data = team_stats, aes(x = Year, y = Total_Payroll / 1e6, fill = Win_Percentage), stat = "identity", position = "dodge") +
+  geom_point(data = league_avg_payroll, aes(x = Year, y = League_Average_Payroll / 1e6), color = "black", size = 3, shape = 1) +  # Add points for league average payroll
   labs(x = "Year", y = "Total Payroll (Millions)",
        title = "Total Payroll vs. Year for Teams that Won the World Series",
-       fill = "Total Wins") +
-  team_palette +  # Use the custom color palette
+       fill = "Win Percentage") +
+  team_palette +  # Use the new custom color palette
   theme_minimal() +
   scale_y_continuous(labels = function(x) paste0(x, "M")) +  # Format y-axis labels in millions
   scale_x_continuous(breaks = seq(min(df$Year), max(df$Year), by = 1)) +  # Include all years
   theme(axis.text.x = element_text(angle = 45, hjust = 1)) +  # Rotate x-axis labels for better readability
-  geom_text(position = position_dodge(width = 0.9),    # Position dodge to match the bars
-            vjust = -0.5,                              # Adjust vertical position for better visibility
-            size = 3,                                  # Adjust text size
-            color = "black",                           # Text color
-            aes(label = Abbreviation))       
+  geom_text(data = team_stats, aes(x = Year, y = Total_Payroll / 1e6, label = Abbreviation), 
+            position = position_dodge(width = 0.9), vjust = -0.5, size = 3, color = "black")  # Adjust vertical position, text size, and color     
   
 ```
-![](EDA_Images/WSPayrollswAverage.png)  
+![](EDA_Images/wsPayrollWinpct.png)  
 
-There's been a steady increase in the payroll by the world champion team, yet the number of season wins these teams have are sporadic. The most important note on this plot is seeing that since 2011, only 3 teams that are below the league average payroll for the year 
-have actually won the world series. This should be an important identifier in determining a team's chances of winning the world series. 
+This plot shows the world series winning teams plotted against their total payroll, with the color mapping identifying their win percentage (the 2020 dodgers are an exception, as covid season lowered both games played and total payrolls). The league average payroll for that season is marked by the unfilled circle.   
+A slight increase can be seen in the total payroll of the teams that have won the world series, which should be expected with the increase in total payroll shown earlier. The win percentage for teams was also seen as sporadic. However, what remained consistent is that almost every team (aside from 3) have been above the league average payroll.
 
 ---
