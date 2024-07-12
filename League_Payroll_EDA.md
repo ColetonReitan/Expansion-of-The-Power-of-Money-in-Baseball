@@ -166,6 +166,24 @@ This heatmap shows each team's total payroll from 2011 to 2024. This is a much m
 
 ---
 
+```r
+# Plotting total payroll with winning percentage by color, faceted by team
+ggplot(df, aes(x = Year, y = Total.Payroll / 1e6, color = W.L.)) +
+  geom_point(size = 3, alpha = 0.7) +  # Scatter plot with constant size and adjusted transparency
+  facet_wrap(~ Team, labeller = as_labeller(function(x) str_wrap(x, width = 10))) +  # Facet by team
+  labs(x = "Year", y = "Total Payroll (Millions)",
+       title = "Total Payroll vs. Year with Winning Percentage by Team",
+       color = "Winning Percentage") +
+  scale_color_gradient(low = "blue", high = "red") +  # Color gradient for winning percentage
+  geom_smooth(method = "loess", se = FALSE) +  # Add smooth trend lines
+  theme_minimal() +
+  coord_cartesian(ylim = c(0, max(df$Total.Payroll / 1e6, na.rm = TRUE)))  # Set y-axis limits globally
+```
+
+![](EDA_Images/totalpayrollteamwins.png)
+
+This plot shows each team's individual total payroll over the years (in millions), including a trend line for the total payroll, as well as win percentage shown by the coloring of the circles. Looking across all the plots, it seems evident that teams with low losing percentages in early years that sharply increased their payroll also increased their winning percentage. 
+
 ### Percent Change Trends
 
 ```r
