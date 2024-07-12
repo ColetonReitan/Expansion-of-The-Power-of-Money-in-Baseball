@@ -4,6 +4,9 @@ library(stringr)
 library(tidyr)
 library(purrr)
 
+#https://www.spotrac.com/mlb/cleveland-guardians/overview/_/year/2014/sort/cap_total2
+#Guardians stat link
+
 # Specify the years you are interested in
 years <- c(2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024)
 
@@ -178,7 +181,7 @@ fetch_process_team_payroll <- function(team_slug, year, table_id_map, drop_colum
 }
 
 # Specify the years you are interested in
-years <- c(2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2021, 2022, 2023)
+years <- c(2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2021,2020, 2022, 2023, 2024)
 
 # Define table IDs based on number of tables present
 table_id_map <- list(
@@ -557,7 +560,8 @@ replace_team_names <- function(df) {
     mutate(
       Team = gsub("st\\.-louis-cardinals", "st-louis-cardinals", Team),
       Team = gsub("florida-marlins", "miami-marlins", Team),
-      Team = gsub("cleveland-indians", "cleveland-guardians", Team)
+      Team = gsub("cleveland-indians", "cleveland-guardians", Team),
+      Team = gsub("los-angeles-angels-of-anaheim", "los-angeles-angels", Team)
     )
 }
 
@@ -631,3 +635,10 @@ getwd()
 
 unique_values <- unique(final_merged_df$Team)
 print(unique_values)
+
+#############################################################################################
+#Making sure everything in the data looks right
+df <- read.csv("C:/Users/colet/Documents/Personal Projects/Completed_MLB_Payroll_Data.csv")
+colnames(df)
+colSums(is.na(df))
+#Everything looks good
