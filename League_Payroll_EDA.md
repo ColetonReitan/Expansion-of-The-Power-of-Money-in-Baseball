@@ -180,9 +180,9 @@ ggplot(df, aes(x = Year, y = Total.Payroll / 1e6, color = W.L.)) +
   coord_cartesian(ylim = c(0, max(df$Total.Payroll / 1e6, na.rm = TRUE)))  # Set y-axis limits globally
 ```
 
-![](EDA_Images/totalpayrollwinstrend.png)
+![](EDA_Images/totalpayrollwinsbyteam.png)
 
-This plot shows each team's individual total payroll over the years (in millions), including a trend line for the total payroll, as well as win percentage shown by the coloring of the circles. Looking across all the plots, it seems evident that teams with low losing percentages in early years that sharply increased their payroll also increased their winning percentage. 
+This plot shows each team's individual total payroll over the years (in millions), including a trend line for the total payroll, as well as win percentage shown by the coloring of the circles. Looking across all the plots, it seems evident that teams with low losing percentages in early years that sharply increased their payroll also increased their winning percentage. There could be an argument that for any teams that have red(ish) circles below the trend line were overachieving and any teams that had blue(ish) dots above the trend line were underachieving.
 
 ---
 
