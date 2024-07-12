@@ -238,7 +238,7 @@ ggplot(df, aes(x = Year, y = Payroll.Percent.Change, color = W.L.)) +
   coord_cartesian(ylim = c(-75, 75))  # Set y-axis limits globally
 ```
 
-![](EDA_Images/pctchgallteamswinsupdate.png)
+![](EDA_Images/PctChgwWinPct.png)
 
 This plot shows each indiviudal team's percent change over the years (with a trend line) as well the team's win percentage in form of color mapping on the circle (the grey circles denote this year, which has no win information). There is a lot of information held within this plot, but it is interesting to see how teams that had a smaller jump in percent change from covid typically don't do as well as the teams with the largers jumps. This may say something about increasing payroll from year to year and how it could help a team win. 
 
