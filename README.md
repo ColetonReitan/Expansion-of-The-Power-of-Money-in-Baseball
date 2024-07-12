@@ -8,7 +8,7 @@ The initial project was an 8-week long assignment for my "Data Visualization" Ma
 This project is my personal continuation and expansion of the Power of Money in Baseball. 
 
 ## Project Status
-As of 6/25/2024, I am currently working in the EDA phase of this analysis.
+As of 7/11/2024, I am currently working in the EDA phase of this analysis.
 
 
 ## Project Motivation
@@ -29,7 +29,7 @@ The horror and beauty of payroll in baseball is that teams do not have to fear a
   5. Are there league wide trends in payroll? If so, should teams be following them? 
 
 ## Methods
-I am currently working through the methods portion of this project
+I am currently working through part 2 of EDA (7/11/2024)
 
 ### EDA
 The exploratory data analysis portion of this project will be broken down into 4 separate analyses: 
