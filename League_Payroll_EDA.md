@@ -180,9 +180,11 @@ ggplot(df, aes(x = Year, y = Total.Payroll / 1e6, color = W.L.)) +
   coord_cartesian(ylim = c(0, max(df$Total.Payroll / 1e6, na.rm = TRUE)))  # Set y-axis limits globally
 ```
 
-![](EDA_Images/totalpayrollteamwins.png)
+![](EDA_Images/totalpayrollsznwins.png)
 
 This plot shows each team's individual total payroll over the years (in millions), including a trend line for the total payroll, as well as win percentage shown by the coloring of the circles. Looking across all the plots, it seems evident that teams with low losing percentages in early years that sharply increased their payroll also increased their winning percentage. 
+
+---
 
 ### Percent Change Trends
 
