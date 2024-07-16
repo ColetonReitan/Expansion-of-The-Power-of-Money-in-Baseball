@@ -136,4 +136,28 @@ Nearly 75% of all teams that had made the world series had a payroll ranking of 
 teams that made playoffs, only 35% had this payroll ranking. 
 It can also be seen that 38.5% of teams that have made the world series have a payroll ranking from 1st-5th, which is the highest percentage seen for any ranking bucket between the two tables.
 
+--- 
 
+```r
+playoff_summary <- playoff_teams %>%
+  summarise(
+    avg_total_payroll = mean(Total.Payroll, na.rm = TRUE),
+    median_total_payroll = median(Total.Payroll, na.rm = TRUE),
+    avg_payroll_percent_change = mean(Payroll.Percent.Change, na.rm = TRUE),
+    median_payroll_percent_change = median(Payroll.Percent.Change, na.rm = TRUE),
+    avg_payroll_difference = mean(Payroll.Difference, na.rm = TRUE),
+    median_payroll_ranking = median(Payroll.Ranking, na.rm = TRUE),
+    avg_win_percentage = mean(`W.L.`, na.rm = TRUE),
+    avg_wins = mean(W, na.rm = TRUE),
+    avg_losses = mean(L, na.rm = TRUE),
+    avg_age = mean(Average.Age, na.rm = TRUE),
+    avg_experience = mean(Exp, na.rm = TRUE),
+  )
+```
+avg_total_payroll | median_total_payroll | avg_payroll_percent_change | median_payroll_percent_change | avg_losses | avg_age
+-|-|-|-|-|-
+$148,149,017 | $140,926,169 | 20.74% | 12.88% | 64.8 | 28.3
+
+avg_payroll_difference | median_payroll_ranking | avg_win_percentage | avg_wins | avg_experience
+-|-|-|-|-
+$17,020,537 | 10 | 0.58 | 90.8 | 4.5
