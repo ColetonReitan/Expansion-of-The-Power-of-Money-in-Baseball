@@ -34,7 +34,7 @@ I am currently working through part 2 of EDA (7/11/2024)
 ### EDA
 The exploratory data analysis portion of this project will be broken down into 4 separate analyses: 
 1)  League payroll (general)
-2)  World Series teams' (both winners and losers) payroll
+2)  Playoff and World Series Teams' Payrolls
 3)  Top 3rd, middle 3rd, and bottom 3rd team payroll ranking trends
 4)  Player and position payroll distribution
 
