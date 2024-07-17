@@ -4,6 +4,14 @@
 This EDA will look into the payrolls of all teams that had made the playoffs from the years 2011 through 2023. The two teams that made the world series in each of these years will also be analyzed along the way.   
 A subsetted dataframe has been created to hold only data of teams that had made the playoffs along with a dataframe that holds only the data of the teams that made the world series. 
 
+**Libraries Used:**  
+library(ggplot2)  
+library(dplyr)  
+library(tidyr)  
+library(shiny)  
+library(scales)  
+library(forcats)  
+
 ```r
 # Create a new dataframe that only has teams which have made the playoffs
 playoff_teams <- df %>%
@@ -25,15 +33,6 @@ dnp_playoff_teams <- df %>%
 world_series_teams  <- df %>%
   filter(World.Series %in% c("Won", "Lost"))
 ```
-
-**Libraries Used:**  
-library(ggplot2)  
-library(dplyr)  
-library(tidyr)  
-library(shiny)  
-library(scales)  
-library(forcats)  
-
 
 
 # Summary Statistics
