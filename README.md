@@ -49,7 +49,7 @@ Data Collection is now fully complete! The webscraper is fully functional.
 
 #### Sources 
 - All data aside from a team's wins, losses & playoff game appearances was collected from the website spotrac, linked [here](https://www.spotrac.com/mlb).  
-- The data for the wins, losses & playoff game appearances was collected from the website baseball referenced, linked [here](https://www.baseball-reference.com/postseason/). The data being collected is for the seasons in years 2012 through 2023, with some possible forecasting insight into 2024.
+- The data for the wins, losses & playoff game appearances was collected from the website baseball referenced, linked [here](https://www.baseball-reference.com/postseason/). The data being collected is for the seasons in years 2011 through 2024, with some possible forecasting insight into 2024.
 
 #### Collection Method
 I built a web scraper from scratch using R to collect the necessary data. The web scraper not only imports the data into R but also cleans and merges it into one dataframe. The code for the web scraper can be found in this repository. I'm particularly proud of it.
