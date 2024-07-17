@@ -152,13 +152,18 @@ playoff_summary <- playoff_teams %>%
     median_payroll_percent_change = median(Payroll.Percent.Change, na.rm = TRUE),
     avg_payroll_difference = mean(Payroll.Difference, na.rm = TRUE),
     median_payroll_ranking = median(Payroll.Ranking, na.rm = TRUE),
+    avg_payroll_salary = mean(Payroll.Salary, na.rm=TRUE),
+    median_payroll_salary = median(Payroll.Salary, na.rm=TRUE),
     avg_win_percentage = mean(`W.L.`, na.rm = TRUE),
     avg_wins = mean(W, na.rm = TRUE),
     avg_losses = mean(L, na.rm = TRUE),
     avg_age = mean(Average.Age, na.rm = TRUE),
     avg_experience = mean(Exp, na.rm = TRUE),
+    avg_injured_payroll = mean(Injured, na.rm = TRUE),
+    avg_suspended_payroll = mean(Suspended, na.rm = TRUE)
   )
 ```
+(The code above only shows playoff summary, but the same is repeated for world series teams)  
 
 | Statistic                            | Playoff Team Summary       | World Series Team Summary   |
 |--------------------------------------|----------------------------|-----------------------------|
