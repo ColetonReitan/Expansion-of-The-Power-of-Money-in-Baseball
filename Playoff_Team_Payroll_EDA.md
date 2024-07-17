@@ -13,6 +13,14 @@ playoff_teams <- df %>%
            AL.Division.Series %in% c("Won", "Lost") |
            NL.Division.Series %in% c("Won", "Lost") |
            Wild.Card.Game %in% c("Won", "Lost"))
+# Create a new dataframe that only has teams which did not make the playoffs
+dnp_playoff_teams <- df %>%
+  filter(World.Series %in% c("DNP", "DNP") |
+           ALCS %in% c("DNP", "DNP") |
+           NLCS %in% c("DNP", "DNP") |
+           AL.Division.Series %in% c("DNP", "DNP") |
+           NL.Division.Series %in% c("DNP", "DNP") |
+           Wild.Card.Game %in% c("DNP", "DNP"))
 # Create a new dataframe that only has teams which have made the ws
 world_series_teams  <- df %>%
   filter(World.Series %in% c("Won", "Lost"))
@@ -50,29 +58,11 @@ payroll_bin_percentages <- unique_teams_per_year %>%
     Unique_Teams = n(),
     Percentage = (Unique_Teams / n_distinct(unique_teams_per_year)) * 100
   )
-
-# Define bins based on payroll rankings (Breaking down for world series teams)
-world_series_teams <- world_series_teams %>%
-  mutate(Payroll_Ranking_Bin = case_when(
-    Payroll.Ranking <= 5 ~ "Top 5",
-    Payroll.Ranking <= 10 ~ "Top 10",
-    Payroll.Ranking <= 15 ~ "Top 15",
-    Payroll.Ranking > 15 & Payroll.Ranking <= 30 ~ "Bottom 15",
-    TRUE ~ "Other"  # Handle any other cases if needed
-  ))
-# Ensure each team is counted once per year
-unique_teams_per_year <- world_series_teams %>%
-  distinct(Team, Year, .keep_all = TRUE)
-# Calculate the counts and percentages of unique teams in each bin
-payroll_bin_percentages <- unique_teams_per_year %>%
-  group_by(Payroll_Ranking_Bin) %>%
-  summarise(
-    Unique_Teams = n(),
-    Percentage = (Unique_Teams / n_distinct(unique_teams_per_year)) * 100
-  )
-
 ```
+(This code was repeated for world series and missed playoffs teams)  
+
 <div style="display: flex; justify-content: space-between;">
+  <!-- First table: Playoff Teams Payroll Ranking Breakdown -->
   <table>
     <tr>
       <th colspan="3">Playoff Teams Payroll Ranking Breakdown</th>
@@ -104,6 +94,7 @@ payroll_bin_percentages <- unique_teams_per_year %>%
     </tr>
   </table>
 
+  <!-- Second table: World Series Teams Payroll Ranking Breakdown -->
   <table>
     <tr>
       <th colspan="3">World Series Teams Payroll Ranking Breakdown</th>
@@ -134,12 +125,47 @@ payroll_bin_percentages <- unique_teams_per_year %>%
       <td>26.9%</td>
     </tr>
   </table>
+
+  <!-- Third table: DNP Breakdown -->
+  <table>
+    <tr>
+      <th colspan="3">Missed Playoffs Teams Breakdown</th>
+    </tr>
+    <tr>
+      <th>Payroll_Ranking_Bin</th>
+      <th>Unique_Teams</th>
+      <th>Percentage</th>
+    </tr>
+    <tr>
+      <td>Top 5</td>
+      <td>70</td>
+      <td>16.7%</td>
+    </tr>
+    <tr>
+      <td>Top 10</td>
+      <td>70</td>
+      <td>16.7%</td>
+    </tr>
+    <tr>
+      <td>Top 15</td>
+      <td>70</td>
+      <td>16.7%</td>
+    </tr>
+    <tr>
+      <td>Bottom 15</td>
+      <td>210</td>
+      <td>50%</td>
+    </tr>
+  </table>
 </div>
+
 
 From 2011 through 2023, nearly 65% of all teams that had made the playoffs had a payroll ranking of 1st-15th, whereas only 35% of teams in the playoffs had a payroll ranking from 16th-30th (which would be the bottom 15 payroll ranks).  
 Nearly 75% of all teams that had made the world series had a payroll ranking of 1st-15th, whereas about 25% of teams in the world series had a payroll ranking from 16th-30th. However, it is impressive that 25% of teams with a 15th-30th payroll ranking have made the world series, as of the 
-teams that made playoffs, only 35% had this payroll ranking. 
-It can also be seen that 38.5% of teams that have made the world series have a payroll ranking from 1st-5th, which is the highest percentage seen for any ranking bucket between the two tables.
+teams that made playoffs, only 35% had this payroll ranking.   
+It can also be seen that 38.5% of teams that have made the world series have a payroll ranking from 1st-5th, which is the highest percentage seen for any ranking bucket between the two tables.  
+50% of all teams that have not made the playoffs have a payroll ranking from 16th-30th, which should be an immediate signifier for teams to spend more money and try to stay out of the bottom 15 payroll rankings.   
+Simply looking at these tables may give early insight to one of the research questions, frankly stating yes, increasing payroll gives increased chances at making the playoffs as well as the world series. 
 
 --- 
 
