@@ -10,7 +10,13 @@ library(shiny)
 library(scales)  
 library(forcats)     
 
-
+```r
+#Creating a unique df so that the averages & medians aren't skewed. 
+f <- read.csv("C:/Users/colet/Documents/Personal Projects/Completed_MLB_Payroll_Data.csv")
+#creating unique df's
+df <- f %>%
+  distinct(Team, Year, .keep_all = TRUE)
+```
 # Summary Statistics
 
 ```r
@@ -19,24 +25,27 @@ mean(df$Total.Payroll)
 median(df$League.Average.Payroll)
 median(df$Total.Payroll)
 ```
+| Statistic                        | Value          |
+|----------------------------------|----------------|
+| Mean of League Average Payroll   | $127,898,303   |
+| Mean of Total Payroll            | $127,898,303   |
+| Median of League Average Payroll | $132,257,230   |
+| Median of Total Payroll          | $116,375,246   |
 
-Mean of league average payroll - $128,717,202  
-Mean of Total Payroll - $127,951,682 (Expected to be very very close to the same number)  
-Median of League average payroll - $133,894,291
-Median of total payroll - $116,341,526  
 
 ```r
 print(paste("Minimum League Average Payroll value:", min(df$League.Average.Payroll, na.rm = TRUE), "Year:", df$Year[which.min(df$League.Average.Payroll)]))
 print(paste("Maximum League Average Payroll value:", max(df$League.Average.Payroll, na.rm = TRUE), "Year:", df$Year[which.max(df$League.Average.Payroll)]))
 print(paste("Minimum total payroll value:", min(df$Total.Payroll, na.rm = TRUE), "Year:", df$Year[which.min(df$Total.Payroll)]))
 print(paste("Maximum total payroll value:", max(df$Total.Payroll, na.rm = TRUE), "Year:", df$Year[which.max(df$Total.Payroll)]))
-```
+```  
 
-Minimum League Average Payroll value: $61,111,950 Year: 2020    
-Maximum League Average Payroll value: $165,757,214 Year: 2023    
-Minimum total payroll value: $23,478,635 Year: 2020  
-Maximum total payroll value: $343,605,067 Year: 2023   
-
+| Statistic                                   | Value                | Year |
+|---------------------------------------------|----------------------|------|
+| Minimum League Average Payroll value        | $61,111,950.10       | 2020 |
+| Maximum League Average Payroll value        | $165,757,214.67      | 2023 |
+| Minimum Total Payroll value                 | $23,478,635          | 2020 |
+| Maximum Total Payroll value                 | $343,605,067         | 2023 |
 
 ```r
 # Compute quartiles for Total Payroll
@@ -48,9 +57,12 @@ for (i in 1:length(quartiles)) {
   print(paste("Quartile", names(quartiles)[i], "value:", quartiles[i], "Year:", quartile_years[i]))
 }
 ```
-Quartile 25% value: $85,269,950 Year: 2024   
-Quartile 50% value: $116,341,526 Year: 2012    
-Quartile 75% value: $162,160,921 Year: 2015   
+| Quartile         | Value            | Year |
+|------------------|------------------|------|
+| Quartile 25%     | $85,452,275.50   | 2017 |
+| Quartile 50%     | $116,375,246      | 2012 |
+| Quartile 75%     | $162,233,952.25  | 2015 |
+  
 
 ```r
 #Compute quartiles for league average payroll
@@ -61,11 +73,13 @@ quartile_years <- sapply(quartiles, function(x) df$Year[which.min(abs(df$League.
 for (i in 1:length(quartiles)) {
   print(paste("Quartile", names(quartiles)[i], "value:", quartiles[i], "Year:", quartile_years[i]))
 }
-```
-Quartile 25% value: $110,697,780 Year: 2013  
-Quartile 50% value: $133,894,290 Year: 2016    
-Quartile 75% value: $140,038,982 Year: 2017    
+```  
 
+| Quartile         | Value                | Year |
+|------------------|----------------------|------|
+| Quartile 25%     | $110,697,780.60      | 2013 |
+| Quartile 50%     | $132,257,230.43      | 2016 |
+| Quartile 75%     | $140,038,982.60      | 2017 |
 
 # Visualizations
 
