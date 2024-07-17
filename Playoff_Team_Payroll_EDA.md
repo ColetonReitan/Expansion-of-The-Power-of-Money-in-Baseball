@@ -15,11 +15,11 @@ playoff_teams <- df %>%
            Wild.Card.Game %in% c("Won", "Lost"))
 # Create a new dataframe that only has teams which did not make the playoffs
 dnp_playoff_teams <- df %>%
-  filter(World.Series %in% c("DNP", "DNP") |
-           ALCS %in% c("DNP", "DNP") |
-           NLCS %in% c("DNP", "DNP") |
-           AL.Division.Series %in% c("DNP", "DNP") |
-           NL.Division.Series %in% c("DNP", "DNP") |
+  filter(World.Series %in% c("DNP", "DNP") &
+           ALCS %in% c("DNP", "DNP") &
+           NLCS %in% c("DNP", "DNP") &
+           AL.Division.Series %in% c("DNP", "DNP") &
+           NL.Division.Series %in% c("DNP", "DNP") &
            Wild.Card.Game %in% c("DNP", "DNP"))
 # Create a new dataframe that only has teams which have made the ws
 world_series_teams  <- df %>%
@@ -39,8 +39,8 @@ library(forcats)
 # Summary Statistics
 
 ```r
-# Define bins based on payroll rankings (Breaking down for playoff teams)
-playoff_teams <- playoff_teams %>%
+#Define bins based on payroll rankings
+unique_playoff <- unique_playoff %>%
   mutate(Payroll_Ranking_Bin = case_when(
     Payroll.Ranking <= 5 ~ "Top 5",
     Payroll.Ranking <= 10 ~ "Top 10",
@@ -48,15 +48,12 @@ playoff_teams <- playoff_teams %>%
     Payroll.Ranking > 15 & Payroll.Ranking <= 30 ~ "Bottom 15",
     TRUE ~ "Other"  # Handle any other cases if needed
   ))
-# Ensure each team is counted once per year
-unique_teams_per_year <- playoff_teams %>%
-  distinct(Team, Year, .keep_all = TRUE)
 # Calculate the counts and percentages of unique teams in each bin
-payroll_bin_percentages <- unique_teams_per_year %>%
+payroll_bin_percentages <- unique_playoff %>%
   group_by(Payroll_Ranking_Bin) %>%
   summarise(
     Unique_Teams = n(),
-    Percentage = (Unique_Teams / n_distinct(unique_teams_per_year)) * 100
+    Percentage = (Unique_Teams / n_distinct(unique_playoff)) * 100
   )
 ```
 (This code was repeated for world series and missed playoffs teams)  
@@ -138,23 +135,23 @@ payroll_bin_percentages <- unique_teams_per_year %>%
     </tr>
     <tr>
       <td>Top 5</td>
-      <td>70</td>
-      <td>16.7%</td>
+      <td>35</td>
+      <td>11.7%</td>
     </tr>
     <tr>
       <td>Top 10</td>
-      <td>70</td>
-      <td>16.7%</td>
+      <td>44</td>
+      <td>14.8%</td>
     </tr>
     <tr>
       <td>Top 15</td>
-      <td>70</td>
-      <td>16.7%</td>
+      <td>51</td>
+      <td>17.1%</td>
     </tr>
     <tr>
       <td>Bottom 15</td>
-      <td>210</td>
-      <td>50%</td>
+      <td>168</td>
+      <td>56.4%</td>
     </tr>
   </table>
 </div>
@@ -163,8 +160,8 @@ payroll_bin_percentages <- unique_teams_per_year %>%
 From 2011 through 2023, nearly 65% of all teams that had made the playoffs had a payroll ranking of 1st-15th, whereas only 35% of teams in the playoffs had a payroll ranking from 16th-30th (which would be the bottom 15 payroll ranks).  
 Nearly 75% of all teams that had made the world series had a payroll ranking of 1st-15th, whereas about 25% of teams in the world series had a payroll ranking from 16th-30th. However, it is impressive that 25% of teams with a 15th-30th payroll ranking have made the world series, as of the 
 teams that made playoffs, only 35% had this payroll ranking.   
-It can also be seen that 38.5% of teams that have made the world series have a payroll ranking from 1st-5th, which is the highest percentage seen for any ranking bucket between the two tables.  
-50% of all teams that have not made the playoffs have a payroll ranking from 16th-30th, which should be an immediate signifier for teams to spend more money and try to stay out of the bottom 15 payroll rankings.   
+It can also be seen that 38.5% of teams that have made the world series have a payroll ranking from 1st-5th, which is the second highest percentage seen for any ranking bucket between the three tables.  
+56% of all teams that have not made the playoffs have a payroll ranking from 16th-30th, which should be an immediate signifier for teams to spend more money and try to stay out of the bottom 15 payroll rankings.   
 Simply looking at these tables may give early insight to one of the research questions, frankly stating yes, increasing payroll gives increased chances at making the playoffs as well as the world series. 
 
 --- 
@@ -191,25 +188,25 @@ playoff_summary <- playoff_teams %>%
 ```
 (The code above only shows playoff summary, but the same is repeated for world series and whole league stats)  
 
-| Statistic                            | Playoff Team Summary       | World Series Team Summary   | Whole League Team Summary  |
-|--------------------------------------|----------------------------|-----------------------------|----------------------------|
-| **Average Total Payroll**            | $148,149,017               | $157,277,259                | $127,951,682               |
-| **Median Total Payroll**             | $140,926,169               | $143,782,286                | $116,341,526               |
-| **Average Payroll Percent Change**   | 20.74%                     | 21.91%                      | 11.54%                     |
-| **Median Payroll Percent Change**    | 12.88%                     | 15.54%                      | 6.14%                      |
-| **Average Payroll Difference**       | $17,020,537                | $18,365,042                 | $5,619,189                 |
-| **Median Payroll Ranking**           | 10                         | 7                           | 16                         |
-| **Average Payroll Salary**           | $3,564,169                 | $3,817,308                  | $3,025,691                 |
-| **Median Payroll Salary**            | $720,000                   | $750,000                    | $702,500                   |
-| **Average Win Percentage**           | 58.32%                     | 59.22%                      | 49.68%                     |
-| **Average Wins**                     | 90.82                      | 91.65                       | 77.05                      |
-| **Average Losses**                   | 64.86                      | 64.14                       | 78.01                      |
-| **Average Age**                      | 28.39                      | 28.41                       | 27.87                      |
-| **Average Experience**               | 4.55                       | 4.59                        | 3.94                       |
-| **Average Injured Payroll**          | $13,933,589                | $14,882,149                 | $18,805,694                |
-| **Average Suspended Payroll**        | $3,496,710                 | $1,000,000                  | $2,928,907                 |
-| **Average Retained Payroll**         | $13,577,089                | $14,901,214                 | $18,420,435                |
 
-The monetary summaries are the most important values to observe when looking across with the whole league summary. Clearly, there is a trend of teams that spend more money, have a greater chance of making the playoffs (and world series) than teams that don't. It is interesting to
+| Statistic                         | Entire League           | Missed Playoffs Teams   | Playoff Teams           | World Series Teams     |
+|-----------------------------------|-------------------------|-------------------------|-------------------------|------------------------|
+| Average Total Payroll             | $127,898,303            | $120,415,453            | $146,176,085            | $154,443,976           |
+| Median Total Payroll              | $116,375,246            | $107,927,389            | $139,541,596            | $141,063,248           |
+| Average Payroll Percent Change    | 10.85%                  | 6.91%                   | 20.38%                  | 21.38%                 |
+| Median Payroll Percent Change     | 6.20%                   | 3.58%                   | 11.96%                  | 15.54%                 |
+| Average Payroll Difference        | $4,958,453              | $211,068                | $16,452,121             | $18,238,098            |
+| Median Payroll Ranking            | 15.50                   | 17.50                   | 10.50                   | 7.50                   |
+| Average Win Percentage            | 50.00%                  | 46.20%                  | 58.35%                  | 59.39%                 |
+| Average Wins                      | 77.06                   | 70.90                   | 90.58                   | 90.73                  |
+| Average Losses                    | 77.06                   | 82.66                   | 64.75                   | 63.35                  |
+| Average Age                       | 27.90                   | 27.70                   | 28.39                   | 28.40                  |
+| Average Experience                | 4.99                    | 4.84                    | 5.32                    | 6.74                   |
+| Average Injured Payroll           | $18,584,416             | $20,466,164             | $13,721,471             | $15,277,480            |
+| Average Suspended Payroll         | $2,902,534              | $2,704,669              | $3,463,154              | $1,000,000             |
+| Average Retained Payroll          | $17,433,342             | $19,306,988             | $12,725,207             | $14,224,511            |
+
+
+The monetary summaries are the most important values to observe when looking across with the whole league summary. Clearly, there is a trend of teams that spend more money have a greater chance of making the playoffs (and world series) than teams that don't. It is interesting to
 see that the average and median percent chnage is highest for world series teams, which could speak towards teams spending more money and acquiring free agent talent in the offseason, which could be the difference maker for a team to make it that far. Another interesting aspect is that 
-world series and playoff teams seem to spend less money on players that don't play - what is meant by that is the combined payroll of injured, suspended and retained for playoff and world series teams is much lower than that of the league as a whole. 
+world series and playoff teams seem to spend less money on players that don't play - what is meant by that is the combined payroll of injured, suspended and retained for playoff and world series teams is much lower than that of teams that did not make playoffs.  
