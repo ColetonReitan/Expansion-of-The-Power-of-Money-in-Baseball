@@ -163,24 +163,27 @@ playoff_summary <- playoff_teams %>%
     avg_suspended_payroll = mean(Suspended, na.rm = TRUE)
   )
 ```
-(The code above only shows playoff summary, but the same is repeated for world series teams)  
+(The code above only shows playoff summary, but the same is repeated for world series and whole league stats)  
 
-| Statistic                            | Playoff Team Summary       | World Series Team Summary   |
-|--------------------------------------|----------------------------|-----------------------------|
-| **Average Total Payroll**            | $148,149,017               | $157,277,259                |
-| **Median Total Payroll**             | $140,926,169               | $143,782,286                |
-| **Average Payroll Percent Change**   | 20.74%                     | 21.91%                      |
-| **Median Payroll Percent Change**    | 12.88%                     | 15.54%                      |
-| **Average Payroll Difference**       | $17,020,537                | $18,365,042                 |
-| **Median Payroll Ranking**           | 10                         | 7                           |
-| **Average Payroll Salary**           | $3,564,169                 | $3,817,308                  |
-| **Median Payroll Salary**            | $720,000                   | $750,000                    |
-| **Average Win Percentage**           | 58.32%                     | 59.22%                      |
-| **Average Wins**                     | 90.82                      | 91.65                       |
-| **Average Losses**                   | 64.86                      | 64.14                       |
-| **Average Age**                      | 28.39                      | 28.41                       |
-| **Average Experience**               | 4.55                       | 4.59                        |
-| **Average Injured Payroll**          | $13,933,589                | $14,882,149                 |
-| **Average Suspended Payroll**        | $3,496,710                 | $1,000,000                  |
+| Statistic                            | Playoff Team Summary       | World Series Team Summary   | Whole League Team Summary  |
+|--------------------------------------|----------------------------|-----------------------------|----------------------------|
+| **Average Total Payroll**            | $148,149,017               | $157,277,259                | $127,951,682               |
+| **Median Total Payroll**             | $140,926,169               | $143,782,286                | $116,341,526               |
+| **Average Payroll Percent Change**   | 20.74%                     | 21.91%                      | 11.54%                     |
+| **Median Payroll Percent Change**    | 12.88%                     | 15.54%                      | 6.14%                      |
+| **Average Payroll Difference**       | $17,020,537                | $18,365,042                 | $5,619,189                 |
+| **Median Payroll Ranking**           | 10                         | 7                           | 16                         |
+| **Average Payroll Salary**           | $3,564,169                 | $3,817,308                  | $3,025,691                 |
+| **Median Payroll Salary**            | $720,000                   | $750,000                    | $702,500                   |
+| **Average Win Percentage**           | 58.32%                     | 59.22%                      | 49.68%                     |
+| **Average Wins**                     | 90.82                      | 91.65                       | 77.05                      |
+| **Average Losses**                   | 64.86                      | 64.14                       | 78.01                      |
+| **Average Age**                      | 28.39                      | 28.41                       | 27.87                      |
+| **Average Experience**               | 4.55                       | 4.59                        | 3.94                       |
+| **Average Injured Payroll**          | $13,933,589                | $14,882,149                 | $18,805,694                |
+| **Average Suspended Payroll**        | $3,496,710                 | $1,000,000                  | $2,928,907                 |
+| **Average Retained Payroll**         | $13,577,089                | $14,901,214                 | $18,420,435                |
 
-
+The monetary summaries are the most important values to observe when looking across with the whole league summary. Clearly, there is a trend of teams that spend more money, have a greater chance of making the playoffs (and world series) than teams that don't. It is interesting to
+see that the average and median percent chnage is highest for world series teams, which could speak towards teams spending more money and acquiring free agent talent in the offseason, which could be the difference maker for a team to make it that far. Another interesting aspect is that 
+world series and playoff teams seem to spend less money on players that don't play - what is meant by that is the combined payroll of injured, suspended and retained for playoff and world series teams is much lower than that of the league as a whole. 
