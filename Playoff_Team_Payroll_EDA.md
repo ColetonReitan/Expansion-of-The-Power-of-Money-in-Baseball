@@ -1,8 +1,8 @@
 ---
 # Exploratory Data Analysis of Playoff and World Series Teams' Payroll Data
 ---
-This EDA will look into the payrolls of all teams that had made the playoffs from the years 2011 through 2023. The two teams that made the world series in each of these years will also be analyzed along the way.   
-A subsetted dataframe has been created to hold only data of teams that had made the playoffs along with a dataframe that holds only the data of the teams that made the world series. 
+This EDA will look into the payrolls of all teams that had made the playoffs from the years 2011 through 2023 (important to note 2024 data will not be in this EDA) separately from the teams that did not make the playoffs each year. The two teams that made the world series in each of these years will also be analyzed along the way.   
+Subsetted dataframes have been created to hold data of playoff, world series, and non-playoff teams.  
 
 **Libraries Used:**  
 library(ggplot2)  
@@ -134,23 +134,23 @@ payroll_bin_percentages <- unique_playoff %>%
     </tr>
     <tr>
       <td>Top 5</td>
-      <td>35</td>
-      <td>11.7%</td>
+      <td>30</td>
+      <td>11.2%</td>
     </tr>
     <tr>
       <td>Top 10</td>
-      <td>44</td>
-      <td>14.8%</td>
+      <td>39</td>
+      <td>14.6%</td>
     </tr>
     <tr>
       <td>Top 15</td>
-      <td>51</td>
-      <td>17.1%</td>
+      <td>46</td>
+      <td>17.2%</td>
     </tr>
     <tr>
       <td>Bottom 15</td>
-      <td>168</td>
-      <td>56.4%</td>
+      <td>153</td>
+      <td>57.1%</td>
     </tr>
   </table>
 </div>
@@ -190,22 +190,31 @@ playoff_summary <- playoff_teams %>%
 
 | Statistic                         | Entire League           | Missed Playoffs Teams   | Playoff Teams           | World Series Teams     |
 |-----------------------------------|-------------------------|-------------------------|-------------------------|------------------------|
-| Average Total Payroll             | $127,898,303            | $120,415,453            | $146,176,085            | $154,443,976           |
-| Median Total Payroll              | $116,375,246            | $107,927,389            | $139,541,596            | $141,063,248           |
-| Average Payroll Percent Change    | 10.85%                  | 6.91%                   | 20.38%                  | 21.38%                 |
-| Median Payroll Percent Change     | 6.20%                   | 3.58%                   | 11.96%                  | 15.54%                 |
-| Average Payroll Difference        | $4,958,453              | $211,068                | $16,452,121             | $18,238,098            |
-| Median Payroll Ranking            | 15.50                   | 17.50                   | 10.50                   | 7.50                   |
+| Average Total Payroll             | $125,002,065            | $115,363,146            | $146,176,085            | $154,443,976           |
+| Median Total Payroll              | $115,521,847            | $105,327,192            | $139,541,596            | $141,063,248           |
+| Average Payroll Percent Change    | 11.47%                  | 7.35%                   | 20.38%                  | 21.38%                 |
+| Median Payroll Percent Change     | 6.49%                   | 3.38%                   | 11.96%                  | 15.54%                 |
+| Average Payroll Difference        | $5,388,975              | $262,152                | $16,452,121             | $18,238,098            |
+| Median Payroll Ranking            | 15.50                   | 18.00                   | 10.50                   | 7.50                   |
 | Average Win Percentage            | 50.00%                  | 46.20%                  | 58.35%                  | 59.39%                 |
 | Average Wins                      | 77.06                   | 70.90                   | 90.58                   | 90.73                  |
 | Average Losses                    | 77.06                   | 82.66                   | 64.75                   | 63.35                  |
-| Average Age                       | 27.90                   | 27.70                   | 28.39                   | 28.40                  |
-| Average Experience                | 4.99                    | 4.84                    | 5.32                    | 6.74                   |
-| Average Injured Payroll           | $18,584,416             | $20,466,164             | $13,721,471             | $15,277,480            |
-| Average Suspended Payroll         | $2,902,534              | $2,704,669              | $3,463,154              | $1,000,000             |
-| Average Retained Payroll          | $17,433,342             | $19,306,988             | $12,725,207             | $14,224,511            |
+| Average Age                       | 27.85                   | 27.60                   | 28.39                   | 28.40                  |
+| Average Experience                | 4.75                    | 4.47                    | 5.32                    | 6.74                   |
+| Average Injured Payroll           | $16,337,702             | $17,501,925             | $13,721,471             | $15,277,480            |
+| Average Suspended Payroll         | $3,289,866              | $3,215,600              | $3,463,154              | $1,000,000             |
+| Average Retained Payroll          | $17,661,419             | $19,849,059             | $12,725,207             | $14,224,511            |
+
 
 
 The monetary summaries are the most important values to observe when looking across with the whole league summary. Clearly, there is a trend of teams that spend more money have a greater chance of making the playoffs (and world series) than teams that don't. It is interesting to
 see that the average and median percent chnage is highest for world series teams, which could speak towards teams spending more money and acquiring free agent talent in the offseason, which could be the difference maker for a team to make it that far. Another interesting aspect is that 
 world series and playoff teams seem to spend less money on players that don't play - what is meant by that is the combined payroll of injured, suspended and retained for playoff and world series teams is much lower than that of teams that did not make playoffs.  
+
+---
+
+| Quartile         | Value                | Year |
+|------------------|----------------------|------|
+| Quartile 25%     | $100,231,573.25      | 2015 |
+| Quartile 50%     | $139,541,596.50      | 2017 |
+| Quartile 75%     | $182,868,384.75      | 2022 |
