@@ -629,6 +629,26 @@ for (series in playoff_series) {
   })
 }
 
+#Adding additional PlayoffStatus Column
+# Create the new variable based on the conditions
+final_merged_df <- final_merged_df %>%
+  mutate(Playoff_Status = case_when(
+    World.Series == "Won" ~ 5,
+    World.Series == "Lost" ~ 4,
+    ALCS == "Won" ~ 4,
+    ALCS == "Lost" ~ 3,
+    NLCS == "Won" ~ 4,
+    NLCS == "Lost" ~ 3,
+    AL.Division.Series == "Won" ~ 3,
+    AL.Division.Series == "Lost" ~ 2,
+    NL.Division.Series == "Won" ~ 3,
+    NL.Division.Series == "Lost" ~ 2,
+    Wild.Card.Game == "Won" ~ 2,
+    Wild.Card.Game == "Lost" ~ 1,
+    TRUE ~ 0  # DNP or any other cases
+  ))
+
+                             
 # Save dataframe to a CSV file
 write.csv(final_merged_df, file = "Completed_MLB_Payroll_Data.csv", row.names = FALSE)
 getwd()
