@@ -9,7 +9,11 @@ library(forcats)
 #install.packages("ggplotly")
 #library(ggplotly)
 
-df <- read.csv("C:/Users/colet/Documents/Personal Projects/Completed_MLB_Payroll_Data.csv")
+f <- read.csv("C:/Users/colet/Documents/Personal Projects/Completed_MLB_Payroll_Data.csv")
+#creating unique df's
+df <- f %>%
+  distinct(Team, Year, .keep_all = TRUE)
+
 colnames(df)
 
 print(which(is.na(df$Previous.Year.Payroll)))
@@ -235,6 +239,3 @@ ggplot(df, aes(x = Year, y = Total.Payroll / 1e6, color = W.L.)) +
   geom_smooth(method = "loess", se = FALSE) +  # Add smooth trend lines
   theme_minimal() +
   coord_cartesian(ylim = c(0, max(df$Total.Payroll / 1e6, na.rm = TRUE)))  # Set y-axis limits globally
-
-
-
