@@ -258,28 +258,6 @@ This plot shows each indiviudal team's percent change over the years (with a tre
 
 ---
 
-```r
-won_teams <- df[df$World.Series == "Won", ]
-aggregate_payroll <- aggregate(Total.Payroll ~ Team + Year, data = won_teams, FUN = function(x) x[1])
-team_order <- aggregate_payroll[order(aggregate_payroll$Year), "Team"]
-aggregate_payroll$Team <- factor(aggregate_payroll$Team, levels = unique(aggregate_payroll$Team))
-team_palette <- scale_fill_manual(values = colorRampPalette(c("blue", "red"))(length(unique(aggregate_payroll$Team))))
-ggplot(aggregate_payroll, aes(x = Year, y = Total.Payroll / 1e6, fill = Team)) +
-  geom_bar(stat = "identity") +
-  labs(x = "Year", y = "Total Payroll (Millions)",
-       title = "Total Payroll for Teams that Won the World Series",
-       fill = "Team") +
-  team_palette +  # Use the custom color palette
-  theme_minimal() +
-  scale_y_continuous(labels = function(x) paste0(x, "M")) +  # Format y-axis labels in millions
-  theme(axis.text.x = element_text(angle = 45, hjust = 1))
-```
-![](EDA_Images/wsteamcolor.png)
-
-This plot shows plainly the teams that have won the world series against their total payroll, with different colors marking different teams. There seems to be possibly a slight increase in the payroll of these teams.
-
----
-
 
 ```r
 # Filter data for teams that won the World Series
