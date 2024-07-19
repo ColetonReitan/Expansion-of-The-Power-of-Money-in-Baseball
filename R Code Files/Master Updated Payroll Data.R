@@ -9,7 +9,6 @@ library(purrr)
 
 # Specify the years you are interested in
 years <- c(2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024)
-
 # List of MLB teams (replace with the actual list of teams or scrape it from the website)
 teams <- c("arizona-diamondbacks", "atlanta-braves", "baltimore-orioles",
            "boston-red-sox", "chicago-white-sox", "chicago-cubs",
@@ -44,8 +43,10 @@ list_of_dfs <- list()
 
 # Loop through each team
 for (team_slug in teams) {
+  print(team_slug)
   # Loop through each year
   for (year in years) {
+    print(year)
     # Construct the URL for the specific team and year
     url <- paste0("https://www.spotrac.com/mlb/", team_slug, "/payroll/", year, "/")
     
@@ -403,6 +404,14 @@ merged_df <- merged_df %>%
     Team = Expanded,
   )
 
+##################################################################################################
+merged_df <- merged_df %>%
+  group_by(Team, Year) %>%
+  mutate(Total.Payroll = ifelse(Year == 2020,
+                                sum(Payroll.Salary, na.rm = TRUE),
+                                Total.Payroll)) %>%
+  ungroup()  # Ungroup after operation
+
 ##############################################################################################################################################
 #Including the manually calculated features into the dataframe
 #League Average Payroll, (team) Previous Year Payroll, Payroll Percent Change, & Difference from Previous Year Payroll
@@ -648,9 +657,9 @@ final_merged_df <- final_merged_df %>%
     TRUE ~ 0  # DNP or any other cases
   ))
 
-                             
+
 # Save dataframe to a CSV file
-write.csv(final_merged_df, file = "Completed_MLB_Payroll_Data.csv", row.names = FALSE)
+#write.csv(final_merged_df, file = "Completed_MLB_Payroll_Data.csv", row.names = FALSE)
 getwd()
 
 unique_values <- unique(final_merged_df$Team)
@@ -662,11 +671,5 @@ df <- read.csv("C:/Users/colet/Documents/Personal Projects/Completed_MLB_Payroll
 colnames(df)
 colSums(is.na(df))
 #Everything looks good
-
-
-
-
-
-
 
 
