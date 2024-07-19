@@ -55,7 +55,7 @@ Data Collection is now fully complete! The webscraper is fully functional.
 I built a web scraper from scratch using R to collect the necessary data. The web scraper not only imports the data into R but also cleans and merges it into one dataframe. The code for the web scraper can be found in this repository. I'm particularly proud of it.
 
 #### Variable Description
-There are currently 30 variables with nearly 20,000 observations that gives me almost 600,000 total values.
+There are currently 31 variables with nearly 20,000 observations that gives me almost 600,000 total values.
 
 **Team**: Team Name  
 **Abbreviation**: Team Name Abbreviation  
@@ -88,6 +88,7 @@ There are currently 30 variables with nearly 20,000 observations that gives me a
 **AL Division Series**: Says how the team did in the AL Division Series for the specified year  
 **NL Division Series**: Says how the team did in the NL Division Series for the specified year  
 **Wild Card Game**: Says how the team did in the Wild Card Game for the specified year  
+**Playoff_Status**: Says how far a team made it into the playoffs: 0=DNP, 1=WC, 2=DS, 3=CS, 4=WS, 5=WSwin
 
 ``` r
 df <- read.csv("C:/Users/colet/Documents/Personal Projects/Completed_MLB_Payroll_Data.csv")
