@@ -11,7 +11,6 @@ library(tidyr)
 library(shiny)  
 library(scales)  
 library(forcats)  
-library(GGally)  
 
 
 ```r
@@ -243,7 +242,16 @@ world series and playoff teams seem to spend less money on players that don't pl
 | Quartile 50%     | $105,327,192     | 2017 |
 | Quartile 75%     | $146,695,372.25  | 2011 |
 
-It's remarkable to see the data laid out as quartiles. Half of the teams from 2011-2023 that missed the playoffs had a payroll of $105,327,192 and below whereas half the teams that made the playoffs in that time had a payroll of $139,541,596 or higher. This leaves us with a discrepancy of roughly $34million, which in a year could be two real contributors to a team. However, it isn't necessarily surprising for teams to make playoffs when they spend more money, as this would hypothetically mean they are acquiring better players. 
+#### Quartiles for Total Payroll of WS Teams
+| Statistic        | Value            | Year |
+|------------------|------------------|------|
+| Quartile 25%     | $119,491,397.75  | 2023 |
+| Quartile 50%     | $141,063,248.5   | 2012 |
+| Quartile 75%     | $184,212,319.5   | 2016 |
+
+
+It's remarkable to see the data laid out as quartiles. Half of the teams from 2011-2023 that missed the playoffs had a payroll of $105,327,192 and below whereas half the teams that made the playoffs in that time had a payroll of $139,541,596 or higher. This leaves us with a discrepancy of roughly $34million, which in a year could be two real contributors to a team. However, it isn't necessarily surprising for teams to make playoffs when they spend more money, as this would hypothetically mean they are acquiring better players.   
+It's also apparent that world series teams have the highest quartile values, but compared to playoff team quartiles, these values are not significantly larger. 
 
 ---
 
