@@ -11,6 +11,8 @@ library(tidyr)
 library(shiny)  
 library(scales)  
 library(forcats)  
+library(GGally)  
+
 
 ```r
 # Create a new dataframe that only has teams which have made the playoffs
@@ -38,24 +40,30 @@ world_series_teams  <- df %>%
 # Summary Statistics
 
 ```r
-#Define bins based on payroll rankings
-unique_playoff <- unique_playoff %>%
-  mutate(Payroll_Ranking_Bin = case_when(
-    Payroll.Ranking <= 5 ~ "Top 5",
-    Payroll.Ranking <= 10 ~ "Top 10",
-    Payroll.Ranking <= 15 ~ "Top 15",
-    Payroll.Ranking > 15 & Payroll.Ranking <= 30 ~ "Bottom 15",
-    TRUE ~ "Other"  # Handle any other cases if needed
-  ))
-# Calculate the counts and percentages of unique teams in each bin
-payroll_bin_percentages <- unique_playoff %>%
-  group_by(Payroll_Ranking_Bin) %>%
-  summarise(
-    Unique_Teams = n(),
-    Percentage = (Unique_Teams / n_distinct(unique_playoff)) * 100
-  )
+# Function to bin teams based on payroll rankings and calculate percentages
+bin_and_summarize_teams <- function(df, team_type) {
+  df <- df %>%
+    mutate(Payroll_Ranking_Bin = case_when(
+      Payroll.Ranking <= 5 ~ "Top 5",
+      Payroll.Ranking <= 10 ~ "Top 10",
+      Payroll.Ranking <= 15 ~ "Top 15",
+      Payroll.Ranking > 15 & Payroll.Ranking <= 30 ~ "Bottom 15",
+      TRUE ~ "Other"  # Handle any other cases if needed
+    ))
+  
+  payroll_bin_percentages <- df %>%
+    group_by(Payroll_Ranking_Bin) %>%
+    summarise(
+      Unique_Teams = n(),
+      Percentage = (Unique_Teams / n_distinct(df)) * 100  # Percentage based on the number of teams in the bin
+    ) %>%
+    arrange(match(Payroll_Ranking_Bin, c("Top 5", "Top 10", "Top 15", "Bottom 15", "Other")))
+  
+  cat(paste0("# ", team_type, " Summary\n"))
+  print(payroll_bin_percentages)
+  cat("\n")
+}
 ```
-(This code was repeated for world series and missed playoffs teams)  
 
 <div style="display: flex; justify-content: space-between;">
   <!-- First table: Playoff Teams Payroll Ranking Breakdown -->
@@ -166,28 +174,32 @@ Simply looking at these tables may give early insight to one of the research que
 --- 
 
 ```r
-playoff_summary <- playoff_teams %>%
-  summarise(
-    avg_total_payroll = mean(Total.Payroll, na.rm = TRUE),
-    median_total_payroll = median(Total.Payroll, na.rm = TRUE),
-    avg_payroll_percent_change = mean(Payroll.Percent.Change, na.rm = TRUE),
-    median_payroll_percent_change = median(Payroll.Percent.Change, na.rm = TRUE),
-    avg_payroll_difference = mean(Payroll.Difference, na.rm = TRUE),
-    median_payroll_ranking = median(Payroll.Ranking, na.rm = TRUE),
-    avg_payroll_salary = mean(Payroll.Salary, na.rm=TRUE),
-    median_payroll_salary = median(Payroll.Salary, na.rm=TRUE),
-    avg_win_percentage = mean(`W.L.`, na.rm = TRUE),
-    avg_wins = mean(W, na.rm = TRUE),
-    avg_losses = mean(L, na.rm = TRUE),
-    avg_age = mean(Average.Age, na.rm = TRUE),
-    avg_experience = mean(Exp, na.rm = TRUE),
-    avg_injured_payroll = mean(Injured, na.rm = TRUE),
-    avg_suspended_payroll = mean(Suspended, na.rm = TRUE)
-  )
+# Defining a function to calculate summary statistics for a given dataframe
+calculate_summary <- function(df) {
+  summary <- df %>%
+    summarise(
+      avg_total_payroll = mean(Total.Payroll, na.rm = TRUE),
+      median_total_payroll = median(Total.Payroll, na.rm = TRUE),
+      avg_payroll_percent_change = mean(Payroll.Percent.Change, na.rm = TRUE),
+      median_payroll_percent_change = median(Payroll.Percent.Change, na.rm = TRUE),
+      avg_payroll_difference = mean(Payroll.Difference, na.rm = TRUE),
+      median_payroll_ranking = median(Payroll.Ranking, na.rm = TRUE),
+      avg_win_percentage = mean(`W.L.`, na.rm = TRUE),
+      avg_wins = mean(W, na.rm = TRUE),
+      avg_losses = mean(L, na.rm = TRUE),
+      avg_age = mean(Average.Age, na.rm = TRUE),
+      avg_experience = mean(Exp, na.rm = TRUE),
+      avg_injured_payroll = mean(Injured, na.rm = TRUE),
+      avg_suspended_payroll = mean(Suspended, na.rm = TRUE),
+      avg_retained_payroll = mean(Retained, na.rm = TRUE)
+    )
+  return(summary)
+}
+
 ```
 (The code above only shows playoff summary, but the same is repeated for world series and whole league stats)  
 
-
+### Summary Statistics of Payroll and Performance in Major League Baseball from 2011-2023
 | Statistic                         | Entire League           | Missed Playoffs Teams   | Playoff Teams           | World Series Teams     |
 |-----------------------------------|-------------------------|-------------------------|-------------------------|------------------------|
 | Average Total Payroll             | $125,002,065            | $115,363,146            | $146,176,085            | $154,443,976           |
@@ -213,8 +225,25 @@ world series and playoff teams seem to spend less money on players that don't pl
 
 ---
 
+![](EDA_Images/PlayoffTeamsBox.png)    
+
+![](EDA_Images/DNPbox.png)
+
+#### Quartiles for Total Payroll of Playoff Teams
 | Quartile         | Value                | Year |
 |------------------|----------------------|------|
 | Quartile 25%     | $100,231,573.25      | 2015 |
 | Quartile 50%     | $139,541,596.50      | 2017 |
 | Quartile 75%     | $182,868,384.75      | 2022 |
+
+#### Quartiles for Total Payroll of Missed Playoff Teams
+| Statistic        | Value            | Year |
+|------------------|------------------|------|
+| Quartile 25%     | $81,069,935      | 2013 |
+| Quartile 50%     | $105,327,192     | 2017 |
+| Quartile 75%     | $146,695,372.25  | 2011 |
+
+It's remarkable to see the data laid out as quartiles. Half of the teams from 2011-2023 that missed the playoffs had a payroll of $105,327,192 and below whereas half the teams that made the playoffs in that time had a payroll of $139,541,596 or higher. This leaves us with a discrepancy of roughly $34million, which in a year could be two real contributors to a team. However, it isn't necessarily surprising for teams to make playoffs when they spend more money, as this would hypothetically mean they are acquiring better players. 
+
+---
+
