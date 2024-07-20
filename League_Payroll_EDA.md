@@ -20,66 +20,60 @@ df <- f %>%
 # Summary Statistics
 
 ```r
+#League Average Payroll
 mean(df$League.Average.Payroll)
-mean(df$Total.Payroll)
 median(df$League.Average.Payroll)
-median(df$Total.Payroll)
-```
-| Statistic                        | Value          |
-|----------------------------------|----------------|
-| Mean of League Average Payroll   | $127,898,303   |
-| Mean of Total Payroll            | $127,898,303   |
-| Median of League Average Payroll | $132,257,230   |
-| Median of Total Payroll          | $116,375,246   |
-
-
-```r
 print(paste("Minimum League Average Payroll value:", min(df$League.Average.Payroll, na.rm = TRUE), "Year:", df$Year[which.min(df$League.Average.Payroll)]))
 print(paste("Maximum League Average Payroll value:", max(df$League.Average.Payroll, na.rm = TRUE), "Year:", df$Year[which.max(df$League.Average.Payroll)]))
+#Team Total Payroll
+mean(df$Total.Payroll)
+median(df$Total.Payroll)
 print(paste("Minimum total payroll value:", min(df$Total.Payroll, na.rm = TRUE), "Year:", df$Year[which.min(df$Total.Payroll)]))
 print(paste("Maximum total payroll value:", max(df$Total.Payroll, na.rm = TRUE), "Year:", df$Year[which.max(df$Total.Payroll)]))
-```  
+```
 
+#### League Average & Total Payroll Statistics
 | Statistic                                   | Value                | Year |
 |---------------------------------------------|----------------------|------|
-| Minimum League Average Payroll value        | $61,111,950.10       | 2020 |
-| Maximum League Average Payroll value        | $165,757,214.67      | 2023 |
-| Minimum Total Payroll value                 | $23,478,635          | 2020 |
+| Mean of League Average Payroll              | $133,375,546         |      |
+| Median of League Average Payroll            | $135,648,515         |      |
+| Mean of Total Payroll                       | $133,375,546         |      |
+| Median of Total Payroll                     | $124,795,547         |      |
+| Minimum League Average Payroll value        | $101,089,505.30      | 2011 |
+| Maximum League Average Payroll value        | $165,757,214.66      | 2023 |
+| Minimum Total Payroll value                 | $35,077,913          | 2013 |
 | Maximum Total Payroll value                 | $343,605,067         | 2023 |
+
 
 ```r
 # Compute quartiles for Total Payroll
 quartiles <- quantile(df$Total.Payroll, probs = c(0.25, 0.5, 0.75), na.rm = TRUE)
 # Find the corresponding years for each quartile
 quartile_years <- sapply(quartiles, function(x) df$Year[which.min(abs(df$Total.Payroll - x))])
-# Print the results
 for (i in 1:length(quartiles)) {
-  print(paste("Quartile", names(quartiles)[i], "value:", quartiles[i], "Year:", quartile_years[i]))
-}
-```
-| Quartile         | Value            | Year |
-|------------------|------------------|------|
-| Quartile 25%     | $85,452,275.50   | 2017 |
-| Quartile 50%     | $116,375,246      | 2012 |
-| Quartile 75%     | $162,233,952.25  | 2015 |
-  
-
-```r
+  print(paste("Quartile", names(quartiles)[i], "value:", quartiles[i], "Year:", quartile_years[i]))}
 #Compute quartiles for league average payroll
 quartiles <- quantile(df$League.Average.Payroll, probs = c(0.25, 0.5, 0.75), na.rm = TRUE)
 # Find the corresponding years for each quartile
 quartile_years <- sapply(quartiles, function(x) df$Year[which.min(abs(df$League.Average.Payroll - x))])
-# Print the results
 for (i in 1:length(quartiles)) {
-  print(paste("Quartile", names(quartiles)[i], "value:", quartiles[i], "Year:", quartile_years[i]))
-}
-```  
+  print(paste("Quartile", names(quartiles)[i], "value:", quartiles[i], "Year:", quartile_years[i]))}
+```
 
-| Quartile         | Value                | Year |
-|------------------|----------------------|------|
-| Quartile 25%     | $110,697,780.60      | 2013 |
-| Quartile 50%     | $132,257,230.43      | 2016 |
-| Quartile 75%     | $140,038,982.60      | 2017 |
+#### Quartiles for Total Payroll
+| Quartile | Value            | Year |
+|----------|------------------|------|
+| 25%      | $92,819,736.75   | 2014 |
+| 50%      | $124,795,546.50  | 2020 |
+| 75%      | $165,347,359.50  | 2014 |
+  
+
+#### Quartiles for League Average Payroll
+| Quartile | Value               | Year |
+|----------|---------------------|------|
+| 25%      | $119,756,506.93     | 2014 |
+| 50%      | $135,648,514.67     | 2019 |
+| 75%      | $140,038,982.60     | 2017 |
 
 # Visualizations
 
@@ -107,9 +101,9 @@ ggplot(df, aes(x = Year, y = Total.Payroll / 1e6)) +
   scale_x_continuous(breaks = seq(min(df$Year), max(df$Year), by = 1))  # Include all years
 ```
 
-  ![](EDA_Images/UpdatedBoxplot1.png)
+  ![](EDA_Images/TPQUpdated.png)
   
-This plot shows the distribution of total payroll across years (2020 is an outlier year, there was a reduction in payroll leaguewide)
+This plot shows the distribution of total payroll across years
 
 ---
 
@@ -127,7 +121,7 @@ ggplot(df, aes(x = as.factor(Year), y = Total.Payroll / 1000000)) +
         legend.position = "bottom")  # Adjust legend position
 ```
 
-  ![](EDA_Images/UpdatedBoxplot2.png)  
+  ![](EDA_Images/TPBPUpdated.png)  
   
   This boxplot tells me that more teams are increasing their total payroll such that enough teams have increased payroll over this time so outliers no longer exist (in terms of team payroll), even with the maximum total payroll being at an all time high over the past couple years.
   Minimum payroll is not increasing by too much, telling me that there are larger discrepancies between teams with low and high ranked payrolls. Would imagine sooner than later a minimum payroll would become the outlier. The median payroll kept a somewhat steady rise, 
@@ -153,11 +147,11 @@ ggplot(df, aes(x = Year, y = League.Average.Payroll / 1e6)) +
   theme_minimal()
 ```
 
-![](EDA_Images/allteamspayroll.png)
+![](EDA_Images/TPTrends.png)
 
-![](EDA_Images/YearlyPayrollTrend.png)
+![](EDA_Images/LATrends.png)
 
-The first plot shows all teams yearly payrolls from 2011 to 2024. Not easy to understand when looking at it, so a second plot of league average payroll over the years was created. There is an evident increase in the yearly league average payroll, aside from the covid season. Will have to find a way to work with the covid data so that it does not influence my analysis in the wrong direction. 
+The first plot shows all teams yearly payrolls from 2011 to 2024. Not easy to understand when looking at it, so a second plot of league average payroll over the years was created. There is an evident increase in the yearly league average payroll.
 
 ---
 
@@ -174,7 +168,7 @@ ggplot(df, aes(x = Year, y = Team, fill = Total.Payroll / 1e6)) +
   theme_minimal() +
   theme(axis.text.x = element_text(angle = 90, hjust = 1))
 ```
-![](EDA_Images/payrollheatmap.png)
+![](EDA_Images/TPHeat.png)
 
 This heatmap shows each team's total payroll from 2011 to 2024. This is a much more team specific way in understanding how each team's payroll has changed as well as how it compares to other team payrolls. 
 
@@ -194,7 +188,7 @@ ggplot(df, aes(x = Year, y = Total.Payroll / 1e6, color = W.L.)) +
   coord_cartesian(ylim = c(0, max(df$Total.Payroll / 1e6, na.rm = TRUE)))  # Set y-axis limits globally
 ```
 
-![](EDA_Images/totalpayrollwinsbyteam.png)
+![](EDA_Images/TPpctChngWin.png)
 
 This plot shows each team's individual total payroll over the years (in millions), including a trend line for the total payroll, as well as win percentage shown by the coloring of the circles. Looking across all the plots, it seems evident that teams with low losing percentages in early years that sharply increased their payroll also increased their winning percentage. There could be an argument that for any teams that have red(ish) circles below the trend line were overachieving and any teams that had blue(ish) dots above the trend line were underachieving.
 
@@ -229,9 +223,9 @@ ggplot(league_avg_change, aes(x = Year, y = Avg_Payroll_Percent_Change)) +
        title = "League Average Payroll Percent Change Over the Years") +
   theme_minimal()
 ```
-![](EDA_Images/leaguepctchg.png)
+![](EDA_Images/PctChngPay.png)
 
-![](EDA_Images/leagueavgpctchg.png)
+![](EDA_Images/lgavgpayrollpctchg.png)
 
 The first plot shows the percent change for all teams from one year to the next, while the second plot shows the average percent change for the entire league. It is evident that covid has caused an anomaly from 2020 to 2022. This must be taken into consideration before running machine learning analyses.   
 The plots do show a small decrease in league average percent change. This could help make sense of why there is a larger discrepancy between team total payrolls shown earlier, as there is less percent change per year but increases in the median average payroll.
@@ -252,7 +246,7 @@ ggplot(df, aes(x = Year, y = Payroll.Percent.Change, color = W.L.)) +
   coord_cartesian(ylim = c(-75, 75))  # Set y-axis limits globally
 ```
 
-![](EDA_Images/PctChgwWinPct.png)
+![](EDA_Images/pctchngwinpct.png)
 
 This plot shows each indiviudal team's percent change over the years (with a trend line) as well the team's win percentage in form of color mapping on the circle (the grey circles denote this year, which has no win information). There is a lot of information held within this plot, but it is interesting to see how teams that had a smaller jump in percent change from covid typically don't do as well as the teams with the largers jumps. This may say something about increasing payroll from year to year and how it could help a team win. 
 
@@ -295,9 +289,9 @@ ggplot() +
             position = position_dodge(width = 0.9), vjust = -0.5, size = 3, color = "black")  # Adjust vertical position, text size, and color     
   
 ```
-![](EDA_Images/wsPayrollWinpct.png)  
+![](EDA_Images/wsWincomparedtoaverage.png)  
 
-This plot shows the world series winning teams plotted against their total payroll, with the color mapping identifying their win percentage (the 2020 dodgers are an exception, as covid season lowered both games played and total payrolls). The league average payroll for that season is marked by the unfilled circle.   
+This plot shows the world series winning teams plotted against their total payroll, with the color mapping identifying their win percentage. The league average payroll for that season is marked by the unfilled circle.   
 A slight increase can be seen in the total payroll of the teams that have won the world series, which should be expected with the increase in total payroll shown earlier. The win percentage for teams was also seen as sporadic. However, what remained consistent is that almost every team (aside from 3) have been above the league average payroll.
 
 ---
