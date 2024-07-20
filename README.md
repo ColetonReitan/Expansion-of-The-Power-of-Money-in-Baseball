@@ -54,6 +54,9 @@ Data Collection is now fully complete! The webscraper is fully functional.
 #### Collection Method
 I built a web scraper from scratch using R to collect the necessary data. The web scraper not only imports the data into R but also cleans and merges it into one dataframe. The code for the web scraper can be found in this repository. I'm particularly proud of it.
 
+### Dealing with COVID Data
+The MLB in 2020 played a truncated season that consisted of 60 games, which is 37% of a normal season. The MLBPA and MLB came to an agreement that players would be paid 37% of their original salary for that season. Because of this, team total payrolls witnessed massive drops (in the data from spotrac). In order to keep the data as consistent as possible, I decided to calculate the expected (no covid) total payroll of the 2020 season by summing the non-adjusted payroll salaries of all players for each team. In addition to this, I applied the 60 game win loss ratio to every team to give wins and losses results for what would've been a 162 game season. However, this means that my data now says the Dodgers in 2020 are tied for first for the most games won in an MLB season at 116. Although it is unlikely that this team would have tied the MLB single season win record, the importance of having a full 162 games in a season for this analysis is much greater and translating a team's win loss record to a 162 game season would be the best way to do this. Note, 43 wins from a top ranking payroll would be significantly more misleading!!
+
 #### Variable Description
 There are currently 31 variables with nearly 20,000 observations that gives me almost 600,000 total values.
 
