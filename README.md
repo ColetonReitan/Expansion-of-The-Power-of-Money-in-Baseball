@@ -81,8 +81,8 @@ There are currently 31 variables with nearly 20,000 observations that gives me a
 **Payroll.Salary**: The salary of the specified player  
 **Type**: Which original table the data came from  
 **Average.Age**: The avereage age of all the players on a specified team    
-**W**: The amount of wins a team has in the season  
-**L**: The amount of losses a team has in the season  
+**Wins**: The amount of wins a team has in the season  
+**Losses**: The amount of losses a team has in the season  
 **W-L%**: The win-loss ratio for a team  
 *The following variables are categorical and can be three different values: Won, Lost, or DNP (did not play)*  
 **World Series**: Says how the team did in the world series for the specified year  
@@ -103,18 +103,18 @@ str(df)
 ```
 ```r
 > colSums(is.na(df))
-                  Team                   Year           Abbreviation        Payroll.Ranking          Total.Payroll 
-                     0                      0                      0                      0                      0 
-League.Average.Payroll  Previous.Year.Payroll Payroll.Percent.Change     Payroll.Difference         Active.Payroll 
-                     0                   1272                   1272                   1272                      0 
-               Injured               Retained                 Buried              Suspended                 Player 
-                  4542                    383                   2497                  19000                      0 
-                   Pos                    Exp                 Status         Payroll.Salary                   Type 
-                     0                   6503                   4431                     68                      0 
-           Average.Age                      W                      L                   W.L.           World.Series 
-                     0                   1250                   1250                   1250                      0 
-                  ALCS                   NLCS     AL.Division.Series     NL.Division.Series         Wild.Card.Game 
-                     0                      0                      0                      0                      0
+                  Team                   Year           Abbreviation          Total.Payroll         Active.Payroll                Injured 
+                     0                      0                      0                      0                      0                   4542 
+              Retained                 Buried              Suspended                 Player                    Pos                    Exp 
+                   383                   2497                  19000                      0                      0                   6503 
+                Status         Payroll.Salary                   Type            Average.Age                   W.L.           World.Series 
+                  4431                     68                      0                      0                   1250                      0 
+                  ALCS                   NLCS     AL.Division.Series     NL.Division.Series         Wild.Card.Game         Playoff_Status 
+                     0                      0                      0                      0                      0                      0 
+League.Average.Payroll  Previous.Year.Payroll Payroll.Percent.Change     Payroll.Difference        Payroll.Ranking                   Wins 
+                     0                   1272                   1272                   1272                      0                   1250 
+                Losses 
+                  1250 
 ```
 
 It is expected for there to be missing values in Previous year payroll, percent change and difference for 2011 (there is
@@ -122,7 +122,7 @@ no prior data).
 The high amount of missing values in the suspended column is also expected and ok, there shouldnt be players getting suspended
 too often. Injured, retained, and buried are all expected to have missing values, as not every team has these parts of payroll every season.    
 Experience and status has some missing values due to data quality. There wasn't always consistency across the website in terms of these fields being filled for every player.    
-W, L, and W.L. should all have the same number of missing values, as these only pertain to the 2024 season (which will be predicted).   
+Wins, Losses, and W.L. should all have the same number of missing values, as these only pertain to the 2024 season (which will be predicted).   
 
 $ Team: chr - $ Year: int - $ Payroll.Ranking: int - $ Total.Payroll: int -   
 $ League.Average.Payroll: num - $ Previous.Year.Payroll : int - $ Payroll.Percent.Change: num    
@@ -135,48 +135,48 @@ $ AL.Division.Series: chr - $ NL.Division.Series: chr - $ Wild.Card.Game : chr
 
 ## More Research Questions
 
-### Payroll Trends and Discrepancies:  
+#### Payroll Trends and Discrepancies:  
 
 How have total payrolls for teams evolved over the years?  
 What are the trends in league average payrolls over time?  
 Are there significant discrepancies in payroll between the highest and lowest spending teams?  
 
-### Payroll vs. Performance:  
+#### Payroll vs. Performance:  
 
 Is there a correlation between a team's total payroll and their win-loss record?  
 Do higher payrolls consistently lead to better team performance (more wins, playoff appearances, World Series wins)?  
 
-### Payroll Distribution:  
+#### Payroll Distribution:  
 
 How is payroll distributed among different player statuses (active, injured, retained, etc.)?  
 What positions (Pos) receive the highest payroll on average?  
 
-### Impact of Payroll Changes:  
+#### Impact of Payroll Changes:  
 
 How do changes in payroll from the previous year affect team performance?  
 Is there a significant impact of payroll percent change on win-loss records?  
 
-### Defensive and Offensive Contributions:  
+#### Defensive and Offensive Contributions:  
 
 How does a team's payroll allocation to different positions correlate with their win-loss record and playoff success?  
 Is there a notable difference in payroll for teams with strong defensive vs. offensive statistics?  
 
-### Age and Experience Factors:  
+#### Age and Experience Factors:  
 
 How does the average age of a team correlate with their total payroll and performance?  
 Does player experience (Exp) significantly impact payroll distribution?  
 
-### Injury and Retention Impact:  
+#### Injury and Retention Impact:  
 
 How do injuries and retained salaries (Injured, Retained) affect a team's total payroll and performance?  
 Are there trends in the proportion of payroll allocated to injured or retained players over the years?  
 
-### Playoff Success:  
+#### Playoff Success:  
 
 What is the relationship between total payroll and playoff appearances (ALCS, NLCS, Division Series, Wild Card Game)?  
 How do payrolls of World Series winning teams compare to those that did not make it to the playoffs?  
 
-### Salary Allocation:  
+#### Salary Allocation:  
 
 How does the salary allocation for different player positions vary among teams with different performance levels?  
 Are there specific positions that teams invest more in for better performance outcomes?  
