@@ -658,8 +658,17 @@ final_merged_df <- final_merged_df %>%
   ))
 
 
+# Adjust wins and losses to a 162-game season
+final_merged_df <- final_merged_df %>%
+  mutate(
+    Wins = round(W.L. * 162),
+    Losses = round((1 - W.L.) * 162)
+  )
+final_merged_df<-final_merged_df %>%
+  select(-W, -L)
+
 # Save dataframe to a CSV file
-#write.csv(final_merged_df, file = "Completed_MLB_Payroll_Data.csv", row.names = FALSE)
+write.csv(final_merged_df, file = "Completed_MLB_Payroll_Data.csv", row.names = FALSE)
 getwd()
 
 unique_values <- unique(final_merged_df$Team)
@@ -671,5 +680,7 @@ df <- read.csv("C:/Users/colet/Documents/Personal Projects/Completed_MLB_Payroll
 colnames(df)
 colSums(is.na(df))
 #Everything looks good
+
+
 
 
