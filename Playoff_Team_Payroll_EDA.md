@@ -184,8 +184,8 @@ calculate_summary <- function(df) {
       avg_payroll_difference = mean(Payroll.Difference, na.rm = TRUE),
       median_payroll_ranking = median(Payroll.Ranking, na.rm = TRUE),
       avg_win_percentage = mean(`W.L.`, na.rm = TRUE),
-      avg_wins = mean(W, na.rm = TRUE),
-      avg_losses = mean(L, na.rm = TRUE),
+      avg_wins = mean(Wins, na.rm = TRUE),
+      avg_losses = mean(Losses, na.rm = TRUE),
       avg_age = mean(Average.Age, na.rm = TRUE),
       avg_experience = mean(Exp, na.rm = TRUE),
       avg_injured_payroll = mean(Injured, na.rm = TRUE),
@@ -198,24 +198,25 @@ calculate_summary <- function(df) {
 ```
 (The code above only shows playoff summary, but the same is repeated for world series and whole league stats)  
 
+
 ### Summary Statistics of Payroll and Performance in Major League Baseball from 2011-2023
+
 | Statistic                         | Entire League           | Missed Playoffs Teams   | Playoff Teams           | World Series Teams     |
 |-----------------------------------|-------------------------|-------------------------|-------------------------|------------------------|
-| Average Total Payroll             | $125,002,065            | $115,363,146            | $146,176,085            | $154,443,976           |
-| Median Total Payroll              | $115,521,847            | $105,327,192            | $139,541,596            | $141,063,248           |
-| Average Payroll Percent Change    | 11.47%                  | 7.35%                   | 20.38%                  | 21.38%                 |
-| Median Payroll Percent Change     | 6.49%                   | 3.38%                   | 11.96%                  | 15.54%                 |
-| Average Payroll Difference        | $5,388,975              | $262,152                | $16,452,121             | $18,238,098            |
+| Average Total Payroll             | $130,900,634            | $121,261,211            | $152,075,760            | $159,033,536           |
+| Median Total Payroll              | $121,379,204            | $112,055,346            | $143,865,124            | $148,268,020           |
+| Average Payroll Percent Change    | 6.35%                   | 2.51%                   | 14.66%                  | 13.59%                 |
+| Median Payroll Percent Change     | 5.43%                   | 1.17%                   | 10.45%                  | 8.88%                  |
+| Average Payroll Difference        | $5,388,975              | $728,011                | $15,446,846             | $13,764,860            |
 | Median Payroll Ranking            | 15.50                   | 18.00                   | 10.50                   | 7.50                   |
 | Average Win Percentage            | 50.00%                  | 46.20%                  | 58.35%                  | 59.39%                 |
-| Average Wins                      | 77.06                   | 70.90                   | 90.58                   | 90.73                  |
-| Average Losses                    | 77.06                   | 82.66                   | 64.75                   | 63.35                  |
+| Average Wins                      | 80.98                   | 74.82                   | 94.52                   | 96.23                  |
+| Average Losses                    | 81.02                   | 87.18                   | 67.48                   | 65.77                  |
 | Average Age                       | 27.85                   | 27.60                   | 28.39                   | 28.40                  |
 | Average Experience                | 4.75                    | 4.47                    | 5.32                    | 6.74                   |
 | Average Injured Payroll           | $16,337,702             | $17,501,925             | $13,721,471             | $15,277,480            |
 | Average Suspended Payroll         | $3,289,866              | $3,215,600              | $3,463,154              | $1,000,000             |
 | Average Retained Payroll          | $17,661,419             | $19,849,059             | $12,725,207             | $14,224,511            |
-
 
 
 The monetary summaries are the most important values to observe when looking across with the whole league summary. Clearly, there is a trend of teams that spend more money have a greater chance of making the playoffs (and world series) than teams that don't. It is interesting to
@@ -224,34 +225,35 @@ world series and playoff teams seem to spend less money on players that don't pl
 
 ---
 
-![](EDA_Images/PlayoffTeamsBox.png)    
+![](EDA_Images/Tpboxplayoffs.png)    
 
-![](EDA_Images/DNPbox.png)
+![](EDA_Images/missedplayoffbxplt.png)
 
 #### Quartiles for Total Payroll of Playoff Teams
 | Quartile         | Value                | Year |
 |------------------|----------------------|------|
-| Quartile 25%     | $100,231,573.25      | 2015 |
-| Quartile 50%     | $139,541,596.50      | 2017 |
-| Quartile 75%     | $182,868,384.75      | 2022 |
+| Quartile 25%     | $106,496,179.75      | 2016 |
+| Quartile 50%     | $143,865,124.50      | 2019 |
+| Quartile 75%     | $192,441,727.50      | 2021 |
 
 #### Quartiles for Total Payroll of Missed Playoff Teams
 | Statistic        | Value            | Year |
 |------------------|------------------|------|
-| Quartile 25%     | $81,069,935      | 2013 |
-| Quartile 50%     | $105,327,192     | 2017 |
-| Quartile 75%     | $146,695,372.25  | 2011 |
+| Quartile 25%     | $85,838,560.25   | 2020 |
+| Quartile 50%     | $112,055,346     | 2013 |
+| Quartile 75%     | $150,152,186.50  | 2021 |
 
 #### Quartiles for Total Payroll of WS Teams
 | Statistic        | Value            | Year |
 |------------------|------------------|------|
 | Quartile 25%     | $119,491,397.75  | 2023 |
-| Quartile 50%     | $141,063,248.5   | 2012 |
-| Quartile 75%     | $184,212,319.5   | 2016 |
+| Quartile 50%     | $148,268,020.50  | 2021 |
+| Quartile 75%     | $191,754,655     | 2021 |
 
 
-It's remarkable to see the data laid out as quartiles. Half of the teams from 2011-2023 that missed the playoffs had a payroll of $105,327,192 and below whereas half the teams that made the playoffs in that time had a payroll of $139,541,596 or higher. This leaves us with a discrepancy of roughly $34million, which in a year could be two real contributors to a team. However, it isn't necessarily surprising for teams to make playoffs when they spend more money, as this would hypothetically mean they are acquiring better players.   
-It's also apparent that world series teams have the highest quartile values, but compared to playoff team quartiles, these values are not significantly larger. 
+
+It's remarkable to see the data laid out as quartiles. Half of the teams from 2011-2023 that missed the playoffs had a payroll of $112,055,346 and below whereas half the teams that made the playoffs in that time had a payroll of $143,865,124 or higher. This leaves us with a discrepancy of roughly $30million, which in a year could be two real contributors to a team. However, it isn't necessarily surprising for teams to make playoffs when they spend more money, as this would hypothetically mean they are acquiring better players.   
+When analyzing these quartiles, it's important to keep in mind that the world series teams are included in the playoff teams quartiles. 
 
 ---
 
