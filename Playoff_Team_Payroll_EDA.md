@@ -257,3 +257,5 @@ When analyzing these quartiles, it's important to keep in mind that the world se
 
 ---
 
+![](EDA_Images/sumsplayoffmissed.png)
+![](EDA_Images/differencesumplayoffs.png)
