@@ -252,6 +252,21 @@ This plot shows each indiviudal team's percent change over the years (with a tre
 
 ---
 
+```r
+# Create the scatter plot with payroll in millions, a trend line, and correlation coefficient
+ggplot(df, aes(x = Total.Payroll / 1e6, y = Wins)) +
+  geom_point() +
+  geom_smooth(method = "lm", col = "blue") +
+  labs(title = "MLB Team Payroll vs. Wins (2011-2023)",
+       x = "Total Payroll (in millions $)",
+       y = "Wins") +
+  theme_minimal() +
+  annotate("text", x = max(df$Total.Payroll) / 1e6, y = min(df$Wins), 
+           label = paste("Correlation: ", round(cor_coeff, 2)), 
+           hjust = 1, vjust = -1, size = 5)
+```
+![](EDA_Images/payrollvwinsscatter.png)
+The plot shows the correlation between a team's total payroll and total wins with confidence intervals. It's evident that there is a direct correlation between wins and total payroll, although it does not seem to be too strong.
 
 ```r
 # Filter data for teams that won the World Series
