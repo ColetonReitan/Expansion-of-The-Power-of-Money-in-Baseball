@@ -223,7 +223,6 @@ The monetary summaries are the most important values to observe when looking acr
 see that the average and median percent chnage is highest for world series teams, which could speak towards teams spending more money and acquiring free agent talent in the offseason, which could be the difference maker for a team to make it that far. Another interesting aspect is that 
 world series and playoff teams seem to spend less money on players that don't play - what is meant by that is the combined payroll of injured, suspended and retained for playoff and world series teams is much lower than that of teams that did not make playoffs.  
 
-## Visualizations
 ---
 
 ![](EDA_Images/Tpboxplayoffs.png)    
@@ -256,6 +255,8 @@ world series and playoff teams seem to spend less money on players that don't pl
 It's remarkable to see the data laid out as quartiles. Half of the teams from 2011-2023 that missed the playoffs had a payroll of $112,055,346 and below whereas half the teams that made the playoffs in that time had a payroll of $143,865,124 or higher. This leaves us with a discrepancy of roughly $30million, which in a year could be two real contributors to a team. However, it isn't necessarily surprising for teams to make playoffs when they spend more money, as this would hypothetically mean they are acquiring better players.   
 When analyzing these quartiles, it's important to keep in mind that the world series teams are included in the playoff teams quartiles. 
 
+
+# Visualizations
 ---
 
 ![](EDA_Images/sumsplayoffmissed.png)
