@@ -251,6 +251,7 @@ ggplot(df, aes(x = Year, y = Payroll.Percent.Change, color = W.L.)) +
 This plot shows each indiviudal team's percent change over the years (with a trend line) as well the team's win percentage in form of color mapping on the circle (the grey circles denote this year, which has no win information). There is a lot of information held within this plot, but it is interesting to see how teams that had a smaller jump in percent change from covid typically don't do as well as the teams with the largers jumps. This may say something about increasing payroll from year to year and how it could help a team win. 
 
 ---
+### Trend Analysis
 
 ```r
 # Create the scatter plot with payroll in millions, a trend line, and correlation coefficient
@@ -267,6 +268,9 @@ ggplot(df, aes(x = Total.Payroll / 1e6, y = Wins)) +
 ```
 ![](EDA_Images/payrollvwinsscatter.png)
 The plot shows the correlation between a team's total payroll and total wins with confidence intervals. It's evident that there is a direct correlation between wins and total payroll, although it does not seem to be too strong.
+
+
+--- 
 
 ```r
 # Filter data for teams that won the World Series
@@ -302,7 +306,6 @@ ggplot() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1)) +  # Rotate x-axis labels for better readability
   geom_text(data = team_stats, aes(x = Year, y = Total_Payroll / 1e6, label = Abbreviation), 
             position = position_dodge(width = 0.9), vjust = -0.5, size = 3, color = "black")  # Adjust vertical position, text size, and color     
-  
 ```
 ![](EDA_Images/wsWincomparedtoaverage.png)  
 
