@@ -275,46 +275,12 @@ This plot shows the correlation between a team's percent change in payroll and t
 ![](EDA_Images/payrollratioleagueaveragescatter.png)
 For this plot, I created a new variable called Payroll.Ratio which actually shows a team's total payroll as a percentage of the league average payroll, helping normalize the data across the years. So far, this has the greatest direct relationship at .38, which means that as a team increases their total payroll (as a percentage of league average payroll), thier wins also increase. 
 
+![](EDA_Images/clusters.png)   
+For this plot, I used Kmeans clustering to get a better understanding of the data and the groupings that lie within it. I decided to break the data into 4 clusters which are clearly grouped. Generally speaking, this is how the data seems to have been clustered:   
+- Cluster 1 tells the story of teams that spent well above the league average and did well
+- Cluster 2 tells the story of teams that spent around the league average and did well
+- Cluster 3 tells the story of teams that spent below league average and did not do well
+- Cluster 4 tells the story of teams that spend above league average and did not do well. 
+It's easy to understand why cluster 3 has the most points - teams that do not spend the extra money (or even reach the league average) tend to do poorly, so there is a high density grouping of teams in this area.
+
 --- 
-
-```r
-# Filter data for teams that won the World Series
-won_teams <- df[df$World.Series == "Won", ]
-# Summarize team statistics
-team_stats <- won_teams %>%
-  group_by(Team, Abbreviation, Year) %>%
-  summarise(Total_Payroll = mean(Total.Payroll, na.rm = TRUE),  
-            Win_Percentage = mean(W.L., na.rm = TRUE), .groups = 'drop')  # win percentage for each team in each year
-# Reorder teams by Win_Percentage
-team_stats <- team_stats %>%
-  mutate(Team = fct_reorder(Team, Win_Percentage, .desc = TRUE))
-
-# Define the new color gradient for Win_Percentage (blue to red)
-team_palette <- scale_fill_gradient(low = "blue", high = "red",
-                                    limits = range(team_stats$Win_Percentage),
-                                    breaks = pretty_breaks(n = 5))
-# Average league payroll by year
-league_avg_payroll <- df %>%
-  group_by(Year) %>%
-  summarise(League_Average_Payroll = mean(League.Average.Payroll, na.rm = TRUE))
-# Plot the data
-ggplot() +
-  geom_bar(data = team_stats, aes(x = Year, y = Total_Payroll / 1e6, fill = Win_Percentage), stat = "identity", position = "dodge") +
-  geom_point(data = league_avg_payroll, aes(x = Year, y = League_Average_Payroll / 1e6), color = "black", size = 3, shape = 1) +  # Add points for league average payroll
-  labs(x = "Year", y = "Total Payroll (Millions)",
-       title = "Total Payroll vs. Year for Teams that Won the World Series",
-       fill = "Win Percentage") +
-  team_palette +  # Use the new custom color palette
-  theme_minimal() +
-  scale_y_continuous(labels = function(x) paste0(x, "M")) +  # Format y-axis labels in millions
-  scale_x_continuous(breaks = seq(min(df$Year), max(df$Year), by = 1)) +  # Include all years
-  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +  # Rotate x-axis labels for better readability
-  geom_text(data = team_stats, aes(x = Year, y = Total_Payroll / 1e6, label = Abbreviation), 
-            position = position_dodge(width = 0.9), vjust = -0.5, size = 3, color = "black")  # Adjust vertical position, text size, and color     
-```
-![](EDA_Images/wsWincomparedtoaverage.png)  
-
-This plot shows the world series winning teams plotted against their total payroll, with the color mapping identifying their win percentage. The league average payroll for that season is marked by the unfilled circle.   
-A slight increase can be seen in the total payroll of the teams that have won the world series, which should be expected with the increase in total payroll shown earlier. The win percentage for teams was also seen as sporadic. However, what remained consistent is that almost every team (aside from 3) have been above the league average payroll.
-
----
