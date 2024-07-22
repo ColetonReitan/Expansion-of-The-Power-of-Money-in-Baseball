@@ -268,6 +268,26 @@ It's seen that playoff teams mostly hold between 35%-40% of total league payroll
 
 ---
 
-![](EDA_Images/dnppayrollcomp.png)
 ![](EDA_Images/playoffpayrollcomp2.png)
+![](EDA_Images/dnppayrollcomp.png)
 
+### Total Component Breakdown by Playoff Status
+
+| Year | Percentage Injured (Playoff) | Percentage Injured (Missed Playoff) | Percentage Retained (Playoff) | Percentage Retained (Missed Playoff) | Percentage Buried (Playoff) | Percentage Buried (Missed Playoff) | Percentage Suspended (Playoff) | Percentage Suspended (Missed Playoff) |
+|------|------------------------------|--------------------------------------|-------------------------------|-------------------------------------|-----------------------------|-----------------------------------|-------------------------------|--------------------------------------|
+| 2011 | 0.0%                         | 0.0%                                 | 1.64%                         | 9.12%                               | 0.17%                       | 0.18%                             | 0.0%                          | 0.0%                                 |
+| 2012 | 0.0%                         | 0.0%                                 | 4.64%                         | 8.12%                               | 0.24%                       | 0.17%                             | 0.0%                          | 0.0%                                 |
+| 2013 | 0.6%                         | 0.4%                                 | 4.90%                         | 12.7%                               | 1.16%                       | 1.49%                             | 0.0%                          | 0.45%                                |
+| 2014 | 1.2%                         | 2.0%                                 | 6.67%                         | 14.7%                               | 1.24%                       | 0.95%                             | 0.0%                          | 0.0%                                 |
+| 2015 | 7.4%                         | 11.4%                                | 10.3%                         | 19.7%                               | 1.49%                       | 0.77%                             | 0.03%                         | 0.55%                                |
+| 2016 | 7.0%                         | 11.2%                                | 8.8%                          | 19.1%                               | 1.90%                       | 1.21%                             | 0.06%                         | 0.0%                                 |
+| 2017 | 5.9%                         | 9.5%                                 | 11.7%                         | 22.4%                               | 1.13%                       | 1.49%                             | 0.0%                          | 0.0%                                 |
+| 2018 | 8.2%                         | 14.9%                                | 10.2%                         | 20.0%                               | 0.83%                       | 1.50%                             | 0.20%                         | 0.21%                                |
+| 2019 | 6.7%                         | 11.8%                                | 11.0%                         | 18.7%                               | 0.61%                       | 1.80%                             | 0.54%                         | 0.07%                                |
+| 2020 | 8.4%                         | 13.7%                                | 13.0%                         | 20.0%                               | 3.32%                       | 3.28%                             | 0.0%                          | 0.22%                                |
+| 2021 | 12.0%                        | 19.8%                                | 8.8%                          | 19.8%                               | 2.69%                       | 2.20%                             | 0.0%                          | 0.39%                                |
+| 2022 | 8.6%                         | 20.2%                                | 8.4%                          | 15.7%                               | 1.98%                       | 2.28%                             | 0.53%                         | 0.0%                                 |
+| 2023 | 18.6%                        | 22.1%                                | 7.3%                          | 18.3%                               | 2.37%                       | 2.46%                             | 0.0%                          | 0.11%                                |
+
+Earlier in the analysis, it was said that playoff teams tend to have more players on their active payroll than that missed playoff teams. In these plots and table, it is evident that this is true.   
+Playoff teams have a lower percentage of players not playing - whether that be on the injured list, retained, or suspended (buried is not entirely a lower percentage, but still majority lower). Prioritizing player health may be one of the most important things a team could do to help differentiate and get them into the playoffs. Aside from player health, front offices should do all things to avoid spending a percentage of payroll on players who are no longer playing for the team - as in retained percentages are much higher for that of missed playoff teams than they are for playoff teams. 
