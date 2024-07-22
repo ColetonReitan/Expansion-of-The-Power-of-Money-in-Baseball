@@ -295,3 +295,45 @@ It's seen that playoff teams mostly hold between 35%-40% of total league payroll
 
 Earlier in the analysis, it was said that playoff teams tend to have more players on their active payroll than that missed playoff teams. In these plots and table, it is evident that this is true.   
 Playoff teams have a lower percentage of players not playing - whether that be on the injured list, retained, or suspended (buried is not entirely a lower percentage, but still majority lower). Prioritizing player health may be one of the most important things a team could do to help differentiate and get them into the playoffs. Aside from player health, front offices should do all things to avoid spending a percentage of payroll on players who are no longer playing for the team - as in retained percentages are much higher for that of missed playoff teams than they are for playoff teams. 
+
+---
+
+```r
+# Filter data for teams that won the World Series
+won_teams <- df[df$World.Series == "Won", ]
+# Summarize team statistics
+team_stats <- won_teams %>%
+  group_by(Team, Abbreviation, Year) %>%
+  summarise(Total_Payroll = mean(Total.Payroll, na.rm = TRUE),  
+            Win_Percentage = mean(W.L., na.rm = TRUE), .groups = 'drop')  # win percentage for each team in each year
+# Reorder teams by Win_Percentage
+team_stats <- team_stats %>%
+  mutate(Team = fct_reorder(Team, Win_Percentage, .desc = TRUE))
+
+# Define the new color gradient for Win_Percentage (blue to red)
+team_palette <- scale_fill_gradient(low = "blue", high = "red",
+                                    limits = range(team_stats$Win_Percentage),
+                                    breaks = pretty_breaks(n = 5))
+# Average league payroll by year
+league_avg_payroll <- df %>%
+  group_by(Year) %>%
+  summarise(League_Average_Payroll = mean(League.Average.Payroll, na.rm = TRUE))
+# Plot the data
+ggplot() +
+  geom_bar(data = team_stats, aes(x = Year, y = Total_Payroll / 1e6, fill = Win_Percentage), stat = "identity", position = "dodge") +
+  geom_point(data = league_avg_payroll, aes(x = Year, y = League_Average_Payroll / 1e6), color = "black", size = 3, shape = 1) +  # Add points for league average payroll
+  labs(x = "Year", y = "Total Payroll (Millions)",
+       title = "Total Payroll vs. Year for Teams that Won the World Series",
+       fill = "Win Percentage") +
+  team_palette +  # Use the new custom color palette
+  theme_minimal() +
+  scale_y_continuous(labels = function(x) paste0(x, "M")) +  # Format y-axis labels in millions
+  scale_x_continuous(breaks = seq(min(df$Year), max(df$Year), by = 1)) +  # Include all years
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +  # Rotate x-axis labels for better readability
+  geom_text(data = team_stats, aes(x = Year, y = Total_Payroll / 1e6, label = Abbreviation), 
+            position = position_dodge(width = 0.9), vjust = -0.5, size = 3, color = "black")  # Adjust vertical position, text size, and color     
+```
+![](EDA_Images/wsWincomparedtoaverage.png)  
+
+This plot shows the world series winning teams plotted against their total payroll, with the color mapping identifying their win percentage. The league average payroll for that season is marked by the unfilled circle.   
+A slight increase can be seen in the total payroll of the teams that have won the world series, which should be expected with the increase in total payroll shown earlier. The win percentage for teams was also seen as sporadic. However, what remained consistent is that almost every team (aside from 3) have been above the league average payroll.
