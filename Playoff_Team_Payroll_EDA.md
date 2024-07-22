@@ -260,6 +260,8 @@ When analyzing these quartiles, it's important to keep in mind that the world se
 ---
 
 ![](EDA_Images/sumsplayoffmissed2.png)
+![](EDA_Images/pctsumsplayoffmissed.png) 
 ![](EDA_Images/differencesumplayoffs.png)
 
-In the plots above, the first shows the sum of payrolls for playoff teams and missed playoff teams in each year and the second shows the difference of the sums from each year (with a trend line). These plots give a visual understanding to the growing difference of payrolls between playoff and nonplayoff teams. There's been a steady increase in the payroll difference between playoff and nonplayoff teams, with no sense of decline expected.   
+In the plots above, the first shows the sum of payrolls for playoff teams and missed playoff teams in each year, the second shows the perecentage of the entire league payroll these teams take up, and the third shows the difference of the sums from each year (with a trend line). These plots give a visual understanding to the total difference of payrolls between playoff and nonplayoff teams. Although the trend line shows a steady increase in the difference between the sum of playoff and nonplayoff teams, the percentage of total league payroll reamins fairly consistent.   
+It's seen that playoff teams mostly hold between 35%-40% of total league payroll, which would make sense as 10 teams, or 33% of teams, make the playoffs, and it would be expected that that amount of total league payroll (and more) would consist of playoff teams' payroll. 
