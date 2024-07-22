@@ -269,6 +269,11 @@ ggplot(df, aes(x = Total.Payroll / 1e6, y = Wins)) +
 ![](EDA_Images/payrollvwinsscatter.png)
 The plot shows the correlation between a team's total payroll and total wins with confidence intervals. It's evident that there is a direct correlation between wins and total payroll, although it does not seem to be too strong.
 
+![](EDA_Images/pctchgwinsscatter.png)
+This plot shows the correlation between a team's percent change in payroll and total wins with confidence intervals. It's also evident in this that there is a direct correlation between wins and total payroll of .32, which is slightly less strong than that of total payroll. 
+
+![](EDA_Images/payrollratioleagueaveragescatter.png)
+For this plot, I created a new variable called Payroll.Ratio which actually shows a team's total payroll as a percentage of the league average payroll, helping normalize the data across the years. So far, this has the greatest direct relationship at .38, which means that as a team increases their total payroll (as a percentage of league average payroll), thier wins also increase. 
 
 --- 
 
