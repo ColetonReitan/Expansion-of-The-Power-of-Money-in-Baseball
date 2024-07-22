@@ -259,7 +259,7 @@ When analyzing these quartiles, it's important to keep in mind that the world se
 # Visualizations
 ---
 
-![](EDA_Images/sumsplayoffmissed.png)
+![](EDA_Images/sumsplayoffmissed2.png)
 ![](EDA_Images/differencesumplayoffs.png)
 
 In the plots above, the first shows the sum of payrolls for playoff teams and missed playoff teams in each year and the second shows the difference of the sums from each year (with a trend line). These plots give a visual understanding to the growing difference of payrolls between playoff and nonplayoff teams. There's been a steady increase in the payroll difference between playoff and nonplayoff teams, with no sense of decline expected.   
