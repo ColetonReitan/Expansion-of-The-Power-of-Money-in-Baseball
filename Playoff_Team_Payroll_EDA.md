@@ -256,8 +256,10 @@ It's remarkable to see the data laid out as quartiles. Half of the teams from 20
 When analyzing these quartiles, it's important to keep in mind that the world series teams are included in the playoff teams quartiles. 
 
 
-# Visualizations
 ---
+# Visualizations
+
+### Sum of Payrolls
 
 ![](EDA_Images/sumsplayoffmissed2.png)
 ![](EDA_Images/pctsumsplayoffmissed.png) 
@@ -267,6 +269,8 @@ In the plots above, the first shows the sum of payrolls for playoff teams and mi
 It's seen that playoff teams mostly hold between 35%-40% of total league payroll, which would make sense as 10 teams, or 33% of teams, make the playoffs, and it would be expected that that amount of total league payroll (and more) would consist of playoff teams' payroll. 
 
 ---
+
+### Payroll Components
 
 ![](EDA_Images/playoffpayrollcomp2.png)
 ![](EDA_Images/dnppayrollcomp.png)
