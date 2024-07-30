@@ -682,7 +682,17 @@ final_merged_df <- final_merged_df %>%
           desc(Payroll.Salary)) %>%
   slice(1) %>%
   ungroup()
-                             
+
+
+final_merged_df <- final_merged_df %>%
+  mutate(Type = case_when(
+    !grepl("^table_", Type) ~ paste0("table_", Type),  # Add 'table_' prefix if not already present
+    TRUE ~ Type                                      # Leave unchanged if it already has 'table_'
+  ))
+
+# Verify the changes
+table(df$Type)
+
 # Save dataframe to a CSV file
 write.csv(final_merged_df, file = "Completed_MLB_Payroll_Data.csv", row.names = FALSE)
 getwd()
