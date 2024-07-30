@@ -4,6 +4,7 @@ library(tidyr)
 library(shiny)
 library(scales)
 library(forcats)
+library(factoextra)
 
 #Need to update R for these
 #install.packages("ggplotly")
@@ -26,13 +27,15 @@ colSums(is.na(df))
 str(df)
 
 #Summary Stats
-mean(df$League.Average.Payroll)
-mean(df$Total.Payroll)
-median(df$League.Average.Payroll)
-median(df$Total.Payroll)
 
+#League Average Payroll
+mean(df$League.Average.Payroll)
+median(df$League.Average.Payroll)
 print(paste("Minimum League Average Payroll value:", min(df$League.Average.Payroll, na.rm = TRUE), "Year:", df$Year[which.min(df$League.Average.Payroll)]))
 print(paste("Maximum League Average Payroll value:", max(df$League.Average.Payroll, na.rm = TRUE), "Year:", df$Year[which.max(df$League.Average.Payroll)]))
+#Team Total Payroll
+mean(df$Total.Payroll)
+median(df$Total.Payroll)
 print(paste("Minimum total payroll value:", min(df$Total.Payroll, na.rm = TRUE), "Year:", df$Year[which.min(df$Total.Payroll)]))
 print(paste("Maximum total payroll value:", max(df$Total.Payroll, na.rm = TRUE), "Year:", df$Year[which.max(df$Total.Payroll)]))
 
@@ -239,3 +242,107 @@ ggplot(df, aes(x = Year, y = Total.Payroll / 1e6, color = W.L.)) +
   geom_smooth(method = "loess", se = FALSE) +  # Add smooth trend lines
   theme_minimal() +
   coord_cartesian(ylim = c(0, max(df$Total.Payroll / 1e6, na.rm = TRUE)))  # Set y-axis limits globally
+
+####################################################################################################
+
+#Trend analysis
+
+#Total Payroll v wins
+# Create the scatter plot with payroll in millions, a trend line, and correlation coefficient
+ggplot(df, aes(x = Total.Payroll / 1e6, y = Wins)) +
+  geom_point() +
+  geom_smooth(method = "lm", col = "blue") +
+  labs(title = "MLB Team Payroll vs. Wins (2011-2023)",
+       x = "Total Payroll (in millions $)",
+       y = "Wins") +
+  theme_minimal() +
+  annotate("text", x = max(df$Total.Payroll) / 1e6, y = min(df$Wins), 
+           label = paste("Correlation: ", round(cor_coeff, 2)), 
+           hjust = 1, vjust = -1, size = 5)
+
+#Payroll percent change v wins
+# Calculate the correlation coefficient for Payroll Percent Change and Wins
+cor_coeff_pct_change <- cor(df$Payroll.Percent.Change, df$Wins, use = "complete.obs")
+# Create the scatter plot with Payroll Percent Change and Wins, with a trend line and correlation coefficient
+ggplot(df, aes(x = Payroll.Percent.Change, y = Wins)) +
+  geom_point() +
+  geom_smooth(method = "lm", col = "blue") +
+  labs(title = "MLB Team Payroll Percent Change vs. Wins (2011-2023)",
+       x = "Payroll Percent Change (%)",
+       y = "Wins") +
+  theme_minimal() +
+  annotate("text", x = max(df$Payroll.Percent.Change, na.rm = TRUE), y = min(df$Wins, na.rm = TRUE), 
+           label = paste("Correlation: ", round(cor_coeff_pct_change, 2)), 
+           hjust = 1, vjust = -1, size = 5)
+
+
+#Payroll Ratio (of league avg) v wins
+# Calculate the payroll ratio (percentage of League Average Payroll compared to a team's payroll)
+df$Payroll.Ratio <- (df$Total.Payroll / df$League.Average.Payroll) * 100
+# Calculate the correlation coefficient for Payroll Ratio and Wins
+cor_coeff_ratio <- cor(df$Payroll.Ratio, df$Wins, use = "complete.obs")
+# Create the scatter plot with Payroll Ratio and Wins, with a trend line and correlation coefficient
+ggplot(df, aes(x = Payroll.Ratio, y = Wins)) +
+  geom_point() +
+  geom_smooth(method = "lm", col = "blue") +
+  labs(title = "MLB Team Payroll Ratio vs. Wins (2011-2023)",
+       x = "Payroll Ratio (%)",
+       y = "Wins") +
+  theme_minimal() +
+  annotate("text", x = max(df$Payroll.Ratio, na.rm = TRUE), 
+           y = min(df$Wins, na.rm = TRUE), 
+           label = paste("Correlation: ", round(cor_coeff_ratio, 2)), 
+           hjust = 1, vjust = -1, size = 5)
+
+
+
+# Remove rows with NA, NaN, or Inf values
+df <- df %>%
+  filter(is.finite(Payroll.Ratio_Scaled) & is.finite(Wins_Scaled))
+
+# Normalize the data before clustering
+df$Wins_Scaled <- scale(df$Wins)
+df$Payroll.Ratio_Scaled <- scale(df$Payroll.Ratio)
+
+# Perform K-means clustering
+set.seed(123)  # For reproducibility
+kmeans_result <- kmeans(df[, c("Payroll.Ratio_Scaled", "Wins_Scaled")], centers = 4)  # You can choose the number of clusters (centers)
+
+# Add cluster labels to the DataFrame
+df$Cluster <- as.factor(kmeans_result$cluster)
+
+# Get counts of each cluster
+cluster_counts <- table(df$Cluster)
+
+# Convert the table to a data frame for easier use
+cluster_counts_df <- as.data.frame(cluster_counts)
+colnames(cluster_counts_df) <- c("Cluster", "Count")
+
+# Print the cluster counts
+print(cluster_counts_df)
+
+# Create the scatter plot with clusters
+ggplot(df, aes(x = Payroll.Ratio, y = Wins, color = Cluster)) +
+  geom_point(size = 2) +
+  geom_smooth(method = "lm", col = "blue", se = FALSE) +
+  labs(title = "MLB Team Payroll Ratio vs. Wins with Clusters (2011-2023)",
+       x = "Payroll Ratio (%)",
+       y = "Wins") +
+  theme_minimal() +
+  scale_color_manual(values = c("red", "orange", "blue", "brown"))  # Customize cluster colors
+
+# If you want to add the counts to the plot, you can use annotation
+counts_annotation <- paste("Cluster 1: ", cluster_counts[1], "\n",
+                           "Cluster 2: ", cluster_counts[2], "\n",
+                           "Cluster 3: ", cluster_counts[3], "\n",
+                           "Cluster 4: ", cluster_counts[4])
+
+ggplot(df, aes(x = Payroll.Ratio, y = Wins, color = Cluster)) +
+  geom_point(size = 2) +
+  geom_smooth(method = "lm", col = "blue", se = FALSE) +
+  labs(title = "MLB Team Payroll Ratio vs. Wins with Clusters (2011-2023)",
+       x = "Payroll Ratio (%)",
+       y = "Wins") +
+  theme_minimal() +
+  scale_color_manual(values = c("red", "orange", "blue", "brown")) +  # Customize cluster colors
+  annotate("text", x = max(df$Payroll.Ratio) * 0.8, y = max(df$Wins) * 0.2, label = counts_annotation, hjust = 0)
