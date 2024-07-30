@@ -667,6 +667,22 @@ final_merged_df <- final_merged_df %>%
 final_merged_df<-final_merged_df %>%
   select(-W, -L)
 
+#Finding Duplicates
+duplicates <- final_merged_df %>%
+  group_by(Player, Year, Team) %>%
+  filter(n() > 1) %>%
+  ungroup()
+print(duplicates)
+
+#Correcting Duplicates
+final_merged_df <- final_merged_df %>%
+  group_by(Player, Year, Team) %>%
+  arrange(desc(grepl("table", Type)), 
+          desc(grepl("active", Type)), 
+          desc(Payroll.Salary)) %>%
+  slice(1) %>%
+  ungroup()
+                             
 # Save dataframe to a CSV file
 write.csv(final_merged_df, file = "Completed_MLB_Payroll_Data.csv", row.names = FALSE)
 getwd()
