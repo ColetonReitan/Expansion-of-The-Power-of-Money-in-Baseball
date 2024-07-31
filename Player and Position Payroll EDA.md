@@ -36,6 +36,7 @@ ws_teams <- df %>%
 
 
 # Summary Statistics
+### Payroll Salary
 
 ### Player Summary Statistics
 | Pos | Mean_Payroll_Salary | Median_Payroll_Salary | SD_Payroll_Salary | Max_Payroll_Salary | Mean_Exp   | Median_Exp | Count |
@@ -59,7 +60,7 @@ ws_teams <- df %>%
 Across the league, it can be seen that first base has the highest average and median payroll salary, (aside from DH, but for the sake of count value and lack of consistency in players, that position will be overlooked) while relief pitchers tend to have the lowest. However, the starting pitcher position has the highest payroll salary
 of any position, but also has the greatest standard deviation. It's also interesting to see that the starting pitcher position has the highest mean and median experience of all the positions. 
 
-### Did Not Make Playoffs Summary Statistics
+### Did Not Make Playoffs Player Summary Statistics
 | Pos | Mean_Payroll_Salary | Median_Payroll_Salary | SD_Payroll_Salary | Max_Payroll_Salary | Mean_Exp   | Median_Exp | Count |
 |-----|---------------------|-----------------------|-------------------|--------------------|------------|------------|-------|
 | 1B  | $4,251,698          | $857,000              | $6,300,276        | $28,088,462        | 4.13 years | 3.06 years | 633   |
@@ -99,7 +100,7 @@ Specifically looking at the teams that did not make the playoffs from 2011-2023,
 
 Specifically looking at the teams that did make the playoffs from 2011-2023, first base and starting pitching are the two most highly invested in positions, while also holding the highest standard deviations amonst any positions as well. 
 
-### World Series Summary Statistics
+### World Series Player Summary Statistics
 | Pos | Mean_Payroll_Salary | Median_Payroll_Salary | SD_Payroll_Salary | Max_Payroll_Salary | Mean_Exp   | Median_Exp | Count |
 |-----|---------------------|-----------------------|-------------------|--------------------|------------|------------|-------|
 | 1B  | $4,978,924          | $1,000,000            | $6,650,772        | $27,638,462        | 3.62 years | 3.03 years | 57    |
@@ -121,7 +122,61 @@ Specifically looking at the teams that made it to the world series from 2011-202
 
 
 ---
+
 In summary looking across all 4 charts, Infield Positions (1B, 2B, 3B, C, SS): Generally show higher salaries and experience in playoff teams. Non-playoff teams pay less and have lower experience levels.
 Outfield Positions (CF, LF, RF): Similar to infield positions, with higher salaries and experience for playoff teams.Pitchers (P, RP, SP): Higher salaries and experience for playoff teams, with starting pitchers commanding the highest pay and experience.
 General Trend: Playoff teams invest more in key positions, reflected in higher salaries and more experienced players. Non-playoff teams typically have lower salaries and less experienced players in these roles.
 It's tough to immediately say whether there are important positional payroll trends occuring by taking a first glance at the summary statistics tables, but more digging can definitely be done to create a better understanding. 
+
+---
+
+### Outlier Inspection
+```r
+# Function to calculate outliers and their playoff status counts
+calculate_outliers <- function(df) {
+  df <- df %>% filter(!is.na(Payroll.Salary))
+  Q1 <- quantile(df$Payroll.Salary, 0.25)
+  Q3 <- quantile(df$Payroll.Salary, 0.75)
+  IQR <- Q3 - Q1
+  lower_bound <- Q1 - 1.5 * IQR
+  upper_bound <- Q3 + 1.5 * IQR
+```
+Standard IQR formula was used to caluclate the outliers for each position. They were then broken down into playoffs, no playoffs, and world series.  
+
+### Payroll Salary Outliers
+| Pos | Total_Outliers | Playoff_Outliers (%) | Non_Playoff_Outliers (%) | World_Series_Outliers (%) |
+|-----|----------------|----------------------|--------------------------|---------------------------|
+| RP  | 1059           | 408 (38.5%)          | 651 (61.5%)              | 94 (8.9%)                 |
+| SP  | 226            | 95 (42.0%)           | 131 (58.0%)              | 27 (11.9%)                |
+| C   | 193            | 76 (39.4%)           | 117 (60.6%)              | 17 (8.8%)                 |
+| LF  | 125            | 45 (36.0%)           | 80 (64.0%)               | 12 (9.6%)                 |
+| 2B  | 122            | 53 (43.4%)           | 69 (56.6%)               | 13 (10.7%)                |
+| 1B  | 119            | 50 (42.0%)           | 69 (58.0%)               | 7 (5.9%)                  |
+| SS  | 117            | 41 (35.0%)           | 76 (65.0%)               | 7 (6.0%)                  |
+| 3B  | 106            | 37 (34.9%)           | 69 (65.1%)               | 8 (7.5%)                  |
+| CF  | 98             | 45 (45.9%)           | 53 (54.1%)               | 7 (7.1%)                  |
+| RF  | 97             | 35 (36.1%)           | 62 (63.9%)               | 9 (9.3%)                  |
+| OF  | 42             | 12 (28.6%)           | 30 (71.4%)               | 3 (7.1%)                  |
+| P   | 14             | 6 (42.9%)            | 8 (57.1%)                | 1 (7.1%)                  |
+| DH  | 5              | 2 (40.0%)            | 3 (60.0%)                | 0 (0.0%)                  |
+| **Total** | **2223** | **905 (40.7%)**      | **1318 (59.3%)**         | **205 (9.2%)**            |
+
+The outliers for each position, whether they made the playoffs (or world series) or not, and the percentage that grouping of outliers makes up for all the outliers in that position is shown in this table. The goal was to have an undesrtanding of outlier distribution to determine whether having an outlier in a certain position results in better team performance or not.   
+The highest percentages of outliers in playoff teams are: 
+1) Center Field
+2) Second Base
+3) Starting Pitcher & First Base
+
+What this tells me is that teams that make the playoffs tend to non-outliers in most positions (say, pay the league norm) but have outliers in the mentioned positions.
+On the other end, it is also important to understand what teams who aren't making the playoffs are doing in order to avoid following in their footsteps.   
+The highest percentages of outliers in non-playoff teams are:
+1) Third Base
+2) Short Stop
+3) Left Field
+
+It's interesting to see that the third base and short stop positions have the highest percentages of outliers on non-playoff teams. These positions are typically played by the most athletic players on the team, which leads me to think that teams are willing to overpay for players in these positions, resulting in a lack
+of funds to support high end players in the other positions, resulting in a team that cannot make the playoffs. 
+
+
+
+
