@@ -180,4 +180,11 @@ of funds to support high end players in the other positions, resulting in a team
 ![](EDA_Images/pctOfOutliers.png)  
 The plot visualizes what was just shown and discussed within the tables. Do note the y-axis is percentage rather than count of outliers. 
 
+---
+# Visualizing
 
+### Time Series of Average Payroll by Position
+![](EDA_Images/positionpayrolltimeseries.png)
+
+A steady increase at all positions can be seen, however it is expected to be a rugged increase, as certain players retire and no longer are on large contracts, and younger players continue to play on a rookie contract. It's interesting to see the shortstop position with such a sharp and steady increase, which
+could be saying that several shortstops were signed to large contracts recently but successively (year after year), resulting in the large and constant increase in average payroll salary. 
