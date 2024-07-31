@@ -141,7 +141,7 @@ calculate_outliers <- function(df) {
   lower_bound <- Q1 - 1.5 * IQR
   upper_bound <- Q3 + 1.5 * IQR
 ```
-Standard IQR formula was used to caluclate the outliers for each position. They were then broken down into playoffs, no playoffs, and world series.  
+Standard IQR formula was used to caluclate the outliers for each position. They were then broken down into playoffs, no playoffs, and world series.  It should also be noted that all the outliers are present only beyond the upper percentiles, not the lower.
 
 ### Payroll Salary Outliers
 | Pos | Total_Outliers | Playoff_Outliers (%) | Non_Playoff_Outliers (%) | World_Series_Outliers (%) |
