@@ -188,3 +188,8 @@ The plot visualizes what was just shown and discussed within the tables. Do note
 
 A steady increase at all positions can be seen, however it is expected to be a rugged increase, as certain players retire and no longer are on large contracts, and younger players continue to play on a rookie contract. It's interesting to see the shortstop position with such a sharp and steady increase, which
 could be saying that several shortstops were signed to large contracts recently but successively (year after year), resulting in the large and constant increase in average payroll salary. 
+
+### Top 10 Highest Salaried Players per Year
+![](EDA_Images/top10paid.png)
+
+This plot is interesting to look at as it can be seen that, for the most part, every year at least half of the highest paid players in the league do not make the playoffs and even less often don't make it to the world series. This plot can tell the story of both good and bad - teams should not spend too much money on a player and focus on building a full team, but also teams should spend the money on the superstar players to help them achieve a winning season. 
