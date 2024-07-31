@@ -177,6 +177,7 @@ The highest percentages of outliers in non-playoff teams are:
 It's interesting to see that the third base and short stop positions have the highest percentages of outliers on non-playoff teams. These positions are typically played by the most athletic players on the team, which leads me to think that teams are willing to overpay for players in these positions, resulting in a lack
 of funds to support high end players in the other positions, resulting in a team that cannot make the playoffs. 
 
-
+![](EDA_Images/pctOfOutliers.png)  
+The plot visualizes what was just shown and discussed within the tables. Do note the y-axis is percentage rather than count of outliers. 
 
 
