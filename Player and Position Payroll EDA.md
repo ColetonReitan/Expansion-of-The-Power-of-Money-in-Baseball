@@ -234,4 +234,74 @@ The middle grouping of lines show the average percentage of payroll the top 3 hi
 The top grouping of lines show the average percentage of payroll the top 5 highest paid players for each team took up.     
 This plot is amazing becuase it shows the difference in how teams that don't make the playoffs distribute their payroll as compared to teams that do make playoffs (and the world series). But more importantly, it is very consistent aside from a few points!  
 It is seen that non-playoff teams spend a higher percentage of total team payroll on less players than playoff teams do, a in almost every year for each grouping of players, the nonplayoff team's percentage of payroll is higher (aside for in 2019) than any other team grouping. This tells me playoff teams do a better job of 
-distributing their total payroll evenly across all players on the team, or at least the majority of players on the team, than nonplayoff teams do. This could signal for front offices to be wary of spending money on only one player only to be cheap on the rest!
+distributing their total payroll evenly across all players on the team, or at least the majority of players on the team, than nonplayoff teams do. This could signal for front offices to be wary of spending money on only one player only to be cheap on the rest!  
+
+The actual data points are below: 
+
+### Entire League Table
+| Year | Top 1 Paid & % of Payroll | Top 3 Paid & % of Payroll | Top 5 Paid & % of Payroll |
+|------|----------------------------|----------------------------|----------------------------|
+| 2011 | 15.0                       | 36.8                       | 52.9                       |
+| 2012 | 15.7                       | 37.1                       | 52.2                       |
+| 2013 | 15.5                       | 37.5                       | 52.9                       |
+| 2014 | 14.8                       | 37.0                       | 53.0                       |
+| 2015 | 14.5                       | 35.9                       | 51.8                       |
+| 2016 | 16.7                       | 38.8                       | 54.2                       |
+| 2017 | 16.3                       | 39.5                       | 55.5                       |
+| 2018 | 17.2                       | 40.6                       | 56.3                       |
+| 2019 | 17.9                       | 41.3                       | 56.3                       |
+| 2020 | 17.9                       | 41.9                       | 56.6                       |
+| 2021 | 18.6                       | 42.0                       | 57.1                       |
+| 2022 | 17.8                       | 39.9                       | 53.8                       |
+| 2023 | 16.5                       | 38.8                       | 53.2                       |
+
+### No Playoffs Table
+| Year | Top 1 Paid & % of Payroll | Top 3 Paid & % of Payroll | Top 5 Paid & % of Payroll |
+|------|----------------------------|----------------------------|----------------------------|
+| 2011 | 15.3                       | 36.9                       | 52.8                       |
+| 2012 | 16.6                       | 37.1                       | 51.7                       |
+| 2013 | 15.9                       | 38.1                       | 52.9                       |
+| 2014 | 15.5                       | 38.3                       | 53.6                       |
+| 2015 | 15.0                       | 37.3                       | 53.2                       |
+| 2016 | 18.2                       | 41.0                       | 55.9                       |
+| 2017 | 16.1                       | 40.3                       | 56.2                       |
+| 2018 | 18.1                       | 42.2                       | 57.6                       |
+| 2019 | 18.4                       | 42.5                       | 57.1                       |
+| 2020 | 18.5                       | 42.9                       | 57.7                       |
+| 2021 | 19.8                       | 42.5                       | 56.9                       |
+| 2022 | 18.3                       | 41.5                       | 55.0                       |
+| 2023 | 17.0                       | 39.5                       | 53.4                       |
+
+### Playoff Teams Table
+| Year | Top 1 Paid & % of Payroll | Top 3 Paid & % of Payroll | Top 5 Paid & % of Payroll |
+|------|----------------------------|----------------------------|----------------------------|
+| 2011 | 14.0                       | 36.6                       | 53.3                       |
+| 2012 | 13.9                       | 36.9                       | 53.1                       |
+| 2013 | 14.8                       | 36.2                       | 52.9                       |
+| 2014 | 13.4                       | 34.4                       | 51.8                       |
+| 2015 | 13.4                       | 33.0                       | 49.0                       |
+| 2016 | 13.6                       | 34.5                       | 50.8                       |
+| 2017 | 16.9                       | 37.8                       | 54.0                       |
+| 2018 | 15.3                       | 37.3                       | 53.7                       |
+| 2019 | 16.9                       | 38.9                       | 54.7                       |
+| 2020 | 16.0                       | 39.3                       | 53.6                       |
+| 2021 | 16.2                       | 41.0                       | 57.7                       |
+| 2022 | 16.2                       | 35.5                       | 50.5                       |
+| 2023 | 15.2                       | 36.7                       | 52.8                       |
+
+### World Series Team Table
+| Year | Top 1 Paid & % of Payroll | Top 3 Paid & % of Payroll | Top 5 Paid & % of Payroll |
+|------|----------------------------|----------------------------|----------------------------|
+| 2011 | 14.9                       | 39.0                       | 56.4                       |
+| 2012 | 15.0                       | 41.9                       | 58.2                       |
+| 2013 | 11.6                       | 31.3                       | 49.1                       |
+| 2014 | 13.3                       | 33.4                       | 49.1                       |
+| 2015 | 14.2                       | 33.2                       | 48.0                       |
+| 2016 | 10.8                       | 28.1                       | 42.0                       |
+| 2017 | 17.0                       | 37.4                       | 54.4                       |
+| 2018 | 15.5                       | 35.3                       | 50.9                       |
+| 2019 | 24.9                       | 51.7                       | 68.2                       |
+| 2020 | 18.7                       | 43.4                       | 57.3                       |
+| 2021 | 16.3                       | 42.5                       | 57.8                       |
+| 2022 | 13.5                       | 34.9                       | 51.2                       |
+| 2023 | 16.2                       | 38.5                       | 54.5                       |
