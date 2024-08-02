@@ -196,6 +196,7 @@ This plot is interesting to look at as it can be seen that, for the most part, e
 
 ---
 
+### Experience and Payroll Salary
 ![](EDA_Images/positionexpcorr.png)
 
 This is a correlation plot that shows how age and payroll salary are directly related over time. The importance of this plot was not to see if there was a correlation between positional payroll salary and experience, because it only makes sense that there is, the point of the plot was to understand which position had the highest
@@ -224,6 +225,7 @@ because they are the most high stress positions on the field, meaning with exper
 
 ---
 
+### Payroll Distribution Percentage Based on Team's Highest Paid Players
 ![](EDA_Images/distpayrolltop5.png)
 
 This plot is AWESOME. What this plot shows is how far teams make it into playoffs (and if they make it) based on distribution of payroll amongst it's players.   
