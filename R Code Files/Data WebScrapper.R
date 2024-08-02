@@ -696,6 +696,40 @@ final_merged_df$Exp[final_merged_df$Exp > 40] <- NA
 # Verify the changes
 table(df$Type)
 
+
+
+
+final_merged_df <- final_merged_df %>%
+  mutate(Pos = case_when(
+    Pos == "" ~ "RP",
+    Pos == "CL" ~ "RP",
+    Pos == "SP1" ~ "SP",
+    TRUE ~ Pos
+  ))
+# Verify the changes
+table(final_merged_df$Pos)
+#Grouping the positions into Infield, outfield, pitcher, dh
+final_merged_df <- final_merged_df %>%
+  mutate(Player_Group = case_when(
+    Pos %in% c("1B", "2B", "3B", "SS", "C") ~ "Infield", # Infield
+    Pos %in% c("LF", "CF", "RF", "OF") ~ "OutField",           # Outfield
+    Pos %in% c("SP", "RP", "P") ~ "Pitcher",                 # Pitcher
+    Pos == "DH" ~ "Designated Hitter",                            # Designated Hitter
+    TRUE ~ NA_character_                            # To handle any unexpected values
+  ))
+
+# Function to calculate the difference from league average payroll
+add_difference_from_league_average_payroll <- function(df) {
+  # Calculate the difference from the league average payroll
+  df <- df %>%
+    mutate(Diff_From_League_Avg_Payroll = Total.Payroll - League.Average.Payroll)
+  
+  return(df)
+}
+
+# Apply the function to DataFrame
+final_merged_df <- add_difference_from_league_average_payroll(final_merged_df)
+                             
 # Save dataframe to a CSV file
 write.csv(final_merged_df, file = "Completed_MLB_Payroll_Data.csv", row.names = FALSE)
 getwd()
