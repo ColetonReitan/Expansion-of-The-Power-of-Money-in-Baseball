@@ -1,14 +1,14 @@
 # Expansion of The Power of Money in Baseball
 
 ## Project Overview
-This is my personal analytical continuation and expansion of my project, The Power of Money in Baseball, where I not only try to tell a visual stroy with the data, but conduct a full line analysis that includes data ETL, EDA & supervised (and possibly unsupervised) machine learning modeling and analysis. 
+This is my personal analytical continuation and expansion of my project, The Power of Money in Baseball, where I not only try to tell a visual stroy with the data, but conduct a full stack analysis that includes data ETL, EDA & supervised (and possibly unsupervised) machine learning modeling and analysis. 
 
 The initial project was an 8-week long assignment for my "Data Visualization" Master's course in which the goal was to tell a visual story using Tableau software, which can be found on my GitHub [here](https://github.com/ColetonReitan/The-Power-of-Money-in-Baseball); 
 
 This project is my personal continuation and expansion of the Power of Money in Baseball. 
 
 ## Project Status
-As of 7/30/2024, I am currently working in the EDA phase of this analysis.
+As of 8/2/2024, I am currently working in the feature selection & modeling phase.
 
 
 ## Project Motivation
@@ -29,7 +29,7 @@ The horror and beauty of payroll in baseball is that teams do not have to fear a
   5. Are there league wide trends in payroll? If so, should teams be following them? 
 
 ## Methods
-I am currently working through part 3 of EDA (7/30/2024)
+
 
 ### EDA
 The exploratory data analysis portion of this project will be broken down into 3 separate analyses: 
@@ -37,10 +37,12 @@ The exploratory data analysis portion of this project will be broken down into 3
 2)  Playoff and World Series Teams' Payrolls
 3)  Player and position payroll distribution
 
+
+### Feature Selection 
+
 ### Modeling
 
 ### Statistical Analysis
-
 
 ## MetaData
 
@@ -153,12 +155,7 @@ What positions (Pos) receive the highest payroll on average?
 #### Impact of Payroll Changes:  
 
 How do changes in payroll from the previous year affect team performance?  
-Is there a significant impact of payroll percent change on win-loss records?  
-
-#### Defensive and Offensive Contributions:  
-
-How does a team's payroll allocation to different positions correlate with their win-loss record and playoff success?  
-Is there a notable difference in payroll for teams with strong defensive vs. offensive statistics?  
+Is there a significant impact of payroll percent change on win-loss records?   
 
 #### Age and Experience Factors:  
 
