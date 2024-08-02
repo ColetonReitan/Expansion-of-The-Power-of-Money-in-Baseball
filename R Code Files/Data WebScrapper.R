@@ -690,6 +690,9 @@ final_merged_df <- final_merged_df %>%
     TRUE ~ Type                                      # Leave unchanged if it already has 'table_'
   ))
 
+
+final_merged_df$Exp[final_merged_df$Exp > 40] <- NA
+
 # Verify the changes
 table(df$Type)
 
