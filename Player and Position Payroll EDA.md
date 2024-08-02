@@ -221,3 +221,17 @@ Based on the correlations, it's seen (ignoring only OF and P) that DH and 1B hav
 into their careers, allowing them to sign larger contracts at these spots (with experience).   
 It's not surprising to see the opposite of this happening with the shortstop and centerfield positions. Although they clearly have a direct positive relationship between payroll salary and exp, they are not nearly as high as the DH or 1B positions
 because they are the most high stress positions on the field, meaning with experience comes age, and with age comes a reduction in athleticism, and at the most athletic positions on the field a team wants the most athleticism. Therefore, a much smaller correlation at these positions makes sense.  
+
+---
+
+![](EDA_Images/distpayrolltop5.png)
+
+This plot is AWESOME. What this plot shows is how far teams make it into playoffs (and if they make it) based on distribution of payroll amongst it's players.   
+The legend shows the team groupings are color coded, whereas each set of lines represents a different amount of players payrolls being evaluated.  
+The perecentage of payroll that the highest paid, the top 3 highest paid, and the top 5 highest paid players for each team in each year was averaged for each group (no playoffs, playoffs, world series, whole league).   
+The bottom grouping of lines shows the average perecentage of payroll that the highest paid player for each team took up.  
+The middle grouping of lines show the average percentage of payroll the top 3 highest paid players for each team took up.   
+The top grouping of lines show the average percentage of payroll the top 5 highest paid players for each team took up.     
+This plot is amazing becuase it shows the difference in how teams that don't make the playoffs distribute their payroll as compared to teams that do make playoffs (and the world series). But more importantly, it is very consistent aside from a few points!  
+It is seen that non-playoff teams spend a higher percentage of total team payroll on less players than playoff teams do, a in almost every year for each grouping of players, the nonplayoff team's percentage of payroll is higher (aside for in 2019) than any other team grouping. This tells me playoff teams do a better job of 
+distributing their total payroll evenly across all players on the team, or at least the majority of players on the team, than nonplayoff teams do. This could signal for front offices to be wary of spending money on only one player only to be cheap on the rest!
