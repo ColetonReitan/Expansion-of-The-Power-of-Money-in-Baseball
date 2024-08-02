@@ -221,4 +221,3 @@ Based on the correlations, it's seen (ignoring only OF and P) that DH and 1B hav
 into their careers, allowing them to sign larger contracts at these spots (with experience).   
 It's not surprising to see the opposite of this happening with the shortstop and centerfield positions. Although they clearly have a direct positive relationship between payroll salary and exp, they are not nearly as high as the DH or 1B positions
 because they are the most high stress positions on the field, meaning with experience comes age, and with age comes a reduction in athleticism, and at the most athletic positions on the field a team wants the most athleticism. Therefore, a much smaller correlation at these positions makes sense.  
-With that said, it would be interesting to see the experience levels at these positions for teams that have made the playoffs (and world series) compared to those that did not.
