@@ -729,6 +729,45 @@ add_difference_from_league_average_payroll <- function(df) {
 
 # Apply the function to DataFrame
 final_merged_df <- add_difference_from_league_average_payroll(final_merged_df)
+
+
+# Function to get unique team payroll per year
+get_unique_team_payroll <- function(df) {
+  df %>%
+    group_by(Year, Team) %>%
+    summarise(Total_Payroll = first(Total.Payroll)) %>%
+    ungroup()
+}
+
+# Function to calculate payroll summary statistics
+calculate_payroll_summary <- function(df, unique_payroll) {
+  df %>%
+    group_by(Year, Team) %>%
+    summarise(
+      Top1_Payroll = sum(Payroll.Salary[order(-Payroll.Salary)][1], na.rm = TRUE),
+      Top3_Payroll = sum(Payroll.Salary[order(-Payroll.Salary)][1:3], na.rm = TRUE),
+      Top5_Payroll = sum(Payroll.Salary[order(-Payroll.Salary)][1:5], na.rm = TRUE)
+    ) %>%
+    left_join(unique_payroll, by = c("Year", "Team")) %>%
+    mutate(
+      Top1_Percent = (Top1_Payroll / Total_Payroll) * 100,
+      Top3_Percent = (Top3_Payroll / Total_Payroll) * 100,
+      Top5_Percent = (Top5_Payroll / Total_Payroll) * 100
+    ) %>%
+    select(Year, Team, Top1_Percent, Top3_Percent, Top5_Percent)
+}
+
+# Unique team payrolls for each group
+unique_league_payroll <- get_unique_team_payroll(final_merged_df)
+# Calculate summary statistics for each group
+league_summary <- calculate_payroll_summary(final_merged_df, unique_league_payroll)
+head(df)
+
+
+# Perform the left join to bring over the Top columns
+final_merged_df <- final_merged_df %>%
+  left_join(league_summary %>% select(Year, Team, Top1_Percent, Top3_Percent, Top5_Percent), 
+            by = c("Year", "Team"))
                              
 # Save dataframe to a CSV file
 write.csv(final_merged_df, file = "Completed_MLB_Payroll_Data.csv", row.names = FALSE)
