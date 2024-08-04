@@ -39,7 +39,10 @@ The exploratory data analysis portion of this project will be broken down into 3
 
 
 ### Feature Selection 
-
+Several feature selection methods will be used within this project to determine which features will be used in creating the predictive models.  
+1) Correlation Coefficient Matrix of feature collinearity
+2) 
+3) 
 ### Modeling
 
 ### Statistical Analysis
