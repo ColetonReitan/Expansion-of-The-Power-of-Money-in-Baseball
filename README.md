@@ -173,7 +173,7 @@ This is the cleaned and standardized data file of all the data points collected 
 **Retained**: The payroll amount that is retained from players no longer on a team in a specified year  
 **Buried**: The payroll amount that is dedicated to players not on the major league roster (minor league players)  
 **Suspended**: The payroll amount that is dedicated to players suspended in a specified year  
-**Average.Age**: The avereage age of all the players on a specified team  
+**Average.Age**: The average age of all the players on a specified team  
 **Payroll.Percent.Change**: The payroll percent change from the previous year for the specified team  
 **Diff_From_League_Avg_Payroll**: Tells the difference between a team's total payroll and the league average payroll  
 **Payroll.Ranking**: Payroll rank for specified team in specified season (1 is highest payroll 30 is lowest)  
