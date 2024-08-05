@@ -31,23 +31,29 @@ The horror and beauty of payroll in baseball is that teams do not have to fear a
 ## Methods
 
 ### Preprocessing
-The Preprocessing portion of this project involves cleaning, transforming, and organizing the raw data into a structured format suitable for analysis and modeling. Majority of the preprocessing was done in the data collection portion of the project (with the web scrapper)  
+The Preprocessing portion of this project is broken down into two parts. The first involves the cleaning and integration of the data collected from the web scrapper - this is the data that will be analyzed in EDA. The second portion involves the transformation and creation/reduction in variables suitable for modeling. 
+
+Cleaning and Integration (Completed_MLB_Payroll_Data):
 1) Checking and handling of NA's
 2) Duplicate Removal
 3) Data error correction
 4) Data encoding
 5) Handling of COVID-19 (2020) data
 
+Transformation and Creation/Reduction (Predictive_MLB_Payroll_Data):
+1) Creating new predictive features based on original data
+2) Removing unneeded features
+3) Standardizing the data
+
 ### EDA
-The exploratory data analysis portion of this project will be broken down into 3 separate analyses:   
+The exploratory data analysis portion of this project will be broken down into 3 separate analyses (using Completed_MLB_Payroll_Data for analyses):    
 1)  League payroll (general)
 2)  Playoff and World Series Teams' Payrolls
 3)  Player and position payroll distribution
 
 
 ### Feature Selection 
-In terms of feature selection methods, a filter method and a few embedded methods will be used and analyzed to determine the best features to keep in predictive modeling.    
-Prior to feature selection, the data standardization was performed. 
+In terms of feature selection methods, a filter method and a few embedded methods will be used and analyzed to determine the best features to keep in predictive modeling (Using Predictive_MLB_Payroll_Data).    
 
 Filter Methods: 
 1) Correlation Analysis
