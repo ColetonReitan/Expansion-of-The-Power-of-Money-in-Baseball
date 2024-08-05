@@ -160,7 +160,7 @@ Wins, Losses, and W.L. should all have the same number of missing values, as the
 
 
 #### Predictive_MLB_Payroll_Data Variable Description
-This is the cleaned and standardized data file of all the data points collectd from the web scrapper. This contains data from 2012-2023 seasons and spans across 53 variables with 360 observations which gives me almost 20,000 total values. This data contains team-specific payroll data, with player specific data averaged, medianed, or grouped in a way so that each player on each team does **not** show up within the data. This data will be used to perform predictive modeling, as there is no repetition of data (bc there is no longer individual player data included) and only the predictive features from the original dataframe were kept. However, additional team-specific player data features were created. 
+This is the cleaned and standardized data file of all the data points collected from the web scrapper. This contains data from 2012-2023 seasons and spans across 53 variables with 360 observations which gives me almost 20,000 total values. This data contains team-specific payroll data, with player specific data averaged, medianed, or grouped in a way so that each player on each team does **not** show up within the data. This data will be used to perform predictive modeling, as there is no repetition of data (bc there is no longer individual player data included) and only the predictive features from the original dataframe were kept. However, additional team-specific player data features were created. 
 
 **Team**: Team Name  
 **Abbreviation**: Team Name Abbreviation   
