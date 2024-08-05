@@ -185,7 +185,7 @@ This is the cleaned and standardized data file of all the data points collected 
 **Position_Payroll_1B**: A team's total payroll salary of players who play first base    
 **Position_Payroll_2B**: A team's total payroll salary of players who play second base    
 **Position_Payroll_3B**: A team's total payroll salary of players who play third base    
-**Position_Payroll_C**: A team's total payroll salary of players who play cather    
+**Position_Payroll_C**: A team's total payroll salary of players who play catcher    
 **Position_Payroll_CF**: A team's total payroll salary of players who play center field     
 **Position_Payroll_DH**: A team's total payroll salary of players who play designated hitter    
 **Position_Payroll_LF**: A team's total payroll salary of players who play left field    
@@ -198,7 +198,7 @@ This is the cleaned and standardized data file of all the data points collected 
 **Position_Percent_Payroll_1B**: The percent of a team's total payroll dedicated to players who play first base    
 **Position_Percent_Payroll_2B**: The percent of a team's total payroll dedicated to players who play second base  
 **Position_Percent_Payroll_3B**: The percent of a team's total payroll dedicated to players who play third base   
-**Position_Percent_Payroll_C**: The percent of a team's total payroll dedicated to players who play cather    
+**Position_Percent_Payroll_C**: The percent of a team's total payroll dedicated to players who play catcher    
 **Position_Percent_Payroll_CF**: The percent of a team's total payroll dedicated to players who play center field    
 **Position_Percent_Payroll_DH**: The percent of a team's total payroll dedicated to players who play designated hitter  
 **Position_Percent_Payroll_LF**: The percent of a team's total payroll dedicated to players who play left field  
