@@ -153,9 +153,9 @@ Diff_From_League_Avg_Payroll                 Top1_Percent                 Top3_P
 
 It is expected for there to be missing values in Previous year payroll, percent change and difference for 2011 (there is
 no prior data).   
-The high amount of missing values in the suspended column is also expected and ok, there shouldnt be players getting suspended
+The high amount of missing values in the suspended column is also expected and ok, there shouldn't be players getting suspended
 too often. Injured, retained, and buried are all expected to have missing values, as not every team has these parts of payroll every season.    
-Experience and status has some missing values due to data quality. There wasn't always consistency across the website in terms of these fields being filled for every player.    
+Experience and status have some missing values due to data quality. There wasn't always consistency across the website in terms of these fields being filled for every player.    
 Wins, Losses, and W.L. should all have the same number of missing values, as these only pertain to the 2024 season (which will be predicted).     
 
 
