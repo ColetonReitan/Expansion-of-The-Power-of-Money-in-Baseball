@@ -40,7 +40,7 @@ Cleaning and Integration (Completed_MLB_Payroll_Data):
 4) Data encoding
 5) Handling of COVID-19 (2020) data
 
-Transformation and Creation/Reduction (Predictive_MLB_Payroll_Data):
+Transformation and Feature Creation/Reduction (Predictive_MLB_Payroll_Data):
 1) Creating new predictive features based on original data
 2) Removing unneeded features
 3) Standardizing the data
@@ -81,13 +81,13 @@ I built a web scraper from scratch using R to collect the necessary data. The we
 #### Dealing with COVID Data
 The MLB in 2020 played a truncated season that consisted of 60 games, which is 37% of a normal season. The MLBPA and MLB came to an agreement that players would be paid 37% of their original salary for that season. Because of this, team total payrolls witnessed massive drops (in the data from spotrac). In order to keep the data as consistent as possible, I decided to calculate the expected (no covid) total payroll of the 2020 season by summing the non-adjusted payroll salaries of all players for each team. In addition to this, I applied the 60 game win loss ratio to every team to give wins and losses results for what would've been a 162 game season. However, this means that my data now says the Dodgers in 2020 are tied for first for the most games won in an MLB season at 116. Although it is unlikely that this team would have tied the MLB single season win record, the importance of having a full 162 games in a season for this analysis is much greater and translating a team's win loss record to a 162 game season would be the best way to do this. Note, 43 wins from a top ranking payroll would be significantly more misleading!!
 
-#### Variable Description
-There are currently 31 variables with nearly 20,000 observations that gives me almost 600,000 total values.
+#### Completed_MLB_Payroll_Data Variable Description
+This is the cleaned (aside from certain NA's that were held) data file of all the data points collectd from the web scrapper. In this is data from 2011-2024 seasons and spans across 36 variables with nearly 20,000 observations which gives me almost 700,000 total values.
 
 **Team**: Team Name  
 **Abbreviation**: Team Name Abbreviation  
 **Year**: Year of season being examined  
-**Payroll.Rank**: Payroll rank for specified team in specified season (1 is highest payroll 30 is lowest)  
+**Payroll.Ranking**: Payroll rank for specified team in specified season (1 is highest payroll 30 is lowest)  
 **Total.Payroll**: The total payroll the specified team is paying in the season  
 **League.Average.Payroll**: The average payroll across the league for the specified year  
 **Previous.Year.Payroll**: The payroll from the previous year for the specified team  
@@ -107,19 +107,23 @@ There are currently 31 variables with nearly 20,000 observations that gives me a
 **Average.Age**: The avereage age of all the players on a specified team    
 **Wins**: The amount of wins a team has in the season  
 **Losses**: The amount of losses a team has in the season  
-**W-L%**: The win-loss ratio for a team  
+**W.L.**: The win-loss ratio for a team  
+**Player_Group**: Tells where the player position is (Infield, Outfield, Pitcher, Desgnated_Hitter)    
+**Diff_From_League_Average_Payroll**: Tells the difference between a team's total payroll and the league average payroll  
+**Top1_Percent**: Gives the percentage of a team's total payroll that the highest paid player on that team takes up in a given year 
+**Top3_Percent**: Gives the percentage of a team's total payroll that the 3 highest paid players on that team takes up in a given year 
+**Top5_Percent**: Gives the percentage of a team's total payroll that the 5 highest paid players on that team takes up in a given year 
 *The following variables are categorical and can be three different values: Won, Lost, or DNP (did not play)*  
-**World Series**: Says how the team did in the world series for the specified year  
+**World.Series**: Says how the team did in the world series for the specified year  
 **ALCS**: Says how the team did in the ALCS for the specified year  
 **NLCS**: Says how the team did in the NLCS for the specified year  
-**AL Division Series**: Says how the team did in the AL Division Series for the specified year  
-**NL Division Series**: Says how the team did in the NL Division Series for the specified year  
-**Wild Card Game**: Says how the team did in the Wild Card Game for the specified year  
+**AL.Division.Series**: Says how the team did in the AL Division Series for the specified year  
+**NL.Division.Series**: Says how the team did in the NL Division Series for the specified year  
+**Wild.Card.Game**: Says how the team did in the Wild Card Game for the specified year  
 **Playoff_Status**: Says how far a team made it into the playoffs: 0=DNP, 1=WC, 2=DS, 3=CS, 4=WS, 5=WSwin
 
 ``` r
 df <- read.csv("C:/Users/colet/Documents/Personal Projects/Completed_MLB_Payroll_Data.csv")
-
 #Checking where the NA's are
 colSums(is.na(df))
 #Checking to make sure the datatypes are what they should be
@@ -127,18 +131,24 @@ str(df)
 ```
 ```r
 > colSums(is.na(df))
-                  Team                   Year           Abbreviation          Total.Payroll         Active.Payroll                Injured 
-                     0                      0                      0                      0                      0                   4542 
-              Retained                 Buried              Suspended                 Player                    Pos                    Exp 
-                   383                   2497                  19000                      0                      0                   6503 
-                Status         Payroll.Salary                   Type            Average.Age                   W.L.           World.Series 
-                  4431                     68                      0                      0                   1250                      0 
-                  ALCS                   NLCS     AL.Division.Series     NL.Division.Series         Wild.Card.Game         Playoff_Status 
-                     0                      0                      0                      0                      0                      0 
-League.Average.Payroll  Previous.Year.Payroll Payroll.Percent.Change     Payroll.Difference        Payroll.Ranking                   Wins 
-                     0                   1272                   1272                   1272                      0                   1250 
-                Losses 
-                  1250 
+                        Team                         Year                 Abbreviation                Total.Payroll 
+                           0                            0                            0                            0 
+              Active.Payroll                      Injured                     Retained                       Buried 
+                           0                         4429                          380                         2481 
+                   Suspended                       Player                          Pos                          Exp 
+                       18247                            0                            0                         5741 
+                      Status               Payroll.Salary                         Type                  Average.Age 
+                        3671                           65                            0                            0 
+                        W.L.                 World.Series                         ALCS                         NLCS 
+                        1200                            0                            0                            0 
+          AL.Division.Series           NL.Division.Series               Wild.Card.Game               Playoff_Status 
+                           0                            0                            0                            0 
+      League.Average.Payroll        Previous.Year.Payroll       Payroll.Percent.Change           Payroll.Difference 
+                           0                         1267                         1267                         1267 
+             Payroll.Ranking                         Wins                       Losses                 Player_Group 
+                           0                         1200                         1200                            0 
+Diff_From_League_Avg_Payroll                 Top1_Percent                 Top3_Percent                 Top5_Percent 
+                           0                            0                            0                            0 
 ```
 
 It is expected for there to be missing values in Previous year payroll, percent change and difference for 2011 (there is
@@ -148,14 +158,6 @@ too often. Injured, retained, and buried are all expected to have missing values
 Experience and status has some missing values due to data quality. There wasn't always consistency across the website in terms of these fields being filled for every player.    
 Wins, Losses, and W.L. should all have the same number of missing values, as these only pertain to the 2024 season (which will be predicted).   
 
-$ Team: chr - $ Year: int - $ Payroll.Ranking: int - $ Total.Payroll: int -   
-$ League.Average.Payroll: num - $ Previous.Year.Payroll : int - $ Payroll.Percent.Change: num    
-$ Payroll.Difference: int - $ Active.Payroll: int - $ Injured: num    
-$ Retained : num - $ Buried : num - $ Suspended: num - $ Player: chr    
-$ Pos: chr - $ Exp: num - $ Status: chr - $ Payroll.Salary : num    
-$ Type: chr - $ Average.Age: num - $ W: int - $ L: int - $ W.L.: num    
-$ World.Series: chr - $ ALCS : chr - $ NLCS: chr    
-$ AL.Division.Series: chr - $ NL.Division.Series: chr - $ Wild.Card.Game : chr
 
 ## More Research Questions
 
