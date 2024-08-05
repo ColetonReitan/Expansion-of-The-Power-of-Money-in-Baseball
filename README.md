@@ -65,7 +65,7 @@ Embedded Methods:
 
 ### Modeling
 
-### Statistical Analysis
+### Analysis
 
 ## MetaData
 
