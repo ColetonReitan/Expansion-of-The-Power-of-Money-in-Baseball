@@ -104,11 +104,11 @@ This is the cleaned (aside from certain NA's that were held) data file of all th
 **Status**: Qualitative description of experience  
 **Payroll.Salary**: The salary of the specified player  
 **Type**: Which original table the data came from  
-**Average.Age**: The avereage age of all the players on a specified team    
+**Average.Age**: The average age of all the players on a specified team    
 **Wins**: The amount of wins a team has in the season  
 **Losses**: The amount of losses a team has in the season  
 **W.L.**: The win-loss ratio for a team  
-**Player_Group**: Tells where the player position is (Infield, Outfield, Pitcher, Desgnated_Hitter)    
+**Player_Group**: Tells where the player position is (Infield, Outfield, Pitcher, Designated_Hitter)    
 **Diff_From_League_Average_Payroll**: Tells the difference between a team's total payroll and the league average payroll    
 **Top1_Percent**: Gives the percentage of a team's total payroll that the highest paid player on that team takes up in a given year   
 **Top3_Percent**: Gives the percentage of a team's total payroll that the 3 highest paid players on that team takes up in a given year   
