@@ -82,7 +82,7 @@ I built a web scraper from scratch using R to collect the necessary data. The we
 The MLB in 2020 played a truncated season that consisted of 60 games, which is 37% of a normal season. The MLBPA and MLB came to an agreement that players would be paid 37% of their original salary for that season. Because of this, team total payrolls witnessed massive drops (in the data from spotrac). In order to keep the data as consistent as possible, I decided to calculate the expected (no covid) total payroll of the 2020 season by summing the non-adjusted payroll salaries of all players for each team. In addition to this, I applied the 60 game win loss ratio to every team to give wins and losses results for what would've been a 162 game season. However, this means that my data now says the Dodgers in 2020 are tied for first for the most games won in an MLB season at 116. Although it is unlikely that this team would have tied the MLB single season win record, the importance of having a full 162 games in a season for this analysis is much greater and translating a team's win loss record to a 162 game season would be the best way to do this. Note, 43 wins from a top ranking payroll would be significantly more misleading!!
 
 #### Completed_MLB_Payroll_Data Variable Description
-This is the cleaned (aside from certain NA's that were held) data file of all the data points collectd from the web scrapper. In this is data from 2011-2024 seasons and spans across 36 variables with nearly 20,000 observations which gives me almost 700,000 total values.
+This is the cleaned (aside from certain NA's that were held) data file of all the data points collectd from the web scrapper. In this is data from 2011-2024 seasons and spans across 36 variables with nearly 20,000 observations which gives me almost 700,000 total values. This data contains specific player and team payroll data from every team in every season between 2011-2024.   
 
 **Team**: Team Name  
 **Abbreviation**: Team Name Abbreviation  
@@ -109,10 +109,10 @@ This is the cleaned (aside from certain NA's that were held) data file of all th
 **Losses**: The amount of losses a team has in the season  
 **W.L.**: The win-loss ratio for a team  
 **Player_Group**: Tells where the player position is (Infield, Outfield, Pitcher, Desgnated_Hitter)    
-**Diff_From_League_Average_Payroll**: Tells the difference between a team's total payroll and the league average payroll  
-**Top1_Percent**: Gives the percentage of a team's total payroll that the highest paid player on that team takes up in a given year 
-**Top3_Percent**: Gives the percentage of a team's total payroll that the 3 highest paid players on that team takes up in a given year 
-**Top5_Percent**: Gives the percentage of a team's total payroll that the 5 highest paid players on that team takes up in a given year 
+**Diff_From_League_Average_Payroll**: Tells the difference between a team's total payroll and the league average payroll    
+**Top1_Percent**: Gives the percentage of a team's total payroll that the highest paid player on that team takes up in a given year   
+**Top3_Percent**: Gives the percentage of a team's total payroll that the 3 highest paid players on that team takes up in a given year   
+**Top5_Percent**: Gives the percentage of a team's total payroll that the 5 highest paid players on that team takes up in a given year   
 *The following variables are categorical and can be three different values: Won, Lost, or DNP (did not play)*  
 **World.Series**: Says how the team did in the world series for the specified year  
 **ALCS**: Says how the team did in the ALCS for the specified year  
@@ -156,8 +156,76 @@ no prior data).
 The high amount of missing values in the suspended column is also expected and ok, there shouldnt be players getting suspended
 too often. Injured, retained, and buried are all expected to have missing values, as not every team has these parts of payroll every season.    
 Experience and status has some missing values due to data quality. There wasn't always consistency across the website in terms of these fields being filled for every player.    
-Wins, Losses, and W.L. should all have the same number of missing values, as these only pertain to the 2024 season (which will be predicted).   
+Wins, Losses, and W.L. should all have the same number of missing values, as these only pertain to the 2024 season (which will be predicted).     
 
+
+#### Predictive_MLB_Payroll_Data Variable Description
+This is the cleaned and standardized data file of all the data points collectd from the web scrapper. This contains data from 2012-2023 seasons and spans across 53 variables with 360 observations which gives me almost 20,000 total values. This data contains team-specific payroll data, with player specific data averaged, medianed, or grouped in a way so that each player on each team does **not** show up within the data. This data will be used to perform predictive modeling, as there is no repetition of data (bc there is no longer individual player data included) and only the predictive features from the original dataframe were kept. However, additional team-specific player data features were created. 
+
+**Team**: Team Name  
+**Abbreviation**: Team Name Abbreviation   
+**Year**: Year of season being examined  
+**Playoff_Status**: Says how far a team made it into the playoffs: 0=DNP, 1=WC, 2=DS, 3=CS, 4=WS, 5=WSwin  
+**Wins**: The amount of wins a team has in the season (Target Variable 1)    
+**Total.Payroll**: The total payroll the specified team is paying in the season   
+**Active.Payroll**: The payroll amount that is dedicated to active players (for a team) in a specified year  
+**Injured**: The payroll amount that is dedicated to injured players (for a team) in a specified year  
+**Retained**: The payroll amount that is retained from players no longer on a team in a specified year  
+**Buried**: The payroll amount that is dedicated to players not on the major league roster (minor league players)  
+**Suspended**: The payroll amount that is dedicated to players suspended in a specified year  
+**Average.Age**: The avereage age of all the players on a specified team  
+**Payroll.Percent.Change**: The payroll percent change from the previous year for the specified team  
+**Diff_From_League_Avg_Payroll**: Tells the difference between a team's total payroll and the league average payroll  
+**Payroll.Ranking**: Payroll rank for specified team in specified season (1 is highest payroll 30 is lowest)  
+**Top1_Percent**: Gives the percentage of a team's total payroll that the highest paid player on that team takes up in a given year  
+**Top3_Percent**: Gives the percentage of a team's total payroll that the 3 highest paid players on that team takes up in a given year    
+**Top5_Percent**: Gives the percentage of a team's total payroll that the 5 highest paid players on that team takes up in a given year   
+**Median_Exp**: The median number of years of MLB time a team's players have  
+**Mean_Exp**: The mean number of years of MLB time a team's players have  
+**Position_Payroll_1B**: A team's total payroll salary of players who play first base    
+**Position_Payroll_2B**: A team's total payroll salary of players who play second base    
+**Position_Payroll_3B**: A team's total payroll salary of players who play third base    
+**Position_Payroll_C**: A team's total payroll salary of players who play cather    
+**Position_Payroll_CF**: A team's total payroll salary of players who play center field     
+**Position_Payroll_DH**: A team's total payroll salary of players who play designated hitter    
+**Position_Payroll_LF**: A team's total payroll salary of players who play left field    
+**Position_Payroll_OF**: A team's total payroll salary of players who play outfield*    
+**Position_Payroll_P**: A team's total payroll salary of players who play pitcher*    
+**Position_Payroll_RF**: A team's total payroll salary of players who play right field     
+**Position_Payroll_RP**: A team's total payroll salary of players who play relief pitcher    
+**Position_Payroll_SP**: A team's total payroll salary of players who play starting pitcher    
+**Position_Payroll_SS**: A team's total payroll salary of players who play short stop     
+**Position_Percent_Payroll_1B**: The percent of a team's total payroll dedicated to players who play first base    
+**Position_Percent_Payroll_2B**: The percent of a team's total payroll dedicated to players who play second base  
+**Position_Percent_Payroll_3B**: The percent of a team's total payroll dedicated to players who play third base   
+**Position_Percent_Payroll_C**: The percent of a team's total payroll dedicated to players who play cather    
+**Position_Percent_Payroll_CF**: The percent of a team's total payroll dedicated to players who play center field    
+**Position_Percent_Payroll_DH**: The percent of a team's total payroll dedicated to players who play designated hitter  
+**Position_Percent_Payroll_LF**: The percent of a team's total payroll dedicated to players who play left field  
+**Position_Percent_Payroll_OF**: The percent of a team's total payroll dedicated to players who play outfield*   
+**Position_Percent_Payroll_P**: The percent of a team's total payroll dedicated to players who play pitcher*  
+**Position_Percent_Payroll_RF**: The percent of a team's total payroll dedicated to players who play right field  
+**Position_Percent_Payroll_RP**: The percent of a team's total payroll dedicated to players who play relief pitcher   
+**Position_Percent_Payroll_SP**: The percent of a team's total payroll dedicated to players who play starting pitcher  
+**Position_Percent_Payroll_SS**: The percent of a team's total payroll dedicated to players who play shortstop   
+**Player_Group_Payroll_Designated_Hitter**: A team's total payroll salary of players who play designated hitter  
+**Player_Group_Payroll_Infield**: A team's total payroll salary of players who play infield  
+**Player_Group_Payroll_OutField**: A team's total payroll salary of players who play outfield  
+**Player_Group_Payroll_Pitcher**: A team's total payroll salary of players who play pitcher  
+**Player_Group_Percent_Payroll_Designated_Hitter**: The percent of a team's total payroll dedicated to players who play designated hitter   
+**Player_Group_Percent_Payroll_Infield**: The percent of a team's total payroll dedicated to players who play infield  
+**Player_Group_Percent_Payroll_OutField**: The percent of a team's total payroll dedicated to players who play outfield  
+**Player_Group_Percent_Payroll_Pitcher**: The percent of a team's total payroll dedicated to players who play pitcher  
+  
+```r
+df <- read.csv("C:/Users/colet/Documents/Personal Projects/Predictive_MLB_Payroll_Data.csv")
+#Making sure no NA's exist
+print(sum(is.na(df)))
+```
+```
+> print(sum(is.na(df)))
+[1] 0
+```
 
 ## More Research Questions
 
