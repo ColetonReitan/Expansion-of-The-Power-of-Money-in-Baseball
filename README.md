@@ -50,6 +50,7 @@ The exploratory data analysis portion of this project will be broken down into 3
 1)  League payroll (general)
 2)  Playoff and World Series Teams' Payrolls
 3)  Player and position payroll distribution
+4)  - [Part 1: Data Collection](League_Payroll_EDA.md)
 
 
 ### Feature Selection 
