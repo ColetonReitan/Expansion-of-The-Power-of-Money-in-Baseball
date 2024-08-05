@@ -30,19 +30,33 @@ The horror and beauty of payroll in baseball is that teams do not have to fear a
 
 ## Methods
 
+### Preprocessing
+The Preprocessing portion of this project involves cleaning, transforming, and organizing the raw data into a structured format suitable for analysis and modeling. Majority of the preprocessing was done in the data collection portion of the project (with the web scrapper)  
+1) Checking and handling of NA's
+2) Duplicate Removal
+3) Data error correction
+4) Data encoding
+5) Handling of COVID-19 (2020) data
 
 ### EDA
-The exploratory data analysis portion of this project will be broken down into 3 separate analyses: 
+The exploratory data analysis portion of this project will be broken down into 3 separate analyses:   
 1)  League payroll (general)
 2)  Playoff and World Series Teams' Payrolls
 3)  Player and position payroll distribution
 
 
 ### Feature Selection 
-Several feature selection methods will be used within this project to determine which features will be used in creating the predictive models.  
-1) Correlation Coefficient Matrix of feature collinearity
-2) 
-3) 
+In terms of feature selection methods, a filter method and a few embedded methods will be used and analyzed to determine the best features to keep in predictive modeling.    
+Prior to feature selection, the data standardization was performed. 
+
+Filter Methods: 
+1) Correlation Analysis
+
+Embedded Methods:   
+1) Random Forest Feature Importance
+2) L1 Regularization (Lasso Regression)
+3) L2 Regularization (Ridge Regression)
+
 ### Modeling
 
 ### Statistical Analysis
