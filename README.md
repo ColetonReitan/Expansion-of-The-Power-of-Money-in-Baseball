@@ -33,14 +33,14 @@ The horror and beauty of payroll in baseball is that teams do not have to fear a
 ### Preprocessing
 The Preprocessing portion of this project is broken down into two parts. The first involves the cleaning and integration of the data collected from the web scrapper - this is the data that will be analyzed in EDA. The second portion involves the transformation and creation/reduction in variables suitable for modeling. 
 
-Cleaning and Integration (Completed_MLB_Payroll_Data):
+Cleaning and Integration - Performed within the web scrapper code file (Completed_MLB_Payroll_Data):
 1) Checking and handling of NA's
 2) Duplicate Removal
 3) Data error correction
 4) Data encoding
 5) Handling of COVID-19 (2020) data
 
-Transformation and Feature Creation/Reduction (Predictive_MLB_Payroll_Data):
+Transformation and Feature Creation/Reduction - Performed in preprocessed predictive features file (Predictive_MLB_Payroll_Data):
 1) Creating new predictive features based on original data
 2) Removing unneeded features
 3) Standardizing the data
