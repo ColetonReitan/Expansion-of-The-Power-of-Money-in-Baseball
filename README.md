@@ -61,7 +61,7 @@ Filter Methods:
 Embedded Methods:   
 1) Random Forest Feature Importance
 2) L1 Regularization (Lasso Regression)
-3) L2 Regularization (Ridge Regression)
+3) Hybrid Lasso to RandomForest
 
 ### Modeling
 
