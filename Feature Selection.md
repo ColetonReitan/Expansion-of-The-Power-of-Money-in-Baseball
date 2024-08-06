@@ -89,7 +89,87 @@ This leaves the remaining 8 features, which was the target number of features to
 #Save Corrlation Coefficient Features
 write.csv(correlation_df, file = "CorrelationCoefFeaturesDF.csv", row.names = FALSE)
 ```
-
 ---
 
 ## Embedded Methods
+
+### Random Forest Feature Selection Model
+The random forest embedded method is the second feature selection used to gain an understanding and have an idea as to which features give the greatest contributions towards the model predicting "Wins".   
+
+#### All Features' Importance Score
+![](Feature_Selection_Images/featureimportancRF.png)
+
+It can be seen in the plot that only six features hold an importance score of .025 or higher, while four features hold a negative importance score.   
+
+#### Random Forest Feature Selection Error Metrics
+| Metric                         | Value | Explanation                                                                 |
+|--------------------------------|-------|-----------------------------------------------------------------------------|
+| **Mean Absolute Error (MAE)**  | 0.61  | On average, predictions are 0.61 units away from actual values.              |
+| **Mean Squared Error (MSE)**   | 0.57  | The average squared difference between predictions and actual values is 0.57.|
+| **Root Mean Squared Error (RMSE)** | 0.76  | On average, predictions are 0.76 units away from actual values, considering larger errors more heavily.|
+| **R-squared (R²)**             | 0.53  | The model explains 53% of the variance in the actual values.                 |  
+
+It's important to understand the model's error metrics in order to compare to the other feature selection models to determine which may hold the most accuracy. 
+
+#### Top 10 Important RF Features
+![](Feature_Selection_Images/Top10RFImportantFeats.png)  
+Taking a closer look at the top 10 features from the model will help in reducing the number of features to the 5-8 feature range that is being aimed for.  
+- Mean_Exp and Median_Exp are both in the top 10, so the less important one (Mean_Exp) will be removed
+- Active.Payroll and Retained are both subsets of Total.Payroll, but hold more importance, so Total.Payroll will be removed
+This leaves 8 of the most important variables based on the RF model, which for now will be a good number to keep.
+
+#### Random Forest Features
+| Feature                        | Importance |
+|--------------------------------|------------|
+| Average.Age                    | 0.08562456 |
+| Active.Payroll                 | 0.08281340 |
+| Median_Exp                     | 0.07254387 |
+| Retained                       | 0.05017051 |
+| Payroll.Percent.Change         | 0.03169794 |
+| Player_Group_Payroll_OutField  | 0.02259386 |
+| Top1_Percent                   | 0.01864846 |
+| Player_Group_Payroll_Pitcher   | 0.01779828 |
+
+These are the same features found in the correlation analysis feature selection, which is a good sign as this says they are continually the most important features to use when modeling. 
+
+```r
+#Save Random Forest Features
+write.csv(RF_Df, file = "RandomForestFeaturesDF.csv", row.names = FALSE)
+```
+
+### L1 Regularization (Lasso Regression Model)
+The lasso regression embedded method is the third feature selection used to gain an understanding and have an idea as to which features give the greatest contributions towards the model predicting "Wins".   
+
+#### Lasso Feature Relationship
+![](Feature_Selection_Images/lassocoefffeatplot.png)  
+Lasso Regression shrinks the weight of less important features to zero, which can be seen within the plot here, leaving behind 31 features to be assesed.
+
+#### Lasso Regression Feature Selection Error Metrics
+| Metric                         | Value | Explanation                                                                 |
+|--------------------------------|-------|-----------------------------------------------------------------------------|
+| **Mean Squared Error (MSE)**   | 0.46  | The average squared difference between predictions and actual values is 0.46.|
+| **R-squared (R²)**             | 0.53  | The model explains 53% of the variance in the actual values.                 |    
+
+The Rsquared is very similar to that of the Random Forest Model, however the mean squared error is lower, indicating the lasso regression may be more reliable in terms of feature selection.      
+
+#### Lasso Features with Coefficient magnitude >= .1
+![](Feature_Selection_Images/LassoRegressionSigFeats.png)
+
+Of the 31 non-zero features, 14 had a coefficient maginute of greater than .1. For now, features from this list with a coefficient magnitude of .13 or greater will be kept, leaving with the 6 features shown below. However, a random forest model feature importance model may be used down the road on these remaining features to determine which should be kept. 
+
+#### Lasso Regression Features
+| Feature                                 | Coefficient |
+|-----------------------------------------|-------------|
+| Average.Age                             | 0.2644904   |
+| Active.Payroll                          | 0.1395932   |
+| Position_Payroll_RP                     | 0.1384407   |
+| Top3_Percent                           | -0.1314580  |
+| Injured                                | -0.1355215  |
+| Retained                               | -0.1924657  |
+
+There are some differences in the features found in the Lasso regression, but the similarity is found in the Average.Age, Active.Payroll, and Retained features.
+
+```r
+#Save Lasso Features
+write.csv(Lasso_df, file = "LassoFeatures.csv", row.names = FALSE)
+```
