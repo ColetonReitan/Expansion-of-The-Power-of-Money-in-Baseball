@@ -53,7 +53,7 @@ The exploratory data analysis portion of this project will be broken down into 3
 
 
 ### Feature Selection 
-In terms of feature selection methods, a filter method and a few embedded methods will be used and analyzed to determine the best features to keep in predictive modeling (Using Predictive_MLB_Payroll_Data).    
+In terms of feature selection methods, filter and embedded methods will be used and analyzed to determine the best features to keep in predictive modeling (Using Predictive_MLB_Payroll_Data).    
 
 Filter Methods: 
 1) Correlation Analysis
@@ -61,7 +61,10 @@ Filter Methods:
 Embedded Methods:   
 1) Random Forest Feature Importance
 2) L1 Regularization (Lasso Regression)
-3) Hybrid Lasso to RandomForest
+
+Filter-Embedded Hybrid:
+1) Correlation Analysis - Random Forest Feature Importance
+
 
 ### Modeling
 
