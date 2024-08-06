@@ -173,3 +173,49 @@ There are some differences in the features found in the Lasso regression, but th
 #Save Lasso Features
 write.csv(Lasso_df, file = "LassoFeatures.csv", row.names = FALSE)
 ```
+
+## Filter-Embedded Hybrid Method
+
+### Correlation Analysis - Random Forest Feature Selecetion
+Filter embedded methods are advantageous because they provide efficient, model-independent feature selection by evaluating the relevance of features using statistical techniques, which helps in reducing overfitting and handling high-dimensional data effectively.  
+
+#### 1) Correlation Analysis
+Using the same correlation analysis model as previously used, a correlation coefficient threshold of (aboslute value) .15 was put into place  
+
+#### Feature Correlation with Wins Threshold |.15|
+![](Feature_Selection_Images/featurecorrelationp15wwins.png)  
+There are 22 features remaining after taking those which have a correlation of .15 or higher. These features and their specific correlations can be seen below. These will then be used in a Random Forest Model to determine which hold the most importance.   
+
+#### Remaining Features with Correlation
+| Feature                              | Correlation |
+|--------------------------------------|-------------|
+| Average.Age                          | 0.5220093   |
+| Active.Payroll                       | 0.5030141   |
+| Median_Exp                           | 0.4572524   |
+| Mean_Exp                             | 0.4347328   |
+| Diff_From_League_Avg_Payroll         | 0.3653672   |
+| Payroll.Percent.Change               | 0.3488771   |
+| Total.Payroll                        | 0.3483478   |
+| Player_Group_Payroll_Pitcher         | 0.3283856   |
+| Player_Group_Payroll_OutField        | 0.3008260   |
+| Position_Payroll_SP                  | 0.2805726   |
+| Position_Payroll_RP                  | 0.2739767   |
+| Player_Group_Payroll_Infield         | 0.2242464   |
+| Position_Payroll_LF                  | 0.1850719   |
+| Position_Payroll_CF                  | 0.1632493   |
+| Position_Payroll_2B                  | 0.1630636   |
+| Position_Payroll_RF                  | 0.1581358   |
+| Top5_Percent                         | -0.1914609  |
+| Position_Payroll_P                   | -0.2157385  |
+| Position_Percent_Payroll_P           | -0.2670468  |
+| Top3_Percent                         | -0.2913896  |
+| Retained                             | -0.3068963  |
+| Top1_Percent                         | -0.3136713  |
+| Payroll.Ranking                      | -0.3709405  |
+
+
+#### 2) Random Forest Feature Importance
+Using the same Random Forest Model as previously used, an importance score will be calculated for all the features taken with an absolute correlation of .15 or higher to wins. 
+
+
+
