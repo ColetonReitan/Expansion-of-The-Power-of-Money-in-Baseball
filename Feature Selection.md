@@ -96,8 +96,9 @@ write.csv(correlation_df, file = "CorrelationCoefFeaturesDF.csv", row.names = FA
 ### Random Forest Feature Selection Model
 The random forest embedded method is the second feature selection used to gain an understanding and have an idea as to which features give the greatest contributions towards the model predicting "Wins".   
 
+
 #### All Features' Importance Score
-![](Feature_Selection_Images/Ttop10RFImportantFeats.png)
+![](Feature_Selection_Images/rffeatureimp.png) 
 
 
 It can be seen in the plot that only six features hold an importance score of .025 or higher, while four features hold a negative importance score.   
@@ -224,7 +225,11 @@ From this model, the 7 most important features will be taken into consideration 
 | Payroll.Ranking               | 14.87357    |
 | Position_Payroll_RP           | 13.69533    |
 
-
+Some of these features are similar to those already chosen to be used in modeling, some are not. 
+```r
+#Save Hybrid Features
+write.csv(hybrid_df, file = "Hybrid_features.csv", row.names = FALSE)
+```
 
 
 
