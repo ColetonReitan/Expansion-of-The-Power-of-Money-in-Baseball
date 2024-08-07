@@ -97,7 +97,8 @@ write.csv(correlation_df, file = "CorrelationCoefFeaturesDF.csv", row.names = FA
 The random forest embedded method is the second feature selection used to gain an understanding and have an idea as to which features give the greatest contributions towards the model predicting "Wins".   
 
 #### All Features' Importance Score
-![](Feature_Selection_Images/featureimportancRF.png)
+![](Feature_Selection_Images/Ttop10RFImportantFeats.png)
+
 
 It can be seen in the plot that only six features hold an importance score of .025 or higher, while four features hold a negative importance score.   
 
@@ -112,7 +113,7 @@ It can be seen in the plot that only six features hold an importance score of .0
 It's important to understand the model's error metrics in order to compare to the other feature selection models to determine which may hold the most accuracy. 
 
 #### Top 10 Important RF Features
-![](Feature_Selection_Images/Top10RFImportantFeats.png)  
+![](Feature_Selection_Images/Ttop10RFImportantFeats.png)  
 Taking a closer look at the top 10 features from the model will help in reducing the number of features to the 5-8 feature range that is being aimed for.  
 - Mean_Exp and Median_Exp are both in the top 10, so the less important one (Mean_Exp) will be removed
 - Active.Payroll and Retained are both subsets of Total.Payroll, but hold more importance, so Total.Payroll will be removed
@@ -177,19 +178,52 @@ write.csv(Lasso_df, file = "LassoFeatures.csv", row.names = FALSE)
 ## Wrapper-Embedded Hybrid Method
 
 ### Backward Selection - Random Forest 
-Embeedded wrapper method is advantageous because it combines the strengths of feature selection and model training, allowing the model to refine its feature set while simultaneously optimizing performance.
+Embeedded wrapper hybrid method is advantageous because it combines the strengths of feature selection and model training, allowing the model to refine its feature set while simultaneously optimizing performance.
 
 
 #### 1) Backwards Selection
 Using the backwards selection stepwise regression model with all the features, select features will remain for feature importance identification with the randomforest model. In backwards selection, the variables are judged on how their interaction with the model affects the AIC. 
 
+After implementing backward selection, 22 features remain;   
+```r
+> print(Backwards_Selection_features)
+ [1] "Total.Payroll"               "Injured"                     "Retained"                    "Buried"                     
+ [5] "Average.Age"                 "Payroll.Percent.Change"      "Payroll.Ranking"             "Top3_Percent"               
+ [9] "Position_Payroll_1B"         "Position_Payroll_2B"         "Position_Payroll_C"          "Position_Payroll_DH"        
+[13] "Position_Payroll_LF"         "Position_Payroll_OF"         "Position_Payroll_RF"         "Position_Payroll_RP"        
+[17] "Position_Payroll_SP"         "Position_Payroll_SS"         "Position_Percent_Payroll_3B" "Position_Percent_Payroll_CF"
+[21] "Position_Percent_Payroll_P"  "Position_Percent_Payroll_RP"
+```
 
 #### 2) Random Forest
 A similar random forest model to the one used previously was utilized. 
 
-#### Random Forest Top 60%
-![](Feature_Selection_Images/rftop60perc.png)  
-There are 29 features remaining after taking those which are the top 60% in importance score. The features will then be used in backward selection. 
+#### Random Forest Backward Selection Feature Importance
+![](Feature_Selection_Images/rfafterbackwards.png)    
+
+#### Backward Selection Random Forest Error Metrics
+| Metric                         | Value | Explanation                                                                 |
+|--------------------------------|-------|-----------------------------------------------------------------------------|
+| **Mean Absolute Error (MAE)**  | 0.62  | On average, predictions are 0.62 units away from actual values.              |
+| **Mean Squared Error (MSE)**   | 0.57  | The average squared difference between predictions and actual values is 0.57.|
+| **Root Mean Squared Error (RMSE)** | 0.75  | On average, predictions are 0.75 units away from actual values, considering larger errors more heavily.|
+| **R-squared (R²)**             | 0.53  | The model explains 53% of the variance in the actual values.                 |
+
+The error metrics from this random forest feature importance model are very similar to that of the previous random forest feature importance model. 
+
+From this model, the 7 most important features will be taken into consideration for further modeling analysis. Those features are: 
+
+#### Backward Selection - Random Forest Features
+| Feature                       | Importance  |
+|-------------------------------|-------------|
+| Average.Age                   | 34.89545    |
+| Payroll.Percent.Change        | 24.95703    |
+| Retained                      | 24.17651    |
+| Total.Payroll                 | 19.66369    |
+| Top3_Percent                  | 14.26345    |
+| Payroll.Ranking               | 14.87357    |
+| Position_Payroll_RP           | 13.69533    |
+
 
 
 
