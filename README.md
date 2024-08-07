@@ -62,8 +62,8 @@ Embedded Methods:
 1) Random Forest Feature Importance
 2) L1 Regularization (Lasso Regression)
 
-Embedded-Wrapper Hybrid Method:
-1) Random Forest - Backward Selection
+Wrapper-Embedded Hybrid Method:
+1) Backward Selection - Random Forest
 
 ### Modeling
 
