@@ -53,7 +53,8 @@ The exploratory data analysis portion of this project will be broken down into 3
 
 
 ### Feature Selection 
-In terms of feature selection methods, filter and embedded methods will be used and analyzed to determine the best features to keep in predictive modeling (Using Predictive_MLB_Payroll_Data).    
+In terms of feature selection methods, filter embedded and hybrid wrapper methods will be used and analyzed to determine the best features to keep in predictive modeling (Using Predictive_MLB_Payroll_Data).    
+[Feature Selection Md](Feature_Selection.md) 
 
 Filter Methods: 
 1) Correlation Analysis
