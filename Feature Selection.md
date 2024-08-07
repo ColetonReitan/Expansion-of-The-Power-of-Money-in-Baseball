@@ -113,26 +113,28 @@ It can be seen in the plot that only six features hold an importance score of .0
 
 It's important to understand the model's error metrics in order to compare to the other feature selection models to determine which may hold the most accuracy. 
 
-#### Top 10 Important RF Features
-![](Feature_Selection_Images/Ttop10RFImportantFeats.png)  
-Taking a closer look at the top 10 features from the model will help in reducing the number of features to the 5-8 feature range that is being aimed for.  
-- Mean_Exp and Median_Exp are both in the top 10, so the less important one (Mean_Exp) will be removed
+#### Top 15 Important RF Features
+![](Feature_Selection_Images/rftop15.png)  
+Taking a closer look at the top 15 features from the model will help in reducing the number of features to the 5-8 feature range that is being aimed for.  
+- Mean_Exp and Median_Exp are both in the top 10, so the less important one (Mean_Exp) will be removed 
 - Active.Payroll and Retained are both subsets of Total.Payroll, but hold more importance, so Total.Payroll will be removed
-This leaves 8 of the most important variables based on the RF model, which for now will be a good number to keep.
+
+This leaves 8 of the 10 most important variables based on the RF model. However, this is very similar (aside from difference from league average) to the grouping of features from the correlation analysis feature selection. So aside from the just mentioned features, 3 other of the highest ranked important features that were not an outcome of the correlation analysis will be used.  
+Those 3 are: Diff_From_League_Avg_Payroll, Position_Percent_Payroll_RP, Top_3_Percent
 
 #### Random Forest Features
 | Feature                        | Importance |
 |--------------------------------|------------|
-| Average.Age                    | 0.08562456 |
-| Active.Payroll                 | 0.08281340 |
-| Median_Exp                     | 0.07254387 |
-| Retained                       | 0.05017051 |
-| Payroll.Percent.Change         | 0.03169794 |
-| Player_Group_Payroll_OutField  | 0.02259386 |
-| Top1_Percent                   | 0.01864846 |
-| Player_Group_Payroll_Pitcher   | 0.01779828 |
+| Active.Payroll                 | 0.09319288 |
+| Average.Age                    | 0.08223427 |
+| Median_Exp                     | 0.06712792 |
+| Retained                       | 0.04367303 |
+| Diff_From_League_Avg_Payroll   | 0.02043119 |
+| Position_Percent_Payroll_RP    | 0.01427489 |
+| Top3_Percent                   | 0.01076271 |
 
-These are the same features found in the correlation analysis feature selection, which is a good sign as this says they are continually the most important features to use when modeling. 
+It's a good sign to conintually see similar features selected across models, as this tells me that they seem to be agreeing with eachother on the contributions certain features give towards modeling.  
+However, since there is such a large discrepancy in importance from the first 4 features compared to the 3 added on, it may be beneficial to keep in mind the possibility of only using the those top 4 features when modeling.  
 
 ```r
 #Save Random Forest Features
@@ -231,7 +233,36 @@ Some of these features are similar to those already chosen to be used in modelin
 write.csv(hybrid_df, file = "Hybrid_features.csv", row.names = FALSE)
 ```
 
+## Selected Feature Overview
+Throughout the feature selection process, there were 4 groups of features chosen to be used in the modeling portion of this analysis.  
+Below is an overview of all the features chosen and the method by which they were selected. 
 
 
+#### Consolidated Features Table
+| Feature                           | Correlation Analysis Features   | Random Forest Features | Lasso Regression Features | Backward Selection - Random Forest Features |
+|-----------------------------------|---------------------------------|------------------------|---------------------------|----------------------------------------------|
+| Average.Age                       | ✓                               | ✓                      | ✓                         | ✓                                            |
+| Active.Payroll                    | ✓                               | ✓                      | ✓                         |                                              |
+| Median_Exp                        | ✓                               |                        |                           |                                              |
+| Payroll.Percent.Change            | ✓                               |                        |                           | ✓                                            |
+| Player_Group_Payroll_Pitcher      | ✓                               |                        |                           |                                              |
+| Player_Group_Payroll_OutField     | ✓                               |                        |                           |                                              |
+| Top1_Percent                      | ✓                               |                        |                           |                                              |
+| Retained                          | ✓                               | ✓                      | ✓                         | ✓                                            |
+| Diff_From_League_Avg_Payroll      |                                 | ✓                      |                           |                                              |
+| Position_Percent_Payroll_RP       |                                 | ✓                      | ✓                         | ✓                                            |
+| Total.Payroll                     |                                 |                        |                           | ✓                                            |
+| Payroll.Ranking                   |                                 |                        |                           | ✓                                            |
+| Injured                           |                                 |                        | ✓                         |                                              |
+| Position_Payroll_RP               |                                 |                        | ✓                         | ✓                                            |
+| Top3_Percent                      |                                 | ✓                      | ✓                         | ✓                                            |
 
 
+file = "CorrelationCoefFeaturesDF.csv"   
+file = "RandomForestFeaturesDF.csv"  
+file = "LassoFeatures.csv"   
+file = "Hybrid_features.csv" 
+
+Of the 48 different variables available in the dataset, 15 have been found to be relevant and used within the modeling.  
+Only two of the features were kept after all feature selection techniques; Average.Age and Retained.  
+Each grouping has 6-8 features involved, which is a comfortable amount of features, but may want to be thinned out if models are not as accurate as hoped to be.  `
