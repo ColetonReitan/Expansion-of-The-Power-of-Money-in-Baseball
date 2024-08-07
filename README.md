@@ -8,7 +8,7 @@ The initial project was an 8-week long assignment for my "Data Visualization" Ma
 This project is my personal continuation and expansion of the Power of Money in Baseball. 
 
 ## Project Status
-As of 8/2/2024, I am currently working in the feature selection & modeling phase.
+As of 8/7/2024, I am currently working in the modeling phase.
 
 
 ## Project Motivation
