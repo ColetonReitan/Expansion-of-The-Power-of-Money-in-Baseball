@@ -149,8 +149,9 @@ keep_dfs <- c("df", "ind_features")
 rm(list = setdiff(ls(), keep_dfs))
 
 # Dropping 2011 data. this was planned, served purpose of giving 2012 previous year payroll information. Also dropping 2024 data (na's in target vars)
-ind_features <- ind_features[ind_features$Year >= 2012 & ind_features$Year <= 2023, ]
+ind_features_noNA <- ind_features[ind_features$Year >= 2012 & ind_features$Year <= 2023, ]
 
+ind_features_2024 <- ind_features[ind_features$Year >= 2012,]
 
 # Using Standardization to put everything at a mean 0 scale
 # List of columns to standardize, including 'Wins'
@@ -182,13 +183,14 @@ features_to_standardize <- c("Wins", "Total.Payroll", "Active.Payroll",
                              "Player_Group_Percent_Payroll_Designated_Hitter",
                              "Median_Exp", "Mean_Exp")
 
+
 # Standardize the specified features
-ind_features_standardized <- ind_features %>%
+ind_features_standardized <- ind_features_noNA %>%
   mutate(across(all_of(features_to_standardize), ~ scale(.) %>% as.vector()))
 # Check the result
 head(ind_features_standardized)
 
 
 # Save dataframe to a CSV file
-write.csv(ind_features_standardized, file = "Predictive_MLB_Payroll_Data.csv", row.names = FALSE)
+write.csv(ind_features_2024, file = "Predictive2024_Unstandard_MLB_Payroll_Data.csv", row.names = FALSE)
 getwd()
