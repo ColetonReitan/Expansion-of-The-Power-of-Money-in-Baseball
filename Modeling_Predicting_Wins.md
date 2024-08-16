@@ -1,4 +1,63 @@
+# Modeling
 (This page is in progress)
+
+## Process  
+The modeling process entails selecting different supervised machine learning models that may be best suited for the data, running the models against the data, assessing the performance of the models, conducting hyperparameter tuning, analyzing all of the models' performance to determine the best models, and finally predicting team wins in the 2024 MLB season.  
+The goal is to create a model that best predicts 2024 team wins based on the predetermined feature groups.   
+The feature groups have be selected in the feature selection portion of the project.   
+The data has been split into training and testing sets with an 80/20 split.  
+Multiple supervised machine learning models will be used and assessed. 
+
+## Feature Groups
+Each of the feature groups created in the feature selection portion of the project were loaded into R and named as feature_grouping_#.   
+```r
+# Load feature groupings
+corr_feats_main_1 <- read.csv("C:/Users/colet/Documents/Personal Projects/CorrelationCoefFeaturesDF.csv")
+corr_feats_main_2 <- read.csv("C:/Users/colet/Documents/Personal Projects/RandomForestFeaturesDF.csv")
+corr_feats_main_3 <- read.csv("C:/Users/colet/Documents/Personal Projects/LassoFeatures.csv")
+corr_feats_main_4 <- read.csv("C:/Users/colet/Documents/Personal Projects/Hybrid_features.csv")
+# Define feature groupings
+feature_groupings <- list(
+  feature_grouping_1 = corr_feats_main_1,
+  feature_grouping_2 = corr_feats_main_2,
+  feature_grouping_3 = corr_feats_main_3,
+  feature_grouping_4 = corr_feats_main_4
+)
+```
+
+### Feature Group Variables
+To reiterate, the feature groupings are as follows: 
+
+- **Feature Group 1:**  Average.Age, Active.Payroll, Median_Exp, Retained, Payroll.Percent.Change, Player_Group_Payroll_Pitcher, Player_Group_Payroll_OutField, Top1_Percent  
+
+- **Feature Group 2:** Average.Age, Active.Payroll, Median_Exp, Retained, Diff_From_League_Avg_Payroll, Position_Percent_Payroll_RP, Top3_Percent 
+
+- **Feature Group 3:** Average.Age, Active.Payroll, Retained, Injured, Position_Payroll_RP, Top3_Percent  
+
+- **Feature Group 4:** Average.Age, Retained, Position_Payroll_RP, Top3_Percent, Payroll.Percent.Change, Total.Payroll, Payroll.Ranking
+
+Note* The standardized values of the features were used in the modeling process  
+
+
+## Selecting Models
+In order to create as accurate of a model as possible, it's important to first choose models that work best with the data and help produce the results being looked for. The selected supervised machine learning models have been selected and will be used throughout the modeling portion of the project:   
+
+### Chosen Models
+- Multiple Linear Regression Model  
+    A simple and interpretable model but may not perform well if there are complex relationships.   
+- Support Vector Machine (Regressor) Model  
+    An effective model in high dimensional spaces that can handle non-linear relationships, but may require careful hyperparameter tuning.  
+- Random Forest (Regressor) Model  
+    An accurate model that reduces overfitting but may be less interpretable than a simpler model.  
+- XGBoost (Regressor) Model  
+    A high performance model that reduces overfitting through regularization but also requires careful hyperparameter tuning. 
+
+
+
+
+
+
+
 
 ### Model Metrics
 | Model            | Feature Group | Train_MAE | Train_MSE | Train_RMSE | Train_R2 | Test_MAE | Test_MSE | Test_RMSE | Test_R2 |
