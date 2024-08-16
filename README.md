@@ -67,7 +67,7 @@ Wrapper-Embedded Hybrid Method:
 1) Backward Selection - Random Forest
 
 ### Modeling  
-For the modeling portion of this project, multiple supervised machine learning algorithms will be used to predict team Wins for the 2024 MLB season based on the feature groups chosen in the feature selection portion. The best highest performing models based on error metrics will then be chosen as the final models.   
+For the modeling portion of this project, multiple supervised machine learning algorithms will be used (and adjusted with hyperparameter tuning) to predict team Wins for the 2024 MLB season based on the feature groups chosen in the feature selection portion. The best highest performing models based on error metrics will then be chosen as the final models.   
 [Modeling Md](Modeling_Predicting_Wins.md)  
 
 Linear Regression Model:
