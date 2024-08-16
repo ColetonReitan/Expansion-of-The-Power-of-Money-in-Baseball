@@ -40,7 +40,7 @@ Cleaning and Integration - Performed within the web scrapper code file (Complete
 4) Data encoding
 5) Handling of COVID-19 (2020) data
 
-Transformation and Feature Creation/Reduction - Performed in preprocessed predictive features file (Predictive_MLB_Payroll_Data):
+Data and Feature Engineering - Performed in preprocessed predictive features file (Predictive_MLB_Payroll_Data):
 1) Creating new predictive features based on original data
 2) Removing unneeded features
 3) Standardizing the data
