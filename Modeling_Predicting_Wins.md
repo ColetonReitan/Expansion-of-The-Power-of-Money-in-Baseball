@@ -53,13 +53,59 @@ In order to create as accurate of a model as possible, it's important to first c
     A high performance model that reduces overfitting through regularization but also requires careful hyperparameter tuning. 
 
 
+## Creating Models
+The code for the modeling was created so that each feature grouping would used by each model in one run.  
+- Created a function named predict_wins that would take the current feature group data, standardize and split the feature group data, then apply this standardized and split feature group data to each model, while collecting the results for later analysis.
+```r
+predict_wins <- function(feature_grouping, original_data, predictive_2024_data, columns_to_exclude) {
+```
+- Created a for loop that uses each feature grouping's data with the predict_wins function and collect results.
+```r
+# Loop through each feature grouping
+for (group_name in names(feature_groupings)) {
+  
+  feature_grouping <- feature_groupings[["feature_grouping_1"]]
+  
+  feature_grouping <- feature_groupings[[group_name]]
+  result <- predict_wins(feature_grouping, original_data, predictive_2024_data, columns_to_exclude)
+  
+  # Add feature group to metrics and predictions
+  result$metrics$Feature_Group <- group_name
+  result$predictions_2024$Feature_Group <- group_name
+  
+  # Store results
+  all_results[[group_name]] <- result
+}
+```
+- The full code is available in the R code files area of this repository.
+
+The modeling libaries/functions used in R are as follows: 
+  - lm() function in base R was used for the multiple linear regression model
+  - ranger() function in the ranger library was used for the random forest model
+  - xgb.train() function in the xgboost library was used for the xgboost model
+  - ksvm() function in the kernlab library was used for the svm model
+
+### Hyperparameter Tuning
+A second function named predict_wins_HP was created which applied Grid Search hyperparameter tuning to each of the models (aside from multiple linear regression) in order to improve the error metrics of the models.   
+This function follows a very similar layout to that of predict_wins aside from the hyperparameter tuning. The multiple linear regression model was kept in this function to ensure data consistency.   
+
+The hyperparameter tuning adjustments are as follows: 
+- Random Forest Model: uses a grid search approach with 5-fold cross-validation to find the optimal values for mtry, splitrule, and min.node.size parameters.  
+- XGBoost Model: uses a grid search approach to evaluate different combinations of eta, max_depth, subsample, and colsample_bytree parameters, with 100 rounds for each combination.
+- SVM Model: uses a grid search approach to evaluate different combinations of C and sigma parameters by iterating through all possible combinations from specified lists.  
 
 
+## Model Error Metrics
+After running the models on the data, it's important to assess how the models did by examining the models' error metrics.
+Since this is a regression analysis, the metrics being examined are as follows:  
+- MAE (Mean Absolute Error): Measures the average absolute difference between actual and predicted values.
+- MSE (Mean Squared Error): Measures the average of the squared differences between actual and predicted values.  
+- RMSE (Root Mean Squared Error): Measures the square root of the average squared differences between actual and predicted values, highlighting larger errors more.  
+- R² (R-squared or Coefficient of Determination): Indicates the proportion of the variance in the actual values that is predictable from the predicted values, with 1 being a perfect fit.  
 
+The error metrics for the Initial Models and the Hyperparameter Tuned Models are below.   
 
-
-
-### Model Metrics
+### Initial Model Metrics
 | Model            | Feature Group | Train_MAE | Train_MSE | Train_RMSE | Train_R2 | Test_MAE | Test_MSE | Test_RMSE | Test_R2 |
 |------------------|------------------|-----------|-----------|------------|----------|----------|----------|-----------|---------|
 | Linear Regression | 1                | 0.600     | 0.585     | 0.765      | 0.409    | 0.624    | 0.566    | 0.753     | 0.431   |
