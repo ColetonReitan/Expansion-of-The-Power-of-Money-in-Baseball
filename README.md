@@ -80,7 +80,9 @@ Ensemble Learning Models:
 1) Random Forest Regressor
 2) XGBoost Regressor
 
-### Analysis
+### 2024 Predictions
+
+### Applications
 
 ## MetaData
 
