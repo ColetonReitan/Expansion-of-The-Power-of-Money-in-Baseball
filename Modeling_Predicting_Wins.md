@@ -1,5 +1,4 @@
 # Modeling
-(This page is in progress)
 
 ## Process  
 The modeling process entails selecting different supervised machine learning models that may be best suited for the data, running the models against the data, assessing the performance of the models, conducting hyperparameter tuning, analyzing all of the models' performance to determine the best models, and finally predicting team wins in the 2024 MLB season.  
