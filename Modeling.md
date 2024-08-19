@@ -152,11 +152,14 @@ The initial model error metrics display an array of inormation that give early i
 | XGradient Boosting           | 3                | 0.067     | 0.008     | 0.087      | 0.992    | 0.610    | 0.553    | 0.744     | 0.444   |
 | XGradient Boosting           | 4                | 0.539     | 0.458     | 0.676      | 0.538    | 0.665    | 0.657    | 0.811     | 0.340   |
 
+
+![](EDA_Images/ModelR2.png) 
+
 With hyperparameter tuning, it is expected for the models to perform better, with majority basis being on the R2 with the other error metrics being taken into consideration.    
 The hyperparameter tuning on the models solidify and provide further insight as to which model is the most reliable as well as which feature grouping provides the greatest insights.  
 - Support Vector Machines hold the consistently highest R2, aided by the hyperparameter tuning performed to the models  
 - Feature Group 3 continues to contain the best insight for the models
-- Random forest and xgboost hyperparameter tuning resulted in more overfitting, although the models do perform better on the testing set  
+- Random forest and xgboost hyperparameter tuning resulted in more overfitting, although the models do perform better on the testing set after hyperparameter tuning   
 
 ## Best Models 
 
