@@ -81,6 +81,7 @@ Ensemble Learning Models:
 2) XGBoost Regressor
 
 ### 2024 Predictions
+For the predictions portion of this project, the top models found will be used to predict team wins in the 2024 MLB season.   
 
 ### Applications
 
