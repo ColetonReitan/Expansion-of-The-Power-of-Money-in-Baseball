@@ -81,7 +81,8 @@ Ensemble Learning Models:
 2) XGBoost Regressor
 
 ### Predicting
-For the predicting portion of this project, the final models chosen in the Modeling portion will be used to predict team wins in the 2024 MLB season.   
+For the predicting portion of this project, the final models chosen in the Modeling portion will be used to predict team wins in the 2024 MLB season.     
+[Predicting Md](Predicting_Wins.md)
 
 ### Applications
 
