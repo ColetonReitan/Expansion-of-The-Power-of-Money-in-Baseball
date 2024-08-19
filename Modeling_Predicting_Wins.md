@@ -123,8 +123,13 @@ The error metrics for the Initial Models and the Hyperparameter Tuned Models are
 | XGradient Boosting           | 1                | 0.356     | 0.213     | 0.462      | 0.785    | 0.636    | 0.602    | 0.776     | 0.396   |
 | XGradient Boosting           | 2                | 0.412     | 0.279     | 0.528      | 0.718    | 0.645    | 0.623    | 0.789     | 0.374   |
 | XGradient Boosting           | 3                | 0.399     | 0.252     | 0.502      | 0.746    | 0.610    | 0.571    | 0.756     | 0.426   |
-| XGradient Boosting           | 4                | 0.393     | 0.252     | 0.502      | 0.745    | 0.623    | 0.590    | 0.768     | 0.408   |
+| XGradient Boosting           | 4                | 0.393     | 0.252     | 0.502      | 0.745    | 0.623    | 0.590    | 0.768     | 0.408   |  
 
+The initial model error metrics display an array of inormation that give early insight as to which model may be the most reliable as well as which feature grouping provides the most insight.  
+- Feature Group 3 is consistently the most interpretable, with each model showing the highest test R2 values for that grouping  
+- Linear regression model is the most reliable model, holding the highest R2 of all the models  
+- Random forest is showing early signs of model overfitting, possessing a strong train R2 but a marginally weak test R2  
+- Test MAE, MSE, and RSME are fairly consistent across all models  
 
 
 
@@ -148,7 +153,13 @@ The error metrics for the Initial Models and the Hyperparameter Tuned Models are
 | XGradient Boosting           | 3                | 0.067     | 0.008     | 0.087      | 0.992    | 0.610    | 0.553    | 0.744     | 0.444   |
 | XGradient Boosting           | 4                | 0.539     | 0.458     | 0.676      | 0.538    | 0.665    | 0.657    | 0.811     | 0.340   |
 
+With hyperparameter tuning, it is expected for the models to perform better, with majority basis being on the R2 with the other error metrics being taken into consideration.    
+The hyperparameter tuning on the models solidify and provide further insight as to which model is the most reliable as well as which feature grouping provides the greatest insights.  
+- Support Vector Machines hold the consistently highest R2, aided by the hyperparameter tuning performed to the models  
+- Feature Group 3 continues to contain the best insight for the models
+- Random forest and xgboost hyperparameter tuning resulted in more overfitting, although the models do perform better on the testing set  
 
+## Best Models 
 
 ### Best of Each Type of Model
 | Model             | Feature Group | Train_MAE | Train_MSE | Train_RMSE | Train_R2 | Test_MAE | Test_MSE | Test_RMSE | Test_R2 |
@@ -158,7 +169,7 @@ The error metrics for the Initial Models and the Hyperparameter Tuned Models are
 | Random Forest*     | 3                | 0.251     | 0.101     | 0.317      | 0.898    | 0.595    | 0.557    | 0.746     | 0.441   |
 | XGradient Boosting*           | 3               | 0.067     | 0.008     | 0.087      | 0.992    | 0.610    | 0.553    | 0.744     | 0.444   |
 
-
+This table shows the best performing model for each of the models used, with each finding feature group 3 to provide the greatest amount of insight. 
 
 ### Top Overall Models
 | Model             | Feature Group | Train_MAE | Train_MSE | Train_RMSE | Train_R2 | Test_MAE | Test_MSE | Test_RMSE | Test_R2 |
@@ -168,3 +179,6 @@ The error metrics for the Initial Models and the Hyperparameter Tuned Models are
 | Linear Regression | 3                | 0.619     | 0.601     | 0.775      | 0.392    | 0.585    | 0.540    | 0.735     | 0.457   |
 | Linear Regression | 2                | 0.610     | 0.600     | 0.774      | 0.394    | 0.592    | 0.542    | 0.736     | 0.455   |
 
+This table shows the best overall performing models, taking into account the R2 value as well as the testing error metrics.   
+- SVM with hyperparameter tuning using feature groups 2 and 3 are the best models, holding the lowest test error metrics along with the highest R2 values.
+- Linear regression models performed similarly to that of the SVM models, however the measure of R2 was lower with higher test error metrics. 
