@@ -80,8 +80,8 @@ Ensemble Learning Models:
 1) Random Forest Regressor
 2) XGBoost Regressor
 
-### 2024 Predictions
-For the predictions portion of this project, the final models chosen in the Modeling portion will be used to predict team wins in the 2024 MLB season.   
+### Predicting
+For the predicting portion of this project, the final models chosen in the Modeling portion will be used to predict team wins in the 2024 MLB season.   
 
 ### Applications
 
