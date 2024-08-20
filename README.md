@@ -8,7 +8,7 @@ The initial project was an 8-week long assignment for my "Data Visualization" Ma
 This project is my personal continuation and expansion of the Power of Money in Baseball. 
 
 ## Project Status
-As of 8/19/2024, I am currently working in the predictions phase.
+As of 8/19/2024, the project is completed!
 
 
 ## Project Motivation
@@ -84,7 +84,6 @@ Ensemble Learning Models:
 For the predicting portion of this project, the final models chosen in the Modeling portion will be used to predict team wins in the 2024 MLB season.     
 [Predicting Md](Predicting_Wins.md)
 
-### Applications
 
 ## MetaData
 
