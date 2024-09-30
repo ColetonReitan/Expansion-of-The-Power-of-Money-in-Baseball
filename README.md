@@ -5,8 +5,6 @@ This is my personal analytical continuation and expansion of my project, The Pow
 
 The initial project was an 8-week long assignment for my "Data Visualization" Master's course in which the goal was to tell a visual story using Tableau software, which can be found on my GitHub [here](https://github.com/ColetonReitan/The-Power-of-Money-in-Baseball); 
 
-This project is my personal continuation and expansion of the Power of Money in Baseball. 
-
 ## Project Status
 As of 8/19/2024, the project is completed!
 
